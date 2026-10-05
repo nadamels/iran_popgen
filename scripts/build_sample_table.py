@@ -183,9 +183,14 @@ for k, df in H.items():
     H[k] = df[COMMON].dropna(subset=["instance_id"]).drop_duplicates("instance_id").set_index("instance_id", drop=False)
 
 
+# IDs in the workbook that differ from the raw-table instance ID (inferred, flagged in notes)
+ALIASES = {"I1584_v43": "I1584_v43.5_all"}
+
+
 def lookup(sid):
     """Return {study_key: row} for every raw study listing this sample (instance ID, else master ID)."""
     hits = {}
+    sid = ALIASES.get(sid, sid)
     for k, df in H.items():
         if sid in df.index:
             hits[k] = df.loc[sid]
@@ -324,10 +329,22 @@ for sid, fid, frow in spine:
         flags.append("duplicate_IID_in_fam(FID 0 and 1)")
     r["in_high_coverage_list"] = "Y" if sid in hc_list else "N"
 
+    if sid in ALIASES:
+        notes.append(f"matched to raw ID {ALIASES[sid]} by name (inferred)")
+    # coverage check for ancient samples that are in the workbook but not in the fam file
+    r["nonfam_coverage_check"] = np.nan
+    r["coverage_source"] = np.nan
+    if not in_fam:
+        has_raw = pk is not None
+        r["coverage_source"] = ("raw study table" if has_raw and not pd.isna(h["coverage"])
+                                else "working workbook only" if not pd.isna(cov) else "none")
+        r["nonfam_coverage_check"] = ("<0.1x: low coverage likely explains absence" if not pd.isna(cov) and cov < LOW_COVERAGE_FLAG
+                                      else ">=0.1x: coverage does NOT explain absence" if not pd.isna(cov)
+                                      else "no coverage available (empty metadata row)")
     # inclusion policy
     reasons = []
     if not in_fam:
-        reasons.append("not in fam / genotype dataset")
+        reasons.append("not in fam / genotype dataset (" + r["nonfam_coverage_check"] + ")")
     if r.get("source_qc_status") == "FAIL":
         reasons.append("failed source-study QC")
     r["inclusion_status"] = "Excluded" if reasons else ("Included_flagged" if flags else "Included")
@@ -343,7 +360,7 @@ order = ["sample_id", "fam_FID", "fam_row", "sample_type", "study", "all_matchin
          "coverage", "snps_hit", "archaeological_period", "date_mean_calBP", "date_description", "skeletal_element",
          "skeletal_code", "age_at_death", "data_type", "mtdna_haplogroup", "y_haplogroup", "library_ids",
          "master_id", "source_qc_status", "source_qc_detail", "in_fam", "in_high_coverage_list", "workbook_sheets",
-         "inclusion_status", "exclusion_reason", "flags", "notes"]
+         "nonfam_coverage_check", "coverage_source", "inclusion_status", "exclusion_reason", "flags", "notes"]
 out = out[[c for c in order if c in out]]
 out.to_csv(META / "master_sample_table.tsv", sep="\t", index=False)
 
@@ -383,6 +400,7 @@ dd = pd.DataFrame([
     ("source_qc_status", "PASS/QUESTIONABLE/FAIL from the study's own assessment (Laz ASSESSMENT, Nar 'Passed all analysis filters' + assessment, Mathieson Popgen/Selection)."),
     ("in_high_coverage_list", "Sample is on the workbook's 'High Coverage Samples' sheet. NB that sheet lists all ancient fam samples, including coverage <0.1x, so it is not a coverage filter."),
     ("inclusion_status", f"Included | Included_flagged (in fam, but see flags) | Excluded. Excluded = not in the fam file, or failed the source study's QC. Low-coverage threshold for flags: {LOW_COVERAGE_FLAG}x."),
+    ("nonfam_coverage_check / coverage_source", "Only for samples not in the fam file: whether the raw-study coverage is <0.1x, and where the coverage came from."),
     ("exclusion_reason / flags / notes", "Why excluded; flags = issues that make a sample Included_flagged (low coverage, conflicting labels, no cluster, duplicate IID, no raw metadata); notes = informational only (in several studies, workbook label differs from the published label, damage-restricted instance)."),
 ], columns=["column", "definition"])
 
@@ -391,4 +409,21 @@ with pd.ExcelWriter(META / "master_sample_table.xlsx") as xw:
     dd.to_excel(xw, sheet_name="data_dictionary", index=False)
     pd.DataFrame(checks, columns=["check", "value"]).to_excel(xw, sheet_name="build_checks", index=False)
     out.groupby(["sample_type", "study", "inclusion_status"]).size().rename("n").reset_index().to_excel(xw, sheet_name="summary", index=False)
+from openpyxl import load_workbook
+from openpyxl.styles import PatternFill, Font
+wbk = load_workbook(META / "master_sample_table.xlsx")
+ws = wbk["sample_table"]
+red = PatternFill("solid", start_color="FFC7CE", end_color="FFC7CE")
+redfont = Font(color="9C0006")
+ws.freeze_panes = "B2"
+col = [c.value for c in ws[1]].index("in_fam") + 1
+for row in ws.iter_rows(min_row=2):
+    if row[col - 1].value == "N":
+        for c in row:
+            c.fill, c.font = red, redfont
+for c in ws[1]:
+    c.font = Font(bold=True)
+d = wbk["data_dictionary"]
+d.append(["RED ROWS", "Ancient samples in the working workbook but NOT in the fam file (in_fam = N). Kept for traceability. See nonfam_coverage_check for whether coverage <0.1x explains the absence."])
+wbk.save(META / "master_sample_table.xlsx")
 print("wrote", META / "master_sample_table.tsv")
