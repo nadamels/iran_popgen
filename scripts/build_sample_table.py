@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Build the single definitive sample table for the Iran popgen project.
 
-Spine      : fam_files/ancient.modern.iran.fam  (every row = one genotype record)
+Spine      : fam_files/ancient.modern.iran.fam + fam_files/ad_anc_iran_merged.filtered.fam
+             (every row = one genotype record)
              + ancient samples that appear in the working workbook but NOT in the
                fam file (listed as Excluded so nothing silently disappears).
 Group defs : metadata/full_sample_metadata.xlsx (working workbook)
@@ -59,6 +60,16 @@ def norm_sex(v):
 fam = pd.read_csv(META.parent / "fam_files/ancient.modern.iran.fam", sep=r"\s+",
                   header=None, dtype=str, names=["FID", "IID", "PID", "MID", "SEX", "PHENO"])
 fam["fam_row"] = np.arange(1, len(fam) + 1)
+fam["fam_file"] = "ancient.modern.iran.fam"
+# Second fam (added later) is malformed: the sample ID is in the FID column and the IID column holds
+# the literal string "trimmed.chr.nochr" for every row. Recover the sample ID from FID.
+fam2 = pd.read_csv(META.parent / "fam_files/ad_anc_iran_merged.filtered.fam", sep=r"\s+",
+                   header=None, dtype=str, names=["FID", "IID", "PID", "MID", "SEX", "PHENO"])
+assert (fam2["IID"] == "trimmed.chr.nochr").all()
+fam2["IID"] = fam2["FID"]
+fam2["fam_row"] = np.arange(1, len(fam2) + 1)
+fam2["fam_file"] = "ad_anc_iran_merged.filtered.fam"
+fam_all = pd.concat([fam, fam2], ignore_index=True)
 wb = pd.read_excel(META / "full_sample_metadata.xlsx", sheet_name=None, dtype=str)
 laz = pd.read_excel(META / "laz-raw-metadata.xlsx", dtype=str)
 nar = pd.read_excel(META / "nar-raw-metadata.xlsx", sheet_name=0, header=2, dtype=str)
@@ -227,12 +238,12 @@ modrec = mod.set_index("IID")
 
 # ---- assemble ----------------------------------------------------------------
 hc_list = set(wb["High Coverage Samples"].iloc[:, 0])
-fam_ids = set(fam["IID"])
+fam_ids = set(fam_all["IID"])
 dup_iids = set(fam.loc[fam["IID"].duplicated(keep=False), "IID"])
 
 rows = []
-spine = [(r.IID, r.FID, r.fam_row) for r in fam.itertuples()]
-spine += [(sid, np.nan, np.nan) for sid in wbrec if sid not in fam_ids]  # workbook-only ancients
+spine = [(r.IID, r.FID, r.fam_row, r.fam_file) for r in fam_all.itertuples()]
+spine += [(sid, np.nan, np.nan, np.nan) for sid in wbrec if sid not in fam_ids]  # workbook-only ancients
 
 
 def first(*vals):
@@ -242,9 +253,9 @@ def first(*vals):
     return np.nan
 
 
-for sid, fid, frow in spine:
+for sid, fid, frow, ffile in spine:
     in_fam = not pd.isna(frow)
-    r = dict(sample_id=sid, fam_FID=fid, fam_row=frow, in_fam="Y" if in_fam else "N")
+    r = dict(sample_id=sid, fam_file=ffile, fam_FID=fid, fam_row=frow, in_fam="Y" if in_fam else "N")
     flags = []
     notes = []
     if sid in modrec.index and sid not in wbrec:
@@ -354,7 +365,7 @@ for sid, fid, frow in spine:
     rows.append(r)
 
 out = pd.DataFrame(rows)
-order = ["sample_id", "fam_FID", "fam_row", "sample_type", "study", "all_matching_studies", "original_publication",
+order = ["sample_id", "fam_file", "fam_FID", "fam_row", "sample_type", "study", "all_matching_studies", "original_publication",
          "empirical_cluster", "empirical_cluster_basis", "self_reported_label", "self_reported_label_type",
          "analysis_label_published", "sampling_location", "country", "broad_region", "latitude", "longitude", "sex",
          "coverage", "snps_hit", "archaeological_period", "date_mean_calBP", "date_description", "skeletal_element",
@@ -368,10 +379,10 @@ out.to_csv(META / "master_sample_table.tsv", sep="\t", index=False)
 checks = []
 def chk(name, val):
     checks.append((name, val)); print(f"{name}: {val}")
-chk("fam rows", len(fam))
+chk("fam rows (both files)", len(fam_all))
 chk("table rows", len(out))
-chk("fam rows missing from table", int((~fam["fam_row"].isin(out["fam_row"].dropna())).sum()))
-chk("duplicate (FID,IID) keys among fam rows", int(out[out.in_fam == "Y"].duplicated(["fam_FID", "sample_id"]).sum()))
+chk("fam rows missing from table", int(len(fam_all) - out["fam_file"].notna().sum()))
+chk("duplicate (FID,IID) keys among fam rows", int(out[out.in_fam == "Y"].duplicated(["fam_file", "fam_FID", "sample_id"]).sum()))
 chk("duplicate sample_id among non-fam rows", int(out[out.in_fam == "N"].duplicated("sample_id").sum()))
 chk("ancient in fam without raw metadata", int(((out.sample_type == "ancient") & (out.in_fam == "Y") & (out.study == "UNMATCHED")).sum()))
 for k, v in out.groupby(["sample_type", "inclusion_status"]).size().items():
@@ -381,7 +392,7 @@ for k, v in out[out.sample_type == "ancient"].study.value_counts().items():
 
 dd = pd.DataFrame([
     ("sample_id", "IID in the fam file (instance ID; '_d' = damage-restricted). Key together with fam_FID."),
-    ("fam_FID / fam_row", "FID and 1-based line number in ancient.modern.iran.fam. Blank for ancient samples not in the fam file."),
+    ("fam_file / fam_FID / fam_row", "Source fam file, FID and 1-based line number. For ad_anc_iran_merged.filtered.fam the ID was recovered from the FID column (its IID column is the constant trimmed.chr.nochr). Blank for ancient samples not in the fam file."),
     ("sample_type", "ancient or modern."),
     ("study", "Study whose metadata record is used: Lazaridis2022 / Narasimhan2019 / Mathieson2015. Where a sample is in several raw tables, the one whose coverage equals the working-workbook coverage is chosen; ties go Laz > Nar > Mathieson. Moderns: not recorded in repo."),
     ("all_matching_studies", "Every raw table that lists the sample."),
