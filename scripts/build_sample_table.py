@@ -61,12 +61,11 @@ fam = pd.read_csv(META.parent / "fam_files/ancient.modern.iran.fam", sep=r"\s+",
                   header=None, dtype=str, names=["FID", "IID", "PID", "MID", "SEX", "PHENO"])
 fam["fam_row"] = np.arange(1, len(fam) + 1)
 fam["fam_file"] = "ancient.modern.iran.fam"
-# Second fam (added later) is malformed: the sample ID is in the FID column and the IID column holds
-# the literal string "trimmed.chr.nochr" for every row. Recover the sample ID from FID.
+# Second fam (repaired in place: FID set to 0, IID = sample ID; originally the ID was in FID and IID was
+# the constant "trimmed.chr.nochr").
 fam2 = pd.read_csv(META.parent / "fam_files/ad_anc_iran_merged.filtered.fam", sep=r"\s+",
                    header=None, dtype=str, names=["FID", "IID", "PID", "MID", "SEX", "PHENO"])
-assert (fam2["IID"] == "trimmed.chr.nochr").all()
-fam2["IID"] = fam2["FID"]
+assert (fam2["FID"] == "0").all() and fam2["IID"].is_unique
 fam2["fam_row"] = np.arange(1, len(fam2) + 1)
 fam2["fam_file"] = "ad_anc_iran_merged.filtered.fam"
 fam_all = pd.concat([fam, fam2], ignore_index=True)
@@ -392,7 +391,7 @@ for k, v in out[out.sample_type == "ancient"].study.value_counts().items():
 
 dd = pd.DataFrame([
     ("sample_id", "IID in the fam file (instance ID; '_d' = damage-restricted). Key together with fam_FID."),
-    ("fam_file / fam_FID / fam_row", "Source fam file, FID and 1-based line number. For ad_anc_iran_merged.filtered.fam the ID was recovered from the FID column (its IID column is the constant trimmed.chr.nochr). Blank for ancient samples not in the fam file."),
+    ("fam_file / fam_FID / fam_row", "Source fam file, FID and 1-based line number. ad_anc_iran_merged.filtered.fam was repaired (FID set to 0, IID = sample ID). Blank for ancient samples not in the fam file."),
     ("sample_type", "ancient or modern."),
     ("study", "Study whose metadata record is used: Lazaridis2022 / Narasimhan2019 / Mathieson2015. Where a sample is in several raw tables, the one whose coverage equals the working-workbook coverage is chosen; ties go Laz > Nar > Mathieson. Moderns: not recorded in repo."),
     ("all_matching_studies", "Every raw table that lists the sample."),
