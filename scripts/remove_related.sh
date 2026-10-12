@@ -10,7 +10,7 @@ source ~/.bashrc
 source /share/apps/NYUAD5/miniconda/3-4.11.0/bin/activate
 conda activate /scratch/nme3923/conda-envs/myenviro
 
-#Loading File as myenviro contains PLINK; the KING executable ("king") sits next to this script.
+#Loading File as myenviro contains PLINK; the KING executable ("king") sits in the directory you run/submit from.
 
 # Removes individuals related up to the 2nd degree (parent-offspring, full sibs,
 # 2nd-degree relatives) using KING, and lists who was removed.
@@ -51,16 +51,11 @@ for ext in bed bim fam; do
 done
 [ "$IN" != "$OUT" ] || { echo "ERROR: output prefix must differ from input" >&2; exit 1; }
 
-# Locate KING: $KING, else next to this script (sbatch runs a spooled copy, so
-# also try the directory the job was submitted from)
-KING_BIN=""
-for c in "${KING:-}" "$(dirname "${BASH_SOURCE[0]}")/king" "${SLURM_SUBMIT_DIR:-.}/king" "./king"; do
-	if [ -n "$c" ] && [ -x "$c" ]; then KING_BIN=$(abspath "$c"); break; fi
-done
-[ -n "$KING_BIN" ] || { echo "ERROR: 'king' executable not found next to the script (or set KING=/path/to/king)" >&2; exit 1; }
+# KING is run as ./king, so submit/run this script from the directory containing it
+[ -x ./king ] || { echo "ERROR: ./king not found or not executable in $(pwd); run from the directory containing king" >&2; exit 1; }
 
 # ---- KING: list of unrelated individuals -----------------------------------
-"$KING_BIN" -b "${IN}.bed" --unrelated --degree "$DEGREE" --cpus "$CPUS" --prefix "${OUT}.king"
+./king -b "${IN}.bed" --unrelated --degree "$DEGREE" --cpus "$CPUS" --prefix "${OUT}.king"
 
 KEEP="${OUT}.king_unrelated.txt"
 [ -s "$KEEP" ] || { echo "ERROR: KING did not produce $KEEP" >&2; exit 1; }
