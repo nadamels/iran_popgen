@@ -2,6 +2,10 @@
 
 #SBATCH -c 2
 
+# Save our arguments, then clear the positional parameters: `source`d scripts inherit them and
+# conda's activate rejects extra arguments.
+ARGS=("$@")
+set --
 
 #Activate your environments here
 source ~/.bashrc
@@ -10,12 +14,12 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 
 # Plot a PCA coloured by the labels in the master sample table.
 #
-# Usage:   sbatch plot_pca.sh <prefix> [master_sample_table.tsv]
-#          bash   plot_pca.sh <prefix> [master_sample_table.tsv]
+# Usage:   sbatch plot_pca.sh <prefix> [master_sample_table.tsv|.xlsx]
+#          bash   plot_pca.sh <prefix> [master_sample_table.tsv|.xlsx]
 #
 #   <prefix>  expects  <prefix>.fam  <prefix>.eigenvec  <prefix>.eigenval
 #             (PLINK 1.9 or PLINK 2 eigenvec; with or without a header line)
-#   table     defaults to $MASTER_TABLE, else metadata/master_sample_table.tsv under
+#   table     .tsv (preferred) or .xlsx (needs openpyxl; reads sheet "sample_table"); defaults to $MASTER_TABLE, else metadata/master_sample_table.tsv under
 #             $SLURM_SUBMIT_DIR (or the current directory)
 #
 # Colour key:  ancient -> analysis_label_published (falls back to empirical_cluster when the study
@@ -29,12 +33,12 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 
 set -euo pipefail
 
-PREFIX="${1:-}"
+PREFIX="${ARGS[0]:-}"
 if [[ -z "$PREFIX" ]]; then
-    echo "Usage: $0 <prefix> [master_sample_table.tsv]" >&2
+    echo "Usage: $0 <prefix> [master_sample_table.tsv|.xlsx]" >&2
     exit 1
 fi
-TABLE="${2:-${MASTER_TABLE:-${SLURM_SUBMIT_DIR:-$PWD}/metadata/master_sample_table.tsv}}"
+TABLE="${ARGS[1]:-${MASTER_TABLE:-${SLURM_SUBMIT_DIR:-$PWD}/metadata/master_sample_table.tsv}}"
 
 for f in "${PREFIX}.fam" "${PREFIX}.eigenvec" "${PREFIX}.eigenval" "$TABLE"; do
     [[ -s "$f" ]] || { echo "ERROR: missing or empty file: $f" >&2; exit 1; }
@@ -98,7 +102,13 @@ if ev["sid"].duplicated().any():
 ev = ev[ev["sid"].isin(fam_ids)]               # fam defines the sample set
 
 # ---- labels from the master table --------------------------------------------------------------
-t = pd.read_csv(table_path, sep="\t", dtype=str)
+if table_path.lower().endswith((".xlsx", ".xls")):
+    try:
+        t = pd.read_excel(table_path, sheet_name="sample_table", dtype=str)
+    except ImportError:
+        sys.exit("ERROR: reading .xlsx needs openpyxl; pass master_sample_table.tsv instead")
+else:
+    t = pd.read_csv(table_path, sep="\t", dtype=str)
 # Label for every table row: ancient -> analysis_label_published, modern -> self_reported_label.
 def pick(r):
     if r.sample_type == "ancient":
