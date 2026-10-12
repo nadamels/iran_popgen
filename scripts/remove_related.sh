@@ -50,7 +50,7 @@ IN=$(abspath "$IN")
 OUT=$(abspath "$(strip_ext "$2")")
 DEGREE=${3:-2}
 DEGREE=${DEGREE#degree=}   # accept "2" or "degree=2"
-[[ "$DEGREE" =~ ^[1-3]$ ]] || { echo "ERROR: degree must be 1, 2 or 3 (got '$3')" >&2; exit 1; }
+[[ "$DEGREE" =~ ^[1-3]$ ]] || { echo "ERROR: degree must be 1, 2 or 3 (got '${3:-}')" >&2; exit 1; }
 CPUS=${SLURM_CPUS_PER_TASK:-${SLURM_JOB_CPUS_PER_NODE:-10}}
 # the helper python script lives next to this one (sbatch runs a spooled copy)
 PRUNE_PY=/scratch/nme3923/IranGen/scripts/prune_related.py
