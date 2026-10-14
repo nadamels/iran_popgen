@@ -1,0 +1,13 @@
+Africa: #960016
+East Asia:#e9ed07
+Southeast Asia: #e9ed07
+Central Asia: #fb8400
+South Asia: #fb8400
+Iranian samples of this study:#ff0000
+Arabian: #4a6795
+Levantine: #4a6795
+Caucuses: #d4effc
+Southern Europe: #1b002f
+Western Europe:#c000db
+Northern Europe: #f0b5ff
+Eastern Europe: #d200e5
