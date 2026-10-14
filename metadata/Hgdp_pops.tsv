@@ -1,0 +1,829 @@
+Sample name	Sex	Biosample ID	Population code	Population name	Superpopulation code	Superpopulation name	Population elastic ID	Data collections
+HGDP00001	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00003	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00005	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00007	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00009	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00011	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00013	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00015	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00017	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00021	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00023	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00025	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00029	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00031	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00033	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00035	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00037	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00039	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00041	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00043	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00045	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00047	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00049	M			Brahui		Central South Asia (HGDP)	BrahuiHGDP	Human Genome Diversity Project
+HGDP00052	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00054	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00056	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00057	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00060	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00062	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00064	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00066	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00068	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00070	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00072	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00074	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00076	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00078	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00080	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00082	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00086	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00088	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00092	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00094	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00096	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00098	M			Balochi		Central South Asia (HGDP)	BalochiHGDP	Human Genome Diversity Project
+HGDP00099	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00100	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00102	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00103	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00104	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00105	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00106	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00108	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00109	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00110	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00115	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00118	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00119	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00120	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00121	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00122	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00127	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00129	M			Hazara		Central South Asia (HGDP)	HazaraHGDP	Human Genome Diversity Project
+HGDP00130	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00131	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00133	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00134	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00135	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00136	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00137	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00139	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00140	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00141	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00143	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00144	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00145	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00146	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00148	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00149	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00150	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00151	F			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00153	F			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00154	F			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00155	F			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00158	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00161	M			Makrani		Central South Asia (HGDP)	MakraniHGDP	Human Genome Diversity Project
+HGDP00163	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00165	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00167	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00169	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00171	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00173	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00175	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00177	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00179	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00181	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00183	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00185	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00187	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00189	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00191	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00192	F			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00197	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00199	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00201	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00205	M			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00206	F			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00210	F			Sindhi		Central South Asia (HGDP)	SindhiHGDP	Human Genome Diversity Project
+HGDP00213	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00214	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00218	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00222	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00224	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00226	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00228	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00230	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00234	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00237	F			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00239	F			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00241	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00243	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00244	F			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00247	F			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00248	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00251	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00254	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00258	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00259	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00262	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00264	M			Pathan		Central South Asia (HGDP)	PathanHGDP	Human Genome Diversity Project
+HGDP00274	F			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00277	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00279	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00281	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00285	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00288	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00290	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00298	F			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00302	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00304	F			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00307	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00309	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00311	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00313	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00315	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00319	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00321	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00323	F			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00326	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00330	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00333	M			Kalash		Central South Asia (HGDP)	KalashHGDP	Human Genome Diversity Project
+HGDP00341	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00346	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00351	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00356	F			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00359	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00364	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00371	F			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00372	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00376	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00382	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00388	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00392	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00397	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00402	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00407	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00412	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00417	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00423	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00433	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00438	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00444	F			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00445	M			Burusho		Central South Asia (HGDP)	BurushoHGDP	Human Genome Diversity Project
+HGDP00450	M			Mbuti		Africa (HGDP)	MbutiHGDP	Human Genome Diversity Project
+HGDP00452	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00453	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00454	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00455	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00458	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00459	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00460	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00462	M			Mbuti		Africa (HGDP)	MbutiHGDP	Human Genome Diversity Project
+HGDP00463	M			Mbuti		Africa (HGDP)	MbutiHGDP	Human Genome Diversity Project
+HGDP00464	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00465	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00466	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00467	M			Mbuti		Africa (HGDP)	MbutiHGDP	Human Genome Diversity Project
+HGDP00468	M			Mbuti		Africa (HGDP)	MbutiHGDP	Human Genome Diversity Project
+HGDP00469	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00470	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00471	F			Mbuti		Africa (HGDP)	MbutiHGDP	Human Genome Diversity Project
+HGDP00472	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00473	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00475	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00478	M			Mbuti		Africa (HGDP)	MbutiHGDP	Human Genome Diversity Project
+HGDP00479	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00490	M			Bougainville		Oceania (HGDP)	BougainvilleHGDP	Human Genome Diversity Project
+HGDP00491	M			Bougainville		Oceania (HGDP)	BougainvilleHGDP	Human Genome Diversity Project
+HGDP00511	M			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00512	M			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00513	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00514	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00515	M			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00516	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00517	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00518	M			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00519	M			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00520	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00522	M			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00523	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00524	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00525	M			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00527	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00528	M			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00529	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00531	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00534	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00535	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00536	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00537	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00538	M			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00539	F			French		Europe (HGDP)	FrenchHGDP	Human Genome Diversity Project
+HGDP00540	M			Papuan Sepik,Papuan		Oceania (HGDP),Oceania (SGDP)	PapuanSepikHGDP,PapuanSGDP	Simons Genome Diversity Project,Human Genome Diversity Project
+HGDP00541	M			Papuan Sepik,Papuan		Oceania (HGDP),Oceania (SGDP)	PapuanSepikHGDP,PapuanSGDP	Simons Genome Diversity Project,Human Genome Diversity Project
+HGDP00542	M			Papuan Sepik		Oceania (HGDP)	PapuanSepikHGDP	Human Genome Diversity Project
+HGDP00543	M			Papuan Sepik,Papuan		Oceania (HGDP),Oceania (SGDP)	PapuanSepikHGDP,PapuanSGDP	Simons Genome Diversity Project,Human Genome Diversity Project
+HGDP00544	F			Papuan Sepik		Oceania (HGDP)	PapuanSepikHGDP	Human Genome Diversity Project
+HGDP00545	M			Papuan Sepik,Papuan		Oceania (HGDP),Oceania (SGDP)	PapuanSepikHGDP,PapuanSGDP	Simons Genome Diversity Project,Human Genome Diversity Project
+HGDP00546	M			Papuan Sepik,Papuan		Oceania (HGDP),Oceania (SGDP)	PapuanSepikHGDP,PapuanSGDP	Simons Genome Diversity Project,Human Genome Diversity Project
+HGDP00547	M			Papuan Sepik,Papuan		Oceania (HGDP),Oceania (SGDP)	PapuanSepikHGDP,PapuanSGDP	Simons Genome Diversity Project,Human Genome Diversity Project
+HGDP00549	M			Papuan Highlands,Papuan		Oceania (HGDP),Oceania (SGDP)	PapuanHighlandsHGDP,PapuanSGDP	Simons Genome Diversity Project,Human Genome Diversity Project
+HGDP00550	F			Papuan Highlands,Papuan		Oceania (HGDP),Oceania (SGDP)	PapuanHighlandsHGDP,PapuanSGDP	Simons Genome Diversity Project,Human Genome Diversity Project
+HGDP00551	M			Papuan Highlands,Papuan		Oceania (HGDP),Oceania (SGDP)	PapuanHighlandsHGDP,PapuanSGDP	Simons Genome Diversity Project,Human Genome Diversity Project
+HGDP00553	M			Papuan Highlands,Papuan		Oceania (HGDP),Oceania (SGDP)	PapuanHighlandsHGDP,PapuanSGDP	Simons Genome Diversity Project,Human Genome Diversity Project
+HGDP00555	M			Papuan Highlands,Papuan		Oceania (HGDP),Oceania (SGDP)	PapuanHighlandsHGDP,PapuanSGDP	Simons Genome Diversity Project,Human Genome Diversity Project
+HGDP00556	M			Papuan Highlands,Papuan		Oceania (HGDP),Oceania (SGDP)	PapuanHighlandsHGDP,PapuanSGDP	Simons Genome Diversity Project,Human Genome Diversity Project
+HGDP00557	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00558	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00559	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00560	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00561	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00562	M			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00563	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00564	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00565	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00566	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00567	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00568	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00571	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00572	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00573	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00574	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00575	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00576	M			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00577	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00578	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00579	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00580	M			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00581	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00582	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00583	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00584	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00586	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00587	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00588	M			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00590	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00591	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00594	M			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00595	M			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00598	M			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00599	M			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00600	M			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00601	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00602	M			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00604	M			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00606	F			Druze		Middle East (HGDP)	DruzeHGDP	Human Genome Diversity Project
+HGDP00607	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00608	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00609	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00610	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00611	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00612	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00613	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00614	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00615	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00618	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00619	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00620	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00621	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00622	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00623	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00624	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00625	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00626	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00627	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00628	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00629	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00630	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00631	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00632	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00634	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00635	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00636	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00637	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00638	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00639	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00640	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00641	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00642	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00643	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00644	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00645	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00646	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00647	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00648	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00649	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00651	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00653	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00654	M			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00655	M			Bougainville		Oceania (HGDP)	BougainvilleHGDP	Human Genome Diversity Project
+HGDP00661	F			Bougainville		Oceania (HGDP)	BougainvilleHGDP	Human Genome Diversity Project
+HGDP00662	M			Bougainville		Oceania (HGDP)	BougainvilleHGDP	Human Genome Diversity Project
+HGDP00663	F			Bougainville		Oceania (HGDP)	BougainvilleHGDP	Human Genome Diversity Project
+HGDP00664	F			Bougainville		Oceania (HGDP)	BougainvilleHGDP	Human Genome Diversity Project
+HGDP00666	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP00667	F			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP00668	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP00669	F			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP00670	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP00671	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP00672	F			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP00673	F			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP00674	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP00675	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00676	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00677	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00678	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00679	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00680	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00682	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00683	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00684	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00685	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00686	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00687	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00688	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00689	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00690	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00691	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00692	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00693	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00694	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00696	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00697	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00698	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00699	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00700	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00701	F			Bedouin		Middle East (HGDP)	BedouinHGDP	Human Genome Diversity Project
+HGDP00703	M			Colombian		America (HGDP)	ColombianHGDP	Human Genome Diversity Project
+HGDP00704	F			Colombian		America (HGDP)	ColombianHGDP	Human Genome Diversity Project
+HGDP00708	F			Colombian		America (HGDP)	ColombianHGDP	Human Genome Diversity Project
+HGDP00710	M			Colombian		America (HGDP)	ColombianHGDP	Human Genome Diversity Project
+HGDP00711	M			Cambodian		East Asia (HGDP)	CambodianHGDP	Human Genome Diversity Project
+HGDP00712	F			Cambodian		East Asia (HGDP)	CambodianHGDP	Human Genome Diversity Project
+HGDP00714	M			Cambodian		East Asia (HGDP)	CambodianHGDP	Human Genome Diversity Project
+HGDP00715	M			Cambodian		East Asia (HGDP)	CambodianHGDP	Human Genome Diversity Project
+HGDP00716	M			Cambodian		East Asia (HGDP)	CambodianHGDP	Human Genome Diversity Project
+HGDP00719	F			Cambodian		East Asia (HGDP)	CambodianHGDP	Human Genome Diversity Project
+HGDP00720	M			Cambodian		East Asia (HGDP)	CambodianHGDP	Human Genome Diversity Project
+HGDP00721	F			Cambodian		East Asia (HGDP)	CambodianHGDP	Human Genome Diversity Project
+HGDP00723	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00724	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00726	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00727	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00729	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00730	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00731	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00732	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00733	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00734	M			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00735	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00736	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00738	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00739	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00740	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00741	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00744	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00745	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00746	F			Palestinian		Middle East (HGDP)	PalestinianHGDP	Human Genome Diversity Project
+HGDP00747	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00748	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00750	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00751	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00752	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00753	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00754	F			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00755	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00756	F			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00757	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00758	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00759	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00760	F			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00761	F			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00762	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00763	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00764	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00765	F			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00766	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00767	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00768	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00769	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00771	F			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00772	F			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00774	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00776	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00777	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00779	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00780	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00781	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00782	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00784	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00786	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00787	F			Bougainville		Oceania (HGDP)	BougainvilleHGDP	Human Genome Diversity Project
+HGDP00788	M			Bougainville		Oceania (HGDP)	BougainvilleHGDP	Human Genome Diversity Project
+HGDP00790	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00791	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00794	F			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00795	M			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00797	F			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00799	F			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00800	F			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00802	F			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00803	M			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00804	M			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00805	F			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00806	F			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00807	M			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00808	M			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00810	M			Orcadian		Europe (HGDP)	OrcadianHGDP	Human Genome Diversity Project
+HGDP00811	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00812	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00813	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00814	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00815	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00817	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00818	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00819	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00820	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00821	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00822	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00823	M			Bougainville		Oceania (HGDP)	BougainvilleHGDP	Human Genome Diversity Project
+HGDP00828	M			Japanese		East Asia (HGDP)	JapaneseHGDP	Human Genome Diversity Project
+HGDP00832	F			Surui		America (HGDP)	SuruiHGDP	Human Genome Diversity Project
+HGDP00837	M			Surui		America (HGDP)	SuruiHGDP	Human Genome Diversity Project
+HGDP00838	F			Surui		America (HGDP)	SuruiHGDP	Human Genome Diversity Project
+HGDP00843	M			Surui		America (HGDP)	SuruiHGDP	Human Genome Diversity Project
+HGDP00845	M			Surui		America (HGDP)	SuruiHGDP	Human Genome Diversity Project
+HGDP00849	M			Surui		America (HGDP)	SuruiHGDP	Human Genome Diversity Project
+HGDP00854	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00856	M			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00858	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00859	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00860	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00861	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00862	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00863	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00864	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00865	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00868	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00869	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00870	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00871	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00872	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00873	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00875	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00876	F			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00877	M			Maya		America (HGDP)	MayaHGDP	Human Genome Diversity Project
+HGDP00879	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00880	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00881	F			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00882	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00883	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00884	F			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00885	F			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00886	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00888	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00889	F			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00890	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00891	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00892	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00893	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00894	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00895	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00896	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00897	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00898	F			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00899	F			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00900	M			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00901	F			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00902	F			Russian		Europe (HGDP)	RussianHGDP	Human Genome Diversity Project
+HGDP00904	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00905	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00906	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00907	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00908	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00909	F			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00910	F			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00911	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00912	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00913	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00914	F			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00916	F			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00917	F			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00918	F			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00919	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP00920	F			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00924	F			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00925	F			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00926	F			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00929	M			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00930	M			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00931	M			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00933	F			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00934	F			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00935	F			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00937	M			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00938	F			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00939	F			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00940	M			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00941	M			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00942	M			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00943	M			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00944	M			Yoruba		Africa (HGDP)	YorubaHGDP	Human Genome Diversity Project
+HGDP00945	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00946	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00947	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00948	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00949	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00950	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00952	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00953	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00954	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00955	F			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00957	F			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00958	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00959	F			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00960	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00961	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00962	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00963	F			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00964	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00965	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00966	F			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00967	F			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00968	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00969	M			Yakut		East Asia (HGDP)	YakutHGDP	Human Genome Diversity Project
+HGDP00970	F			Colombian		America (HGDP)	ColombianHGDP	Human Genome Diversity Project
+HGDP00971	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00972	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00973	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00974	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00975	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00976	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00977	M			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP00981	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00983	M			Mbuti		Africa (HGDP)	MbutiHGDP	Human Genome Diversity Project
+HGDP00984	M			Mbuti		Africa (HGDP)	MbutiHGDP	Human Genome Diversity Project
+HGDP00985	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00986	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP00992	M			San		Africa (HGDP)	SanHGDP	Human Genome Diversity Project
+HGDP00993	M			Bantu South Africa		Africa (HGDP)	BantuSouthAfricaHGDP	Human Genome Diversity Project
+HGDP00994	M			Bantu South Africa		Africa (HGDP)	BantuSouthAfricaHGDP	Human Genome Diversity Project
+HGDP00995	F			Karitiana		America (HGDP)	KaritianaHGDP	Human Genome Diversity Project
+HGDP00999	F			Karitiana		America (HGDP)	KaritianaHGDP	Human Genome Diversity Project
+HGDP01001	F			Karitiana		America (HGDP)	KaritianaHGDP	Human Genome Diversity Project
+HGDP01006	F			Karitiana		America (HGDP)	KaritianaHGDP	Human Genome Diversity Project
+HGDP01009	M			Karitiana		America (HGDP)	KaritianaHGDP	Human Genome Diversity Project
+HGDP01010	F			Karitiana		America (HGDP)	KaritianaHGDP	Human Genome Diversity Project
+HGDP01013	M			Karitiana		America (HGDP)	KaritianaHGDP	Human Genome Diversity Project
+HGDP01014	F			Karitiana		America (HGDP)	KaritianaHGDP	Human Genome Diversity Project
+HGDP01019	M			Karitiana		America (HGDP)	KaritianaHGDP	Human Genome Diversity Project
+HGDP01021	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP01023	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP01024	F			Han		East Asia (HGDP)	HanHGDP	Human Genome Diversity Project
+HGDP01027	F			Bougainville		Oceania (HGDP)	BougainvilleHGDP	Human Genome Diversity Project
+HGDP01029	M			San		Africa (HGDP)	SanHGDP	Human Genome Diversity Project
+HGDP01031	M			Bantu South Africa		Africa (HGDP)	BantuSouthAfricaHGDP	Human Genome Diversity Project
+HGDP01033	M			Bantu South Africa		Africa (HGDP)	BantuSouthAfricaHGDP	Human Genome Diversity Project
+HGDP01037	M			Pima		America (HGDP)	PimaHGDP	Human Genome Diversity Project
+HGDP01041	F			Pima		America (HGDP)	PimaHGDP	Human Genome Diversity Project
+HGDP01043	M			Pima		America (HGDP)	PimaHGDP	Human Genome Diversity Project
+HGDP01050	M			Pima		America (HGDP)	PimaHGDP	Human Genome Diversity Project
+HGDP01051	F			Pima		America (HGDP)	PimaHGDP	Human Genome Diversity Project
+HGDP01053	F			Pima		America (HGDP)	PimaHGDP	Human Genome Diversity Project
+HGDP01055	M			Pima		America (HGDP)	PimaHGDP	Human Genome Diversity Project
+HGDP01056	F			Pima		America (HGDP)	PimaHGDP	Human Genome Diversity Project
+HGDP01057	M			Pima		America (HGDP)	PimaHGDP	Human Genome Diversity Project
+HGDP01058	F			Pima		America (HGDP)	PimaHGDP	Human Genome Diversity Project
+HGDP01059	M			Pima		America (HGDP)	PimaHGDP	Human Genome Diversity Project
+HGDP01060	M			Pima		America (HGDP)	PimaHGDP	Human Genome Diversity Project
+HGDP01062	F			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01063	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01064	F			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01065	F			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01066	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01067	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01068	F			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01069	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01070	F			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01071	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01072	F			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01073	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01074	F			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01075	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01077	M			Sardinian		Europe (HGDP)	SardinianHGDP	Human Genome Diversity Project
+HGDP01081	M			Mbuti		Africa (HGDP)	MbutiHGDP	Human Genome Diversity Project
+HGDP01086	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP01087	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP01090	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP01092	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP01094	M			Biaka		Africa (HGDP)	BiakaHGDP	Human Genome Diversity Project
+HGDP01096	M			Tujia		East Asia (HGDP)	TujiaHGDP	Human Genome Diversity Project
+HGDP01097	M			Tujia		East Asia (HGDP)	TujiaHGDP	Human Genome Diversity Project
+HGDP01099	M			Tujia		East Asia (HGDP)	TujiaHGDP	Human Genome Diversity Project
+HGDP01100	M			Tujia		East Asia (HGDP)	TujiaHGDP	Human Genome Diversity Project
+HGDP01101	M			Tujia		East Asia (HGDP)	TujiaHGDP	Human Genome Diversity Project
+HGDP01102	M			Tujia		East Asia (HGDP)	TujiaHGDP	Human Genome Diversity Project
+HGDP01103	M			Tujia		East Asia (HGDP)	TujiaHGDP	Human Genome Diversity Project
+HGDP01104	M			Tujia		East Asia (HGDP)	TujiaHGDP	Human Genome Diversity Project
+HGDP01149	M			Bergamo Italian		Europe (HGDP)	BergamoItalianHGDP	Human Genome Diversity Project
+HGDP01151	M			Bergamo Italian		Europe (HGDP)	BergamoItalianHGDP	Human Genome Diversity Project
+HGDP01152	M			Bergamo Italian		Europe (HGDP)	BergamoItalianHGDP	Human Genome Diversity Project
+HGDP01155	M			Bergamo Italian		Europe (HGDP)	BergamoItalianHGDP	Human Genome Diversity Project
+HGDP01156	F			Bergamo Italian		Europe (HGDP)	BergamoItalianHGDP	Human Genome Diversity Project
+HGDP01157	F			Bergamo Italian		Europe (HGDP)	BergamoItalianHGDP	Human Genome Diversity Project
+HGDP01161	M			Tuscan		Europe (HGDP)	TuscanHGDP	Human Genome Diversity Project
+HGDP01162	M			Tuscan		Europe (HGDP)	TuscanHGDP	Human Genome Diversity Project
+HGDP01164	M			Tuscan		Europe (HGDP)	TuscanHGDP	Human Genome Diversity Project
+HGDP01166	M			Tuscan		Europe (HGDP)	TuscanHGDP	Human Genome Diversity Project
+HGDP01167	M			Tuscan		Europe (HGDP)	TuscanHGDP	Human Genome Diversity Project
+HGDP01169	F			Tuscan		Europe (HGDP)	TuscanHGDP	Human Genome Diversity Project
+HGDP01171	F			Bergamo Italian		Europe (HGDP)	BergamoItalianHGDP	Human Genome Diversity Project
+HGDP01173	M			Bergamo Italian		Europe (HGDP)	BergamoItalianHGDP	Human Genome Diversity Project
+HGDP01174	M			Bergamo Italian		Europe (HGDP)	BergamoItalianHGDP	Human Genome Diversity Project
+HGDP01177	F			Bergamo Italian		Europe (HGDP)	BergamoItalianHGDP	Human Genome Diversity Project
+HGDP01180	M			Yi		East Asia (HGDP)	YiHGDP	Human Genome Diversity Project
+HGDP01181	M			Yi		East Asia (HGDP)	YiHGDP	Human Genome Diversity Project
+HGDP01182	M			Yi		East Asia (HGDP)	YiHGDP	Human Genome Diversity Project
+HGDP01183	M			Yi		East Asia (HGDP)	YiHGDP	Human Genome Diversity Project
+HGDP01184	M			Yi		East Asia (HGDP)	YiHGDP	Human Genome Diversity Project
+HGDP01185	M			Yi		East Asia (HGDP)	YiHGDP	Human Genome Diversity Project
+HGDP01186	M			Yi		East Asia (HGDP)	YiHGDP	Human Genome Diversity Project
+HGDP01187	M			Yi		East Asia (HGDP)	YiHGDP	Human Genome Diversity Project
+HGDP01189	M			Miao		East Asia (HGDP)	MiaoHGDP	Human Genome Diversity Project
+HGDP01190	M			Miao		East Asia (HGDP)	MiaoHGDP	Human Genome Diversity Project
+HGDP01192	M			Miao		East Asia (HGDP)	MiaoHGDP	Human Genome Diversity Project
+HGDP01193	M			Miao		East Asia (HGDP)	MiaoHGDP	Human Genome Diversity Project
+HGDP01194	M			Miao		East Asia (HGDP)	MiaoHGDP	Human Genome Diversity Project
+HGDP01195	M			Miao		East Asia (HGDP)	MiaoHGDP	Human Genome Diversity Project
+HGDP01196	F			Miao		East Asia (HGDP)	MiaoHGDP	Human Genome Diversity Project
+HGDP01197	F			Miao		East Asia (HGDP)	MiaoHGDP	Human Genome Diversity Project
+HGDP01200	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP01201	F			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP01202	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP01204	M			Oroqen		East Asia (HGDP)	OroqenHGDP	Human Genome Diversity Project
+HGDP01205	M			Oroqen		East Asia (HGDP)	OroqenHGDP	Human Genome Diversity Project
+HGDP01206	M			Oroqen		East Asia (HGDP)	OroqenHGDP	Human Genome Diversity Project
+HGDP01207	M			Oroqen		East Asia (HGDP)	OroqenHGDP	Human Genome Diversity Project
+HGDP01208	M			Oroqen		East Asia (HGDP)	OroqenHGDP	Human Genome Diversity Project
+HGDP01209	F			Oroqen		East Asia (HGDP)	OroqenHGDP	Human Genome Diversity Project
+HGDP01212	F			Oroqen		East Asia (HGDP)	OroqenHGDP	Human Genome Diversity Project
+HGDP01213	M			Daur		East Asia (HGDP)	DaurHGDP	Human Genome Diversity Project
+HGDP01214	M			Daur		East Asia (HGDP)	DaurHGDP	Human Genome Diversity Project
+HGDP01216	M			Daur		East Asia (HGDP)	DaurHGDP	Human Genome Diversity Project
+HGDP01217	M			Daur		East Asia (HGDP)	DaurHGDP	Human Genome Diversity Project
+HGDP01218	M			Daur		East Asia (HGDP)	DaurHGDP	Human Genome Diversity Project
+HGDP01219	F			Daur		East Asia (HGDP)	DaurHGDP	Human Genome Diversity Project
+HGDP01220	M			Daur		East Asia (HGDP)	DaurHGDP	Human Genome Diversity Project
+HGDP01221	M			Daur		East Asia (HGDP)	DaurHGDP	Human Genome Diversity Project
+HGDP01222	F			Daur		East Asia (HGDP)	DaurHGDP	Human Genome Diversity Project
+HGDP01224	M			Mongolian		East Asia (HGDP)	MongolianHGDP	Human Genome Diversity Project
+HGDP01225	M			Mongolian		East Asia (HGDP)	MongolianHGDP	Human Genome Diversity Project
+HGDP01226	M			Mongolian		East Asia (HGDP)	MongolianHGDP	Human Genome Diversity Project
+HGDP01227	M			Mongolian		East Asia (HGDP)	MongolianHGDP	Human Genome Diversity Project
+HGDP01229	M			Mongolian		East Asia (HGDP)	MongolianHGDP	Human Genome Diversity Project
+HGDP01230	M			Mongolian		East Asia (HGDP)	MongolianHGDP	Human Genome Diversity Project
+HGDP01231	F			Mongolian		East Asia (HGDP)	MongolianHGDP	Human Genome Diversity Project
+HGDP01232	F			Mongolian		East Asia (HGDP)	MongolianHGDP	Human Genome Diversity Project
+HGDP01233	M			Hezhen		East Asia (HGDP)	HezhenHGDP	Human Genome Diversity Project
+HGDP01234	F			Hezhen		East Asia (HGDP)	HezhenHGDP	Human Genome Diversity Project
+HGDP01236	M			Hezhen		East Asia (HGDP)	HezhenHGDP	Human Genome Diversity Project
+HGDP01237	M			Hezhen		East Asia (HGDP)	HezhenHGDP	Human Genome Diversity Project
+HGDP01238	F			Hezhen		East Asia (HGDP)	HezhenHGDP	Human Genome Diversity Project
+HGDP01239	F			Hezhen		East Asia (HGDP)	HezhenHGDP	Human Genome Diversity Project
+HGDP01241	M			Hezhen		East Asia (HGDP)	HezhenHGDP	Human Genome Diversity Project
+HGDP01243	M			Xibo		East Asia (HGDP)	XiboHGDP	Human Genome Diversity Project
+HGDP01244	M			Xibo		East Asia (HGDP)	XiboHGDP	Human Genome Diversity Project
+HGDP01245	M			Xibo		East Asia (HGDP)	XiboHGDP	Human Genome Diversity Project
+HGDP01247	M			Xibo		East Asia (HGDP)	XiboHGDP	Human Genome Diversity Project
+HGDP01248	M			Xibo		East Asia (HGDP)	XiboHGDP	Human Genome Diversity Project
+HGDP01249	M			Xibo		East Asia (HGDP)	XiboHGDP	Human Genome Diversity Project
+HGDP01251	F			Xibo		East Asia (HGDP)	XiboHGDP	Human Genome Diversity Project
+HGDP01254	F			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01255	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01256	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01257	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01258	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01259	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01260	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01261	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01262	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01263	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01264	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01265	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01266	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01267	F			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01268	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01269	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01270	F			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01271	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01272	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01273	F			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01275	F			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01276	F			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01277	F			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01279	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01280	F			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01282	M			Mozabite		Middle East (HGDP)	MozabiteHGDP	Human Genome Diversity Project
+HGDP01283	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP01285	M			Mandenka		Africa (HGDP)	MandenkaHGDP	Human Genome Diversity Project
+HGDP01287	F			Northern Han		East Asia (HGDP)	NorthernHanHGDP	Human Genome Diversity Project
+HGDP01288	M			Northern Han		East Asia (HGDP)	NorthernHanHGDP	Human Genome Diversity Project
+HGDP01289	M			Northern Han		East Asia (HGDP)	NorthernHanHGDP	Human Genome Diversity Project
+HGDP01290	M			Northern Han		East Asia (HGDP)	NorthernHanHGDP	Human Genome Diversity Project
+HGDP01291	F			Northern Han		East Asia (HGDP)	NorthernHanHGDP	Human Genome Diversity Project
+HGDP01292	M			Northern Han		East Asia (HGDP)	NorthernHanHGDP	Human Genome Diversity Project
+HGDP01293	M			Northern Han		East Asia (HGDP)	NorthernHanHGDP	Human Genome Diversity Project
+HGDP01294	M			Northern Han		East Asia (HGDP)	NorthernHanHGDP	Human Genome Diversity Project
+HGDP01295	M			Northern Han		East Asia (HGDP)	NorthernHanHGDP	Human Genome Diversity Project
+HGDP01296	M			Northern Han		East Asia (HGDP)	NorthernHanHGDP	Human Genome Diversity Project
+HGDP01298	M			Uygur		Central South Asia (HGDP)	UygurHGDP	Human Genome Diversity Project
+HGDP01299	M			Uygur		Central South Asia (HGDP)	UygurHGDP	Human Genome Diversity Project
+HGDP01300	M			Uygur		Central South Asia (HGDP)	UygurHGDP	Human Genome Diversity Project
+HGDP01301	M			Uygur		Central South Asia (HGDP)	UygurHGDP	Human Genome Diversity Project
+HGDP01302	M			Uygur		Central South Asia (HGDP)	UygurHGDP	Human Genome Diversity Project
+HGDP01303	M			Uygur		Central South Asia (HGDP)	UygurHGDP	Human Genome Diversity Project
+HGDP01304	M			Uygur		Central South Asia (HGDP)	UygurHGDP	Human Genome Diversity Project
+HGDP01305	F			Uygur		Central South Asia (HGDP)	UygurHGDP	Human Genome Diversity Project
+HGDP01309	M			Dai		East Asia (HGDP)	DaiHGDP	Human Genome Diversity Project
+HGDP01310	M			Dai		East Asia (HGDP)	DaiHGDP	Human Genome Diversity Project
+HGDP01311	M			Dai		East Asia (HGDP)	DaiHGDP	Human Genome Diversity Project
+HGDP01313	M			Dai		East Asia (HGDP)	DaiHGDP	Human Genome Diversity Project
+HGDP01316	F			Dai		East Asia (HGDP)	DaiHGDP	Human Genome Diversity Project
+HGDP01317	M			Lahu		East Asia (HGDP)	LahuHGDP	Human Genome Diversity Project
+HGDP01318	M			Lahu		East Asia (HGDP)	LahuHGDP	Human Genome Diversity Project
+HGDP01319	M			Lahu		East Asia (HGDP)	LahuHGDP	Human Genome Diversity Project
+HGDP01321	M			Lahu		East Asia (HGDP)	LahuHGDP	Human Genome Diversity Project
+HGDP01322	M			Lahu		East Asia (HGDP)	LahuHGDP	Human Genome Diversity Project
+HGDP01326	M			Lahu		East Asia (HGDP)	LahuHGDP	Human Genome Diversity Project
+HGDP01327	M			She		East Asia (HGDP)	SheHGDP	Human Genome Diversity Project
+HGDP01328	M			She		East Asia (HGDP)	SheHGDP	Human Genome Diversity Project
+HGDP01329	M			She		East Asia (HGDP)	SheHGDP	Human Genome Diversity Project
+HGDP01330	M			She		East Asia (HGDP)	SheHGDP	Human Genome Diversity Project
+HGDP01331	M			She		East Asia (HGDP)	SheHGDP	Human Genome Diversity Project
+HGDP01332	M			She		East Asia (HGDP)	SheHGDP	Human Genome Diversity Project
+HGDP01334	F			She		East Asia (HGDP)	SheHGDP	Human Genome Diversity Project
+HGDP01336	F			She		East Asia (HGDP)	SheHGDP	Human Genome Diversity Project
+HGDP01337	M			Naxi		East Asia (HGDP)	NaxiHGDP	Human Genome Diversity Project
+HGDP01339	M			Naxi		East Asia (HGDP)	NaxiHGDP	Human Genome Diversity Project
+HGDP01340	M			Naxi		East Asia (HGDP)	NaxiHGDP	Human Genome Diversity Project
+HGDP01341	M			Naxi		East Asia (HGDP)	NaxiHGDP	Human Genome Diversity Project
+HGDP01342	M			Naxi		East Asia (HGDP)	NaxiHGDP	Human Genome Diversity Project
+HGDP01346	F			Naxi		East Asia (HGDP)	NaxiHGDP	Human Genome Diversity Project
+HGDP01347	M			Tu		East Asia (HGDP)	TuHGDP	Human Genome Diversity Project
+HGDP01348	M			Tu		East Asia (HGDP)	TuHGDP	Human Genome Diversity Project
+HGDP01349	M			Tu		East Asia (HGDP)	TuHGDP	Human Genome Diversity Project
+HGDP01351	M			Tu		East Asia (HGDP)	TuHGDP	Human Genome Diversity Project
+HGDP01352	M			Tu		East Asia (HGDP)	TuHGDP	Human Genome Diversity Project
+HGDP01353	M			Tu		East Asia (HGDP)	TuHGDP	Human Genome Diversity Project
+HGDP01354	F			Tu		East Asia (HGDP)	TuHGDP	Human Genome Diversity Project
+HGDP01356	F			Tu		East Asia (HGDP)	TuHGDP	Human Genome Diversity Project
+HGDP01357	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01358	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01359	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01360	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01361	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01362	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01363	F			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01366	F			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01367	F			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01368	F			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01369	F			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01370	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01371	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01372	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01373	F			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01374	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01375	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01376	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01377	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01378	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01379	M			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01380	F			Basque		Europe (HGDP)	BasqueHGDP	Human Genome Diversity Project
+HGDP01381	F			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01382	F			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01383	M			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01384	F			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01385	M			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01386	F			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01387	F			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01388	F			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01396	M			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01397	M			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01398	F			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01399	F			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01400	F			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01403	M			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01404	M			Adygei		Europe (HGDP)	AdygeiHGDP	Human Genome Diversity Project
+HGDP01405	M			Bantu Kenya		Africa (HGDP)	BantuKenyaHGDP	Human Genome Diversity Project
+HGDP01406	M			Bantu Kenya		Africa (HGDP)	BantuKenyaHGDP	Human Genome Diversity Project
+HGDP01408	M			Bantu Kenya		Africa (HGDP)	BantuKenyaHGDP	Human Genome Diversity Project
+HGDP01411	M			Bantu Kenya		Africa (HGDP)	BantuKenyaHGDP	Human Genome Diversity Project
+HGDP01412	M			Bantu Kenya		Africa (HGDP)	BantuKenyaHGDP	Human Genome Diversity Project
+HGDP01413	M			Bantu Kenya		Africa (HGDP)	BantuKenyaHGDP	Human Genome Diversity Project
+HGDP01415	M			Bantu Kenya		Africa (HGDP)	BantuKenyaHGDP	Human Genome Diversity Project
+HGDP01416	M			Bantu Kenya		Africa (HGDP)	BantuKenyaHGDP	Human Genome Diversity Project
+HGDP01418	M			Bantu Kenya		Africa (HGDP)	BantuKenyaHGDP	Human Genome Diversity Project
+HGDP01419	M			Bantu Kenya		Africa (HGDP)	BantuKenyaHGDP	Human Genome Diversity Project
