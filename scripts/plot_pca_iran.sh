@@ -21,15 +21,19 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #     mouse wheel zooms, drag pans, double-click resets
 # Needs only numpy + pandas (no plotly / internet): the HTML opens in any browser.
 #
-# Usage:   sbatch plot_pca_iran.sh <prefix> [mega_sample_table.xlsx|.csv] [Super-population=Iran]
-#          bash   plot_pca_iran.sh <prefix> [mega_sample_table.xlsx|.csv] [Super-population=Iran]
+# Usage:   sbatch plot_pca_iran.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [Super-population=Iran]
+#          bash   plot_pca_iran.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [Super-population=Iran]
 #
 #   <prefix>  expects  <prefix>.fam  <prefix>.eigenvec  <prefix>.eigenval
 #             (PLINK 1.9 or PLINK 2 eigenvec; with or without a header line)
 #   table     defaults to $MASTER_TABLE, else metadata/mega_sample_table.xlsx under $SLURM_SUBMIT_DIR
 #             (or the current directory); the .csv next to it is used if openpyxl is missing
-#   3rd arg   which Super-population to plot (default Iran). Set MARKER_SCALE=<x> to resize points
-#             further (default 1 = the 4x size described above).
+#   3rd arg   pca_colors.txt - accepted so the command line matches plot_pca.sh; NOT used here
+#             (points are coloured by Population). If the 3rd argument is not a path it is
+#             taken as the Super-population name (old behaviour); anything containing "/" or ending
+#             in .txt is always treated as the colour file.
+#   4th arg   which Super-population to plot (default Iran), or env SUPERPOP=<name>.
+#   Set MARKER_SCALE=<x> to resize points further (default 1 = the 4x size described above).
 #
 # Output: <prefix>.pca_iran.html   (+ <prefix>.pca_iran.tsv with the plotted rows)
 
@@ -37,12 +41,20 @@ set -euo pipefail
 
 PREFIX="${ARGS[0]:-}"
 if [[ -z "$PREFIX" ]]; then
-    echo "Usage: $0 <prefix> [mega_sample_table.xlsx|.csv] [Super-population=Iran]" >&2
+    echo "Usage: $0 <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [Super-population=Iran]" >&2
     exit 1
 fi
 BASE="${SLURM_SUBMIT_DIR:-$PWD}"
 TABLE="${ARGS[1]:-${MASTER_TABLE:-$BASE/metadata/mega_sample_table.xlsx}}"
-GROUP="${ARGS[2]:-Iran}"
+ARG3="${ARGS[2]:-}"
+if [[ -n "$ARG3" && ( "$ARG3" == */* || "$ARG3" == *.txt ) ]]; then
+    GROUP="${ARGS[3]:-${SUPERPOP:-Iran}}"           # looks like a path: the (unused) colour file
+    [[ -f "$ARG3" ]] || echo "NOTE: $ARG3 not found; ignored (colours file is not used by this script)" >&2
+elif [[ -n "$ARG3" && -z "${ARGS[3]:-}" ]]; then
+    GROUP="$ARG3"                                   # 3rd argument is a group name, not a colour file
+else
+    GROUP="${ARGS[3]:-${SUPERPOP:-Iran}}"
+fi
 MARKER_SCALE="${MARKER_SCALE:-1}"
 
 if [[ "$TABLE" == *.xlsx || "$TABLE" == *.xls ]] && ! python3 -c "import openpyxl" 2>/dev/null; then
