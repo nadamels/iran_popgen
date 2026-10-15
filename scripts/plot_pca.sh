@@ -12,7 +12,7 @@ source ~/.bashrc
 source /share/apps/NYUAD5/miniconda/3-4.11.0/bin/activate
 conda activate /scratch/nme3923/conda-envs/glimpse2
 
-# Plot a PCA coloured by the labels in the master sample table.
+# Plot a PCA from the master sample table: COLOUR = country, SHAPE = period.
 #
 # Usage:   sbatch plot_pca.sh <prefix> [master_sample_table.tsv|.xlsx]
 #          bash   plot_pca.sh <prefix> [master_sample_table.tsv|.xlsx]
@@ -22,14 +22,14 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #   table     .tsv (preferred) or .xlsx (needs openpyxl; reads sheet "sample_table"); defaults to $MASTER_TABLE, else metadata/master_sample_table.tsv under
 #             $SLURM_SUBMIT_DIR (or the current directory)
 #
-# Colour key:  ancient -> analysis_label_published (falls back to empirical_cluster when the study
-#                         gives no analysis label, i.e. Mathieson 2015 samples)
-#              modern  -> self_reported_label
-# Colour/marker per label is fixed by the label's rank among ALL labels in the master table, so a
-# label looks the same in every PCA you make from the same table.
-#
-# Outputs (next to the prefix):  <prefix>.pca_PC1_PC2.{png,pdf}, <prefix>.pca_PC3_PC4.{png,pdf},
-#                                <prefix>.pca_labels.tsv (label, colour, marker, n, group)
+# Colour = country (colour per country is fixed by its rank among ALL countries in the master
+#          table, so a country looks the same in every PCA from the same table).
+# Shape  = archaeological period grouped into Mesolithic/Epipaleolithic, Neolithic, Chalcolithic,
+#          Bronze Age, Iron Age, Historical (Anc/Rom/Byz/Medieval) - from archaeological_period,
+#          or from date_mean_calBP when the period is missing.  Modern = small circle.
+# Modern samples have no country in the table except the Iranians, so the rest are light grey.
+# # Outputs (next to the prefix):  <prefix>.pca_PC1_PC2.{png,pdf}, <prefix>.pca_PC3_PC4.{png,pdf},
+#                                <prefix>.pca_labels.tsv (country, colour, period, marker, n)
 
 set -euo pipefail
 
@@ -101,7 +101,7 @@ if ev["sid"].duplicated().any():
     sys.exit("ERROR: duplicate sample IDs in eigenvec; cannot join to the sample table unambiguously")
 ev = ev[ev["sid"].isin(fam_ids)]               # fam defines the sample set
 
-# ---- labels from the master table --------------------------------------------------------------
+# ---- country + period from the master table ---------------------------------------------------
 if table_path.lower().endswith((".xlsx", ".xls")):
     try:
         t = pd.read_excel(table_path, sheet_name="sample_table", dtype=str)
@@ -109,85 +109,113 @@ if table_path.lower().endswith((".xlsx", ".xls")):
         sys.exit("ERROR: reading .xlsx needs openpyxl; pass master_sample_table.tsv instead")
 else:
     t = pd.read_csv(table_path, sep="\t", dtype=str)
-# Label for every table row: ancient -> analysis_label_published, modern -> self_reported_label.
-def pick(r):
-    if r.sample_type == "ancient":
-        for c in ("analysis_label_published", "empirical_cluster"):
-            if isinstance(getattr(r, c), str):
-                return getattr(r, c), c
-        return "Ancient_unlabelled", "none"
-    if isinstance(r.self_reported_label, str):
-        return r.self_reported_label, "self_reported_label"
-    return "Modern_unreported", "none"
-
-t[["label", "label_source"]] = t.apply(lambda r: pd.Series(pick(r)), axis=1)
 t = t.drop_duplicates("sample_id")
 
-df = ev.merge(t[["sample_id", "sample_type", "label", "label_source", "study", "inclusion_status"]],
+# Period -> broad archaeological class (marker shape).  Order = legend order.
+PERIODS = ["Mesolithic/Epipaleolithic", "Neolithic", "Chalcolithic", "Bronze Age", "Iron Age",
+           "Historical", "Unknown period"]
+PERIOD_MAP = {
+    "natufian": "Mesolithic/Epipaleolithic", "mes": "Mesolithic/Epipaleolithic",
+    "ppn": "Neolithic", "n": "Neolithic", "en": "Neolithic", "m / n": "Neolithic",
+    "chl": "Chalcolithic", "c / en": "Chalcolithic",
+    "ba": "Bronze Age", "emba": "Bronze Age", "mlba": "Bronze Age", "lba": "Bronze Age",
+    "ia": "Iron Age", "lba / ia": "Iron Age", "urartian": "Iron Age",
+    "anc": "Historical", "rom": "Historical", "byz": "Historical", "romByz".lower(): "Historical",
+    "mdv": "Historical", "h": "Historical",
+}
+def period_from_date(bp):                      # fallback only when the table gives no period
+    if not np.isfinite(bp):
+        return "Unknown period"
+    for lim, name in ((2200, "Historical"), (3200, "Iron Age"), (5300, "Bronze Age"),
+                      (7000, "Chalcolithic"), (11700, "Neolithic")):
+        if bp < lim:
+            return name
+    return "Mesolithic/Epipaleolithic"
+
+bp = pd.to_numeric(t["date_mean_calBP"], errors="coerce")
+per = t["archaeological_period"].fillna("").str.strip().str.lower().map(PERIOD_MAP)
+from_date = per.isna() & (t["sample_type"] == "ancient")
+per = per.where(~from_date, bp.map(period_from_date))
+t["period"] = np.where(t["sample_type"] == "ancient", per.fillna("Unknown period"), "Modern")
+t["country_plot"] = t["country"].fillna("").str.strip().replace("", np.nan)
+
+df = ev.merge(t[["sample_id", "sample_type", "country_plot", "period"]],
               left_on="sid", right_on="sample_id", how="left")
 unk = df["sample_type"].isna()
 if unk.any():
-    print(f"WARNING: {unk.sum()} samples not in the master table (plotted grey as 'Not_in_table'): "
+    print(f"WARNING: {unk.sum()} samples not in the master table (plotted grey 'x'): "
           f"{', '.join(df.loc[unk, 'sid'].head(10))}{' ...' if unk.sum() > 10 else ''}")
-df.loc[unk, ["sample_type", "label", "label_source"]] = ["unknown", "Not_in_table", "none"]
-fb = (df["label_source"] == "empirical_cluster").sum()
-if fb:
-    print(f"NOTE: {fb} ancient samples have no analysis_label_published; used empirical_cluster instead")
-df["group"] = df["sample_type"].map({"ancient": "Ancient", "modern": "Modern"}).fillna("Unknown")
+df.loc[unk, "period"] = "Not in table"
+anc = df["sample_type"] == "ancient"
+n_nc = int((anc & df["country_plot"].isna()).sum())
+if n_nc:
+    print(f"NOTE: {n_nc} ancient samples have no country; plotted as 'Country unknown'")
+n_pd = int((anc & df["sample_id"].isin(t.loc[from_date, "sample_id"])).sum())
+if n_pd:
+    print(f"NOTE: {n_pd} ancient samples have no archaeological_period; shape inferred from date_mean_calBP")
+df["country_plot"] = df["country_plot"].fillna("Country unknown")
 
-# ---- stable colour / marker per label ----------------------------------------------------------
-# Rank over ALL labels in the table (not just this PCA) so a label keeps its style across plots.
-lab_tab = pd.concat([t.loc[t.sample_type == "ancient", ["label"]].assign(g="Ancient"),
-                     t.loc[t.sample_type == "modern", ["label"]].assign(g="Modern")])
-all_lab = sorted(set(map(tuple, lab_tab[["g", "label"]].drop_duplicates().values.tolist())))
-rank = {k: i for i, k in enumerate(all_lab)}
-n_col = 48
-cols = np.vstack([plt.cm.tab20(np.arange(20)), plt.cm.tab20b(np.arange(20)),
-                  plt.cm.Dark2(np.arange(8))])[:n_col]
-markers = ["o", "s", "^", "v", "D", "P", "X", "<", ">", "h", "p", "*"]
-def style(g, lab):
-    i = rank.get((g, lab), len(rank))
-    return cols[i % n_col], markers[(i // n_col) % len(markers)]
+# ---- stable colour per country, marker per period ----------------------------------------------
+# Rank over ALL countries in the table so a country keeps its colour across plots.
+countries = sorted(set(t["country_plot"].dropna()))
+cols = np.vstack([plt.cm.tab20(np.arange(20)), plt.cm.tab20b(np.arange(20))])
+col_of = {c: cols[i % len(cols)] for i, c in enumerate(countries)}
+col_of["Country unknown"] = np.array([0.35, 0.35, 0.35, 1])
+MODERN_GREY = np.array([0.82, 0.82, 0.82, 1])
+MARK = dict(zip(PERIODS, ["P", "s", "^", "D", "v", "X", "*"]))
+MARK["Modern"] = "o"
 
 # ---- plot --------------------------------------------------------------------------------------
 rows = []
 def plot_pair(a, b, out):
-    fig = plt.figure(figsize=(20, 12))
-    ax = fig.add_axes([0.05, 0.07, 0.40, 0.88])
-    for grp, z, size, edge in (("Modern", 1, 14, "none"), ("Unknown", 2, 14, "none"), ("Ancient", 3, 34, "black")):
-        sub = df[df["group"] == grp]
-        for lab, s in sub.groupby("label", sort=True):
-            if grp == "Unknown":
-                c, m = np.array([0.5, 0.5, 0.5, 1]), "x"
-            else:
-                c, m = style(grp, lab)
-            ax.scatter(s[a], s[b], s=size, c=[c], marker=m, edgecolors=edge, linewidths=0.4,
-                       alpha=0.75 if grp == "Modern" else 0.95, zorder=z)
+    fig = plt.figure(figsize=(17, 10))
+    ax = fig.add_axes([0.06, 0.07, 0.64, 0.88])
+    # modern without country: grey backdrop; modern with country: small coloured circles
+    m = df[df["period"] == "Modern"]
+    g = m[m["country_plot"] == "Country unknown"]
+    ax.scatter(g[a], g[b], s=12, c=[MODERN_GREY], marker="o", edgecolors="none", alpha=0.7, zorder=1)
+    for ctry, s in m[m["country_plot"] != "Country unknown"].groupby("country_plot"):
+        ax.scatter(s[a], s[b], s=18, c=[col_of[ctry]], marker="o", edgecolors="none", alpha=0.8, zorder=2)
+    for per_name in PERIODS:
+        for ctry, s in df[(df["sample_type"] == "ancient") & (df["period"] == per_name)].groupby("country_plot"):
+            ax.scatter(s[a], s[b], s=48 if per_name != "Mesolithic/Epipaleolithic" else 60,
+                       c=[col_of[ctry]], marker=MARK[per_name], edgecolors="black", linewidths=0.5,
+                       alpha=0.95, zorder=4)
+    u = df[df["period"] == "Not in table"]
+    if len(u):
+        ax.scatter(u[a], u[b], s=20, c="grey", marker="x", zorder=3)
     ia, ib = pc_cols.index(a), pc_cols.index(b)
     ax.set_xlabel(f"{a} ({pct[ia]:.2f}% of listed eigenvalues)" if ia < len(pct) else a)
     ax.set_ylabel(f"{b} ({pct[ib]:.2f}% of listed eigenvalues)" if ib < len(pct) else b)
     ax.set_title(f"{prefix.split('/')[-1]}  |  n={len(df)}  "
-                 f"(ancient {int((df.group=='Ancient').sum())}, modern {int((df.group=='Modern').sum())})")
+                 f"(ancient {int(anc.sum())}, modern {int((df.period=='Modern').sum())})")
     ax.grid(alpha=0.2)
 
-    # legends: one block per group, own columns, small font
-    for grp, x0, w in (("Ancient", 0.46, 0.32), ("Modern", 0.78, 0.21)):
-        labs = sorted(df.loc[df.group == grp, "label"].unique())
-        if not labs:
-            continue
-        handles = []
-        for lab in labs:
-            c, m = style(grp, lab)
-            n = int(((df.group == grp) & (df.label == lab)).sum())
-            handles.append(Line2D([], [], marker=m, ls="", color=c, markersize=5,
-                                  markeredgecolor="black" if grp == "Ancient" else "none",
-                                  label=f"{lab if len(lab) <= 42 else lab[:41] + '~'} ({n})"))
-        lax = fig.add_axes([x0, 0.02, w, 0.94]); lax.axis("off")
-        leg = lax.legend(handles=handles, loc="upper left", ncol=int(np.ceil(len(labs) / 120)), fontsize=float(np.clip(700 / max(len(labs), 1), 5, 9)),
-                   frameon=False, title=f"{grp} - " + ("analysis_label_published" if grp == "Ancient"
-                                                      else "self_reported_label"),
-                   title_fontsize=8, labelspacing=0.22, handletextpad=0.2, columnspacing=0.8, borderaxespad=0)
-        leg._legend_box.align = "left"
+    # legend 1: colour = country (ancient + modern with a country)
+    used = df[(df["period"] != "Modern") | (df["country_plot"] != "Country unknown")]
+    ctr = sorted(used["country_plot"].unique(), key=lambda c: (c == "Country unknown", c))
+    h1 = [Line2D([], [], marker="o", ls="", color=col_of[c], markersize=7, markeredgecolor="black",
+                 markeredgewidth=0.4, label=f"{c} ({int((used.country_plot == c).sum())})") for c in ctr]
+    n_mg = int(((df.period == "Modern") & (df.country_plot == "Country unknown")).sum())
+    if n_mg:
+        h1.append(Line2D([], [], marker="o", ls="", color=MODERN_GREY, markersize=7,
+                         label=f"Modern, no country ({n_mg})"))
+    # legend 2: shape = period
+    h2 = []
+    for per_name in PERIODS + ["Modern"]:
+        n = int((df.period == per_name).sum())
+        if n:
+            h2.append(Line2D([], [], marker=MARK[per_name], ls="", color="0.4", markersize=8,
+                             markeredgecolor="black", markeredgewidth=0.4,
+                             label=f"{per_name if per_name != 'Modern' else 'Modern (present-day)'} ({n})"))
+    lax = fig.add_axes([0.72, 0.02, 0.27, 0.94]); lax.axis("off")
+    l1 = lax.legend(handles=h1, loc="upper left", bbox_to_anchor=(0, 1), ncol=1, fontsize=8,
+                    frameon=False, title="Colour: country", title_fontsize=9, labelspacing=0.3)
+    l1._legend_box.align = "left"
+    lax.add_artist(l1)
+    l2 = lax.legend(handles=h2, loc="lower left", bbox_to_anchor=(0, 0), fontsize=8, frameon=False,
+                    title="Shape: period", title_fontsize=9, labelspacing=0.4)
+    l2._legend_box.align = "left"
     for ext in ("png", "pdf"):
         fig.savefig(f"{out}.{ext}", dpi=200)
     plt.close(fig)
@@ -197,11 +225,11 @@ plot_pair(pc_cols[0], pc_cols[1], f"{prefix}.pca_PC1_PC2")
 if len(pc_cols) >= 4:
     plot_pair(pc_cols[2], pc_cols[3], f"{prefix}.pca_PC3_PC4")
 
-# label key for reproducibility
-for (grp, lab), s in df.groupby(["group", "label"]):
-    c, m = style(grp, lab)
-    rows.append((grp, lab, matplotlib.colors.to_hex(c), m, len(s)))
-pd.DataFrame(rows, columns=["group", "label", "colour", "marker", "n"]).to_csv(
+# key for reproducibility
+for (per_name, ctry), s in df.groupby(["period", "country_plot"]):
+    c = MODERN_GREY if (per_name == "Modern" and ctry == "Country unknown") else col_of[ctry]
+    rows.append((ctry, matplotlib.colors.to_hex(c), per_name, MARK.get(per_name, "x"), len(s)))
+pd.DataFrame(rows, columns=["country", "colour", "period", "marker", "n"]).to_csv(
     f"{prefix}.pca_labels.tsv", sep="\t", index=False)
 print("wrote", f"{prefix}.pca_labels.tsv")
 PY
