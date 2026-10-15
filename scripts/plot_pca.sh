@@ -12,35 +12,48 @@ source ~/.bashrc
 source /share/apps/NYUAD5/miniconda/3-4.11.0/bin/activate
 conda activate /scratch/nme3923/conda-envs/glimpse2
 
-# Plot a PCA from the master sample table: COLOUR = country, SHAPE = period.
+# Plot a PCA from the mega sample table.
+#   COLOUR = Super-population (colours from Plotting/pca_colors.txt)
+#   SIZE   = age of the sample (older = bigger), ancient samples only
+#   Modern samples = tiny dots (coloured by super-population); no marker shapes for now.
 #
-# Usage:   sbatch plot_pca.sh <prefix> [master_sample_table.tsv|.xlsx]
-#          bash   plot_pca.sh <prefix> [master_sample_table.tsv|.xlsx]
+# Usage:   sbatch plot_pca.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt]
+#          bash   plot_pca.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt]
 #
 #   <prefix>  expects  <prefix>.fam  <prefix>.eigenvec  <prefix>.eigenval
 #             (PLINK 1.9 or PLINK 2 eigenvec; with or without a header line)
-#   table     .tsv (preferred) or .xlsx (needs openpyxl; reads sheet "sample_table"); defaults to $MASTER_TABLE, else metadata/master_sample_table.tsv under
-#             $SLURM_SUBMIT_DIR (or the current directory)
+#   table     .xlsx (sheet "mega_table"; needs openpyxl) or .csv. Default: $MASTER_TABLE, else
+#             metadata/mega_sample_table.xlsx under $SLURM_SUBMIT_DIR (or the current directory),
+#             falling back to the .csv next to it if openpyxl is missing
+#   colours   "name: #hex" lines. Default: $COLORS_FILE, else Plotting/pca_colors.txt (same base dir)
 #
-# Colour = country (colour per country is fixed by its rank among ALL countries in the master
-#          table, so a country looks the same in every PCA from the same table).
-# Shape  = archaeological period grouped into Mesolithic/Epipaleolithic, Neolithic, Chalcolithic,
-#          Bronze Age, Iron Age, Historical (Anc/Rom/Byz/Medieval) - from archaeological_period,
-#          or from date_mean_calBP when the period is missing.  Modern = small circle.
-# Modern samples have no country in the table except the Iranians, so the rest are light grey.
-# # Outputs (next to the prefix):  <prefix>.pca_PC1_PC2.{png,pdf}, <prefix>.pca_PC3_PC4.{png,pdf},
-#                                <prefix>.pca_labels.tsv (country, colour, period, marker, n)
+# Age: parsed from 'Archeological Date' (e.g. "5898-5531 calBCE", "600-800 CE", "1500-800 BCE")
+#      as the range midpoint in years before present (1950). Unparseable dates are drawn at the
+#      smallest ancient size and counted in the log.
+#
+# Outputs (next to the prefix):  <prefix>.pca_PC1_PC2.{png,pdf}, <prefix>.pca_PC3_PC4.{png,pdf},
+#                                <prefix>.pca_samples.tsv (IID, super-population, age BP, colour)
 
 set -euo pipefail
 
 PREFIX="${ARGS[0]:-}"
 if [[ -z "$PREFIX" ]]; then
-    echo "Usage: $0 <prefix> [master_sample_table.tsv|.xlsx]" >&2
+    echo "Usage: $0 <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt]" >&2
     exit 1
 fi
-TABLE="${ARGS[1]:-${MASTER_TABLE:-${SLURM_SUBMIT_DIR:-$PWD}/metadata/master_sample_table.tsv}}"
+BASE="${SLURM_SUBMIT_DIR:-$PWD}"
+TABLE="${ARGS[1]:-${MASTER_TABLE:-$BASE/metadata/mega_sample_table.xlsx}}"
+COLORS="${ARGS[2]:-${COLORS_FILE:-$BASE/Plotting/pca_colors.txt}}"
 
-for f in "${PREFIX}.fam" "${PREFIX}.eigenvec" "${PREFIX}.eigenval" "$TABLE"; do
+if [[ "$TABLE" == *.xlsx || "$TABLE" == *.xls ]] && ! python3 -c "import openpyxl" 2>/dev/null; then
+    alt="${TABLE%.*}.csv"
+    if [[ -s "$alt" ]]; then
+        echo "NOTE: openpyxl not available; using $alt instead of $TABLE" >&2
+        TABLE="$alt"
+    fi
+fi
+
+for f in "${PREFIX}.fam" "${PREFIX}.eigenvec" "${PREFIX}.eigenval" "$TABLE" "$COLORS"; do
     [[ -s "$f" ]] || { echo "ERROR: missing or empty file: $f" >&2; exit 1; }
 done
 
@@ -49,8 +62,10 @@ python3 -c "import numpy, pandas, matplotlib" 2>/dev/null || {
 
 echo "prefix : $PREFIX"
 echo "table  : $TABLE"
+echo "colours: $COLORS"
 
-python3 - "$PREFIX" "$TABLE" <<'PY'
+python3 - "$PREFIX" "$TABLE" "$COLORS" <<'PY'
+import re
 import sys
 import numpy as np
 import pandas as pd
@@ -59,7 +74,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
-prefix, table_path = sys.argv[1], sys.argv[2]
+prefix, table_path, colors_path = sys.argv[1], sys.argv[2], sys.argv[3]
 
 # ---- read fam / eigenvec / eigenval ------------------------------------------------------------
 fam = pd.read_csv(f"{prefix}.fam", sep=r"\s+", header=None, dtype=str,
@@ -101,120 +116,130 @@ if ev["sid"].duplicated().any():
     sys.exit("ERROR: duplicate sample IDs in eigenvec; cannot join to the sample table unambiguously")
 ev = ev[ev["sid"].isin(fam_ids)]               # fam defines the sample set
 
-# ---- country + period from the master table ---------------------------------------------------
+# ---- mega table: super-population, age ---------------------------------------------------------
 if table_path.lower().endswith((".xlsx", ".xls")):
     try:
-        t = pd.read_excel(table_path, sheet_name="sample_table", dtype=str)
+        t = pd.read_excel(table_path, sheet_name="mega_table", dtype=str)
     except ImportError:
-        sys.exit("ERROR: reading .xlsx needs openpyxl; pass master_sample_table.tsv instead")
+        sys.exit("ERROR: reading .xlsx needs openpyxl; pass the .csv instead")
 else:
-    t = pd.read_csv(table_path, sep="\t", dtype=str)
-t = t.drop_duplicates("sample_id")
+    t = pd.read_csv(table_path, dtype=str)
+need = ["IID", "Super-population", "Archeological Date", "Undergone Imputation"]
+miss_cols = [c for c in need if c not in t.columns]
+if miss_cols:
+    sys.exit(f"ERROR: table lacks column(s) {miss_cols}")
+t = t.drop_duplicates("IID")
 
-# Period -> broad archaeological class (marker shape).  Order = legend order.
-PERIODS = ["Mesolithic/Epipaleolithic", "Neolithic", "Chalcolithic", "Bronze Age", "Iron Age",
-           "Historical", "Unknown period"]
-PERIOD_MAP = {
-    "natufian": "Mesolithic/Epipaleolithic", "mes": "Mesolithic/Epipaleolithic",
-    "ppn": "Neolithic", "n": "Neolithic", "en": "Neolithic", "m / n": "Neolithic",
-    "chl": "Chalcolithic", "c / en": "Chalcolithic",
-    "ba": "Bronze Age", "emba": "Bronze Age", "mlba": "Bronze Age", "lba": "Bronze Age",
-    "ia": "Iron Age", "lba / ia": "Iron Age", "urartian": "Iron Age",
-    "anc": "Historical", "rom": "Historical", "byz": "Historical", "romByz".lower(): "Historical",
-    "mdv": "Historical", "h": "Historical",
-}
-def period_from_date(bp):                      # fallback only when the table gives no period
-    if not np.isfinite(bp):
-        return "Unknown period"
-    for lim, name in ((2200, "Historical"), (3200, "Iron Age"), (5300, "Bronze Age"),
-                      (7000, "Chalcolithic"), (11700, "Neolithic")):
-        if bp < lim:
-            return name
-    return "Mesolithic/Epipaleolithic"
+DATE = re.compile(r"^\s*(?:(?P<a>\d+)\s*-\s*(?P<b>\d+)|(?P<c>\d+))\s*(?P<era>cal\s*BCE|BCE|cal\s*CE|CE|AD|cal\s*AD|calBP|BP)", re.I)
+def age_bp(txt):
+    """Midpoint of the date range in years before present (1950)."""
+    m = DATE.match(txt) if isinstance(txt, str) else None
+    if not m:
+        return np.nan
+    lo, hi = (m["a"], m["b"]) if m["a"] else (m["c"], m["c"])
+    mid = (float(lo) + float(hi)) / 2
+    era = re.sub(r"\s+", "", m["era"]).lower()
+    if era.endswith("bce"):
+        return mid + 1950
+    if era.endswith("bp"):
+        return mid
+    return 1950 - mid                                   # CE / AD
 
-bp = pd.to_numeric(t["date_mean_calBP"], errors="coerce")
-per = t["archaeological_period"].fillna("").str.strip().str.lower().map(PERIOD_MAP)
-from_date = per.isna() & (t["sample_type"] == "ancient")
-per = per.where(~from_date, bp.map(period_from_date))
-t["period"] = np.where(t["sample_type"] == "ancient", per.fillna("Unknown period"), "Modern")
-t["country_plot"] = t["country"].fillna("").str.strip().replace("", np.nan)
+t["is_ancient"] = t["Undergone Imputation"].str.strip().str.lower() == "yes"
+t["age"] = [age_bp(d) if a else np.nan for d, a in zip(t["Archeological Date"], t["is_ancient"])]
 
-df = ev.merge(t[["sample_id", "sample_type", "country_plot", "period"]],
-              left_on="sid", right_on="sample_id", how="left")
-unk = df["sample_type"].isna()
+df = ev.merge(t[["IID", "Super-population", "is_ancient", "age"]], left_on="sid", right_on="IID", how="left")
+unk = df["IID"].isna()
 if unk.any():
-    print(f"WARNING: {unk.sum()} samples not in the master table (plotted grey 'x'): "
+    print(f"WARNING: {unk.sum()} samples not in the mega table (plotted grey 'x'): "
           f"{', '.join(df.loc[unk, 'sid'].head(10))}{' ...' if unk.sum() > 10 else ''}")
-df.loc[unk, "period"] = "Not in table"
-anc = df["sample_type"] == "ancient"
-n_nc = int((anc & df["country_plot"].isna()).sum())
-if n_nc:
-    print(f"NOTE: {n_nc} ancient samples have no country; plotted as 'Country unknown'")
-n_pd = int((anc & df["sample_id"].isin(t.loc[from_date, "sample_id"])).sum())
-if n_pd:
-    print(f"NOTE: {n_pd} ancient samples have no archaeological_period; shape inferred from date_mean_calBP")
-df["country_plot"] = df["country_plot"].fillna("Country unknown")
+df["is_ancient"] = df["is_ancient"].fillna(False).astype(bool)
+df["sp"] = df["Super-population"].fillna("Unassigned")
+n_bad = int((df["is_ancient"] & df["age"].isna()).sum())
+if n_bad:
+    print(f"NOTE: {n_bad} ancient samples have no parseable date; drawn at the smallest ancient size")
 
-# ---- stable colour per country, marker per period ----------------------------------------------
-# Rank over ALL countries in the table so a country keeps its colour across plots.
-countries = sorted(set(t["country_plot"].dropna()))
-cols = np.vstack([plt.cm.tab20(np.arange(20)), plt.cm.tab20b(np.arange(20))])
-col_of = {c: cols[i % len(cols)] for i, c in enumerate(countries)}
-col_of["Country unknown"] = np.array([0.35, 0.35, 0.35, 1])
-MODERN_GREY = np.array([0.82, 0.82, 0.82, 1])
-MARK = dict(zip(PERIODS, ["P", "s", "^", "D", "v", "X", "*"]))
-MARK["Modern"] = "o"
+# ---- colours -----------------------------------------------------------------------------------
+def norm(s):
+    return re.sub(r"[^a-z]", "", s.lower())
+file_cols = {}
+with open(colors_path) as fh:
+    for line in fh:
+        if ":" in line:
+            k, v = line.split(":", 1)
+            if v.strip().startswith("#"):
+                file_cols[norm(k)] = v.strip()
+# table super-population name -> key in the colour file (names differ slightly)
+ALIAS = {"iran": "iraniansamplesofthisstudy", "arabia": "arabian", "levant": "levantine",
+         "northafrica": "africa"}
+# not listed in pca_colors.txt: fallback colours (edit the file to override; add a line "Name: #hex")
+FALLBACK = {"anatolia": "#8c564b", "americas": "#2ca02c", "oceania": "#17becf", "unassigned": "#7f7f7f"}
+def colour_of(sp):
+    k = norm(sp)
+    for key in (k, ALIAS.get(k)):
+        if key and key in file_cols:
+            return file_cols[key], True
+    return FALLBACK.get(k, "#7f7f7f"), False
+sps = sorted(df["sp"].unique())
+col_of, fallback_used = {}, []
+for sp in sps:
+    col_of[sp], ok = colour_of(sp)
+    if not ok:
+        fallback_used.append(sp)
+if fallback_used:
+    print("NOTE: no colour in pca_colors.txt for: " + ", ".join(fallback_used) +
+          " (fallback colours used; add 'Name: #hex' lines to set them)")
+
+# ---- size from age -----------------------------------------------------------------------------
+S_MIN, S_MAX = 22.0, 300.0                      # marker area (pt^2) for the youngest / oldest sample
+AGE_MAX = float(np.nanmax(df.loc[df.is_ancient, "age"])) if df.is_ancient.any() else 1.0
+AGE_MAX = max(AGE_MAX, 1.0)
+def size_of(age):
+    a = np.where(np.isfinite(age), np.clip(age, 0, AGE_MAX), 0.0)
+    return S_MIN + (S_MAX - S_MIN) * a / AGE_MAX
+df["size"] = size_of(df["age"].to_numpy(dtype=float))
 
 # ---- plot --------------------------------------------------------------------------------------
-rows = []
+anc, mod = df[df.is_ancient], df[~df.is_ancient & df["IID"].notna()]
 def plot_pair(a, b, out):
-    fig = plt.figure(figsize=(17, 10))
-    ax = fig.add_axes([0.06, 0.07, 0.64, 0.88])
-    # modern without country: grey backdrop; modern with country: small coloured circles
-    m = df[df["period"] == "Modern"]
-    g = m[m["country_plot"] == "Country unknown"]
-    ax.scatter(g[a], g[b], s=12, c=[MODERN_GREY], marker="o", edgecolors="none", alpha=0.7, zorder=1)
-    for ctry, s in m[m["country_plot"] != "Country unknown"].groupby("country_plot"):
-        ax.scatter(s[a], s[b], s=18, c=[col_of[ctry]], marker="o", edgecolors="none", alpha=0.8, zorder=2)
-    for per_name in PERIODS:
-        for ctry, s in df[(df["sample_type"] == "ancient") & (df["period"] == per_name)].groupby("country_plot"):
-            ax.scatter(s[a], s[b], s=48 if per_name != "Mesolithic/Epipaleolithic" else 60,
-                       c=[col_of[ctry]], marker=MARK[per_name], edgecolors="black", linewidths=0.5,
-                       alpha=0.95, zorder=4)
-    u = df[df["period"] == "Not in table"]
+    fig = plt.figure(figsize=(16, 10))
+    ax = fig.add_axes([0.06, 0.07, 0.66, 0.88])
+    # modern: tiny dots, bottom layer
+    for sp, s in mod.groupby("sp"):
+        ax.scatter(s[a], s[b], s=3, c=[col_of[sp]], marker="o", edgecolors="none", alpha=0.7, zorder=1)
+    u = df[df["IID"].isna()]
     if len(u):
-        ax.scatter(u[a], u[b], s=20, c="grey", marker="x", zorder=3)
+        ax.scatter(u[a], u[b], s=14, c="grey", marker="x", zorder=2)
+    # ancient: colour = super-population, size = age; younger on top so big old points stay visible
+    s = anc.sort_values("age", ascending=False, na_position="last")
+    ax.scatter(s[a], s[b], s=s["size"], c=[col_of[x] for x in s["sp"]], marker="o",
+               edgecolors="black", linewidths=0.5, alpha=0.9, zorder=3)
     ia, ib = pc_cols.index(a), pc_cols.index(b)
     ax.set_xlabel(f"{a} ({pct[ia]:.2f}% of listed eigenvalues)" if ia < len(pct) else a)
     ax.set_ylabel(f"{b} ({pct[ib]:.2f}% of listed eigenvalues)" if ib < len(pct) else b)
-    ax.set_title(f"{prefix.split('/')[-1]}  |  n={len(df)}  "
-                 f"(ancient {int(anc.sum())}, modern {int((df.period=='Modern').sum())})")
+    ax.set_title(f"{prefix.split('/')[-1]}  |  n={len(df)}  (ancient {len(anc)}, modern {len(mod)})")
     ax.grid(alpha=0.2)
 
-    # legend 1: colour = country (ancient + modern with a country)
-    used = df[(df["period"] != "Modern") | (df["country_plot"] != "Country unknown")]
-    ctr = sorted(used["country_plot"].unique(), key=lambda c: (c == "Country unknown", c))
-    h1 = [Line2D([], [], marker="o", ls="", color=col_of[c], markersize=7, markeredgecolor="black",
-                 markeredgewidth=0.4, label=f"{c} ({int((used.country_plot == c).sum())})") for c in ctr]
-    n_mg = int(((df.period == "Modern") & (df.country_plot == "Country unknown")).sum())
-    if n_mg:
-        h1.append(Line2D([], [], marker="o", ls="", color=MODERN_GREY, markersize=7,
-                         label=f"Modern, no country ({n_mg})"))
-    # legend 2: shape = period
-    h2 = []
-    for per_name in PERIODS + ["Modern"]:
-        n = int((df.period == per_name).sum())
-        if n:
-            h2.append(Line2D([], [], marker=MARK[per_name], ls="", color="0.4", markersize=8,
-                             markeredgecolor="black", markeredgewidth=0.4,
-                             label=f"{per_name if per_name != 'Modern' else 'Modern (present-day)'} ({n})"))
-    lax = fig.add_axes([0.72, 0.02, 0.27, 0.94]); lax.axis("off")
-    l1 = lax.legend(handles=h1, loc="upper left", bbox_to_anchor=(0, 1), ncol=1, fontsize=8,
-                    frameon=False, title="Colour: country", title_fontsize=9, labelspacing=0.3)
+    # legend 1: colour = super-population (ancient / modern counts)
+    h1 = []
+    for sp in sorted(sps, key=lambda x: (x == "Unassigned", x)):
+        na, nm = int(((anc.sp == sp)).sum()), int(((mod.sp == sp)).sum())
+        h1.append(Line2D([], [], marker="o", ls="", color=col_of[sp], markersize=8,
+                         markeredgecolor="black", markeredgewidth=0.4,
+                         label=f"{sp} (ancient {na}, modern {nm})"))
+    # legend 2: size = age
+    ticks = [t_ for t_ in (500, 2000, 4000, 6000, 8000, 10000, 12000) if t_ <= AGE_MAX * 1.05]
+    h2 = [Line2D([], [], marker="o", ls="", color="0.75", markeredgecolor="black", markeredgewidth=0.5,
+                 markersize=float(np.sqrt(size_of(np.array([t_]))[0])), label=f"{t_:,} years BP")
+          for t_ in ticks]
+    h2.append(Line2D([], [], marker="o", ls="", color="0.5", markersize=2, label="Modern (tiny dots)"))
+    lax = fig.add_axes([0.73, 0.02, 0.26, 0.94]); lax.axis("off")
+    l1 = lax.legend(handles=h1, loc="upper left", bbox_to_anchor=(0, 1), fontsize=8, frameon=False,
+                    title="Colour: super-population", title_fontsize=9, labelspacing=0.45)
     l1._legend_box.align = "left"
     lax.add_artist(l1)
     l2 = lax.legend(handles=h2, loc="lower left", bbox_to_anchor=(0, 0), fontsize=8, frameon=False,
-                    title="Shape: period", title_fontsize=9, labelspacing=0.4)
+                    title="Size: age of ancient sample", title_fontsize=9, labelspacing=1.1)
     l2._legend_box.align = "left"
     for ext in ("png", "pdf"):
         fig.savefig(f"{out}.{ext}", dpi=200)
@@ -225,11 +250,9 @@ plot_pair(pc_cols[0], pc_cols[1], f"{prefix}.pca_PC1_PC2")
 if len(pc_cols) >= 4:
     plot_pair(pc_cols[2], pc_cols[3], f"{prefix}.pca_PC3_PC4")
 
-# key for reproducibility
-for (per_name, ctry), s in df.groupby(["period", "country_plot"]):
-    c = MODERN_GREY if (per_name == "Modern" and ctry == "Country unknown") else col_of[ctry]
-    rows.append((ctry, matplotlib.colors.to_hex(c), per_name, MARK.get(per_name, "x"), len(s)))
-pd.DataFrame(rows, columns=["country", "colour", "period", "marker", "n"]).to_csv(
-    f"{prefix}.pca_labels.tsv", sep="\t", index=False)
-print("wrote", f"{prefix}.pca_labels.tsv")
+out = df[["sid", "sp", "is_ancient", "age"]].copy()
+out["colour"] = out["sp"].map(col_of)
+out.rename(columns={"sid": "IID", "sp": "super_population", "age": "age_BP"}).to_csv(
+    f"{prefix}.pca_samples.tsv", sep="\t", index=False)
+print("wrote", f"{prefix}.pca_samples.tsv")
 PY
