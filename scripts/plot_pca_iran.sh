@@ -190,7 +190,7 @@ svg:active{cursor:grabbing}
 #side h2{font-size:12px;margin:2px 0 8px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .it{display:flex;align-items:center;gap:7px;padding:2px 0;cursor:pointer;user-select:none}
 .it.off{opacity:.35}
-.sw{width:11px;height:11px;border-radius:50%;flex:none}
+.sw{width:11px;height:11px;flex:none;border:1px solid #000}
 .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .n{color:var(--mut)}
 #tip{position:fixed;pointer-events:none;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;box-shadow:0 4px 18px rgba(0,0,0,.18);display:none;max-width:340px;z-index:5}
@@ -248,10 +248,10 @@ function draw(){
   const g=el("g",{"clip-path":"url(#cp)"});
   // modern first (below), ancient on top, big old ancient points below small ones
   const order=D.rows.filter(r=>!hidden.has(r.pop)).sort((a,b)=>(a.anc-b.anc)||(b.r-a.r));
-  order.forEach(r=>{const c=el("circle",{cx:sx_(r.pcs[ix]),cy:sy_(r.pcs[iy]),r:r.r,fill:col[r.pop],"fill-opacity":r.anc?.85:.8,
-      stroke:r.anc?"#000":"none","stroke-width":r.anc?1:0},g);
+  order.forEach(r=>{const c=el("rect",{x:sx_(r.pcs[ix])-r.r,y:sy_(r.pcs[iy])-r.r,width:2*r.r,height:2*r.r,fill:col[r.pop],"fill-opacity":.85,
+      stroke:"#000","stroke-width":.8},g);
     c.onmouseenter=e=>show(r,e);c.onmousemove=e=>move(e);c.onmouseleave=()=>tip.style.display="none";
-    c.onmouseover=()=>c.setAttribute("stroke","#000");c.onmouseout=()=>{c.setAttribute("stroke",r.anc?"#000":"none")}});
+    c.onmouseover=()=>c.setAttribute("stroke-width",2.2);c.onmouseout=()=>c.setAttribute("stroke-width",.8)});
 }
 function show(r,e){const rows=[["Population","<b>"+r.pop+"</b>"],["Sample ID",r.id]];
   Object.keys(r.info).forEach(k=>{let v=r.info[k];if(/^(lat|lon)/i.test(k)&&!isNaN(+v))v=(+v).toFixed(4);rows.push([k,v])});

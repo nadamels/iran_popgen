@@ -16,7 +16,7 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #   COLOUR = Super-population (colours from Plotting/pca_colors.txt)
 #   SIZE   = age of the sample (older = bigger), ancient samples only
 #   Modern samples = tiny dots (coloured by super-population); no marker shapes for now.
-#   Modern IRANIANS (Super-population Iran, the target population) = large, outlined points drawn
+#   Modern IRANIANS (Super-population Iran, the target population) = large outlined SQUARES drawn
 #   on top of everything else.
 #
 # Usage:   sbatch plot_pca.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_range] [PC2_range]
@@ -248,7 +248,7 @@ def plot_pair(a, b, out, xlim=None, ylim=None):
                edgecolors="black", linewidths=0.5, alpha=0.9, zorder=3)
     # modern Iranians: large, on top of ancient points too
     if len(mod_iran):
-        ax.scatter(mod_iran[a], mod_iran[b], s=IRAN_SIZE, c=[col_of[x] for x in mod_iran["sp"]], marker="o",
+        ax.scatter(mod_iran[a], mod_iran[b], s=IRAN_SIZE, c=[col_of[x] for x in mod_iran["sp"]], marker="s",
                    edgecolors="black", linewidths=0.8, alpha=0.95, zorder=5)
     ia, ib = pc_cols.index(a), pc_cols.index(b)
     ax.set_xlabel(f"{a} ({pct[ia]:.2f}% of listed eigenvalues)" if ia < len(pct) else a)
@@ -283,7 +283,7 @@ def plot_pair(a, b, out, xlim=None, ylim=None):
           for t_ in ticks]
     h2.append(Line2D([], [], marker="o", ls="", color="0.5", markersize=2, label="Modern (tiny dots)"))
     if len(mod_iran):
-        h2.append(Line2D([], [], marker="o", ls="", color=col_of[mod_iran["sp"].iloc[0]], markeredgecolor="black",
+        h2.append(Line2D([], [], marker="s", ls="", color=col_of[mod_iran["sp"].iloc[0]], markeredgecolor="black",
                          markersize=float(np.sqrt(IRAN_SIZE)), label=f"Modern Iranians (n={len(mod_iran)})"))
     lax = fig.add_axes([0.73, 0.02, 0.26, 0.94]); lax.axis("off")
     l1 = lax.legend(handles=h1, loc="upper left", bbox_to_anchor=(0, 1), fontsize=8, frameon=False,
