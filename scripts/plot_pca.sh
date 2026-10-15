@@ -19,8 +19,13 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #   Modern IRANIANS (Super-population Iran, the target population) = large, outlined points drawn
 #   on top of everything else.
 #
-# Usage:   sbatch plot_pca.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt]
-#          bash   plot_pca.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt]
+# Usage:   sbatch plot_pca.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_range] [PC2_range]
+#          bash   plot_pca.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_range] [PC2_range]
+#
+#   Zoom example (PC1 from -0.01 to 0.01, PC2 from 0.0 to 0.02):
+#          sbatch plot_pca.sh <prefix> <table> <colors> -0.01,0.01 0.0,0.02
+#   A range is "min,max" (or "min:max"); use "auto" (or "-") to leave that axis unzoomed.
+#   Defaults for the first three arguments can be skipped with "" (empty string).
 #
 #   <prefix>  expects  <prefix>.fam  <prefix>.eigenvec  <prefix>.eigenval
 #             (PLINK 1.9 or PLINK 2 eigenvec; with or without a header line)
@@ -33,6 +38,9 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #      as the range midpoint in years before present (1950). Unparseable dates are drawn at the
 #      smallest ancient size and counted in the log.
 #
+#   When a PC1/PC2 range is given, ONLY the zoomed PC1 vs PC2 plot is made, written to
+#   <prefix>.pca_PC1_PC2.zoom_x<min>_<max>_y<min>_<max>.{png,pdf} (the full plots are not overwritten).
+#
 # Outputs (next to the prefix):  <prefix>.pca_PC1_PC2.{png,pdf}, <prefix>.pca_PC3_PC4.{png,pdf},
 #                                <prefix>.pca_samples.tsv (IID, super-population, age BP, colour)
 
@@ -40,12 +48,14 @@ set -euo pipefail
 
 PREFIX="${ARGS[0]:-}"
 if [[ -z "$PREFIX" ]]; then
-    echo "Usage: $0 <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt]" >&2
+    echo "Usage: $0 <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_min,max] [PC2_min,max]" >&2
     exit 1
 fi
 BASE="${SLURM_SUBMIT_DIR:-$PWD}"
 TABLE="${ARGS[1]:-${MASTER_TABLE:-$BASE/metadata/mega_sample_table.xlsx}}"
 COLORS="${ARGS[2]:-${COLORS_FILE:-$BASE/Plotting/pca_colors.txt}}"
+PC1_RANGE="${ARGS[3]:-auto}"
+PC2_RANGE="${ARGS[4]:-auto}"
 
 if [[ "$TABLE" == *.xlsx || "$TABLE" == *.xls ]] && ! python3 -c "import openpyxl" 2>/dev/null; then
     alt="${TABLE%.*}.csv"
@@ -65,8 +75,9 @@ python3 -c "import numpy, pandas, matplotlib" 2>/dev/null || {
 echo "prefix : $PREFIX"
 echo "table  : $TABLE"
 echo "colours: $COLORS"
+echo "PC1 range: $PC1_RANGE   PC2 range: $PC2_RANGE"
 
-python3 - "$PREFIX" "$TABLE" "$COLORS" <<'PY'
+python3 - "$PREFIX" "$TABLE" "$COLORS" "$PC1_RANGE" "$PC2_RANGE" <<'PY'
 import re
 import sys
 import numpy as np
@@ -77,6 +88,21 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
 prefix, table_path, colors_path = sys.argv[1], sys.argv[2], sys.argv[3]
+
+def parse_range(txt, name):
+    """'min,max' or 'min:max' -> (min, max); 'auto' / '-' / '' -> None"""
+    if txt.strip().lower() in ("", "auto", "-", "none"):
+        return None
+    parts = [x for x in re.split(r"[,:]", txt.strip()) if x != ""]
+    try:
+        lo, hi = (float(x) for x in parts)
+    except ValueError:
+        sys.exit(f"ERROR: {name} range {txt!r} must look like min,max (e.g. -0.01,0.01) or 'auto'")
+    if not lo < hi:
+        sys.exit(f"ERROR: {name} range {txt!r}: min must be smaller than max")
+    return lo, hi
+xr, yr = parse_range(sys.argv[4], "PC1"), parse_range(sys.argv[5], "PC2")
+zoom = xr is not None or yr is not None
 
 # ---- read fam / eigenvec / eigenval ------------------------------------------------------------
 fam = pd.read_csv(f"{prefix}.fam", sep=r"\s+", header=None, dtype=str,
@@ -207,7 +233,7 @@ anc = df[df.is_ancient]
 mod_all = df[~df.is_ancient & df["IID"].notna()]
 is_iran = mod_all["sp"].str.lower() == "iran"
 mod, mod_iran = mod_all[~is_iran], mod_all[is_iran]
-def plot_pair(a, b, out):
+def plot_pair(a, b, out, xlim=None, ylim=None):
     fig = plt.figure(figsize=(16, 10))
     ax = fig.add_axes([0.06, 0.07, 0.66, 0.88])
     # modern: tiny dots, bottom layer
@@ -227,7 +253,20 @@ def plot_pair(a, b, out):
     ia, ib = pc_cols.index(a), pc_cols.index(b)
     ax.set_xlabel(f"{a} ({pct[ia]:.2f}% of listed eigenvalues)" if ia < len(pct) else a)
     ax.set_ylabel(f"{b} ({pct[ib]:.2f}% of listed eigenvalues)" if ib < len(pct) else b)
-    ax.set_title(f"{prefix.split('/')[-1]}  |  n={len(df)}  (ancient {len(anc)}, modern {len(mod) + len(mod_iran)}, of which Iranian {len(mod_iran)})")
+    title = f"{prefix.split('/')[-1]}  |  n={len(df)}  (ancient {len(anc)}, modern {len(mod) + len(mod_iran)}, of which Iranian {len(mod_iran)})"
+    if xlim is not None or ylim is not None:
+        if xlim is not None:
+            ax.set_xlim(xlim)
+        if ylim is not None:
+            ax.set_ylim(ylim)
+        sel = np.ones(len(df), bool)
+        if xlim is not None:
+            sel &= ((df[a] >= xlim[0]) & (df[a] <= xlim[1])).to_numpy()
+        if ylim is not None:
+            sel &= ((df[b] >= ylim[0]) & (df[b] <= ylim[1])).to_numpy()
+        title += f"\nZOOM: {a} {xlim if xlim is not None else 'auto'}, {b} {ylim if ylim is not None else 'auto'}  -  {int(sel.sum())} samples in view"
+        print(f"samples in the zoom window: {int(sel.sum())} of {len(df)}")
+    ax.set_title(title)
     ax.grid(alpha=0.2)
 
     # legend 1: colour = super-population (ancient / modern counts)
@@ -259,9 +298,14 @@ def plot_pair(a, b, out):
     plt.close(fig)
     print("wrote", f"{out}.png", f"{out}.pdf")
 
-plot_pair(pc_cols[0], pc_cols[1], f"{prefix}.pca_PC1_PC2")
-if len(pc_cols) >= 4:
-    plot_pair(pc_cols[2], pc_cols[3], f"{prefix}.pca_PC3_PC4")
+if zoom:
+    def tag(r, pre):
+        return f"{pre}{r[0]:g}_{r[1]:g}" if r is not None else f"{pre}auto"
+    plot_pair(pc_cols[0], pc_cols[1], f"{prefix}.pca_PC1_PC2.zoom_{tag(xr, 'x')}_{tag(yr, 'y')}", xr, yr)
+else:
+    plot_pair(pc_cols[0], pc_cols[1], f"{prefix}.pca_PC1_PC2")
+    if len(pc_cols) >= 4:
+        plot_pair(pc_cols[2], pc_cols[3], f"{prefix}.pca_PC3_PC4")
 
 out = df[["sid", "sp", "is_ancient", "age"]].copy()
 out["colour"] = out["sp"].map(col_of)
