@@ -16,6 +16,8 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #   COLOUR = Super-population (colours from Plotting/pca_colors.txt)
 #   SIZE   = age of the sample (older = bigger), ancient samples only
 #   Modern samples = tiny dots (coloured by super-population); no marker shapes for now.
+#   Modern IRANIANS (Super-population Iran, the target population) = large, outlined points drawn
+#   on top of everything else.
 #
 # Usage:   sbatch plot_pca.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt]
 #          bash   plot_pca.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt]
@@ -200,7 +202,11 @@ def size_of(age):
 df["size"] = size_of(df["age"].to_numpy(dtype=float))
 
 # ---- plot --------------------------------------------------------------------------------------
-anc, mod = df[df.is_ancient], df[~df.is_ancient & df["IID"].notna()]
+IRAN_SIZE = 110.0                               # marker area (pt^2) for modern Iranians (target population)
+anc = df[df.is_ancient]
+mod_all = df[~df.is_ancient & df["IID"].notna()]
+is_iran = mod_all["sp"].str.lower() == "iran"
+mod, mod_iran = mod_all[~is_iran], mod_all[is_iran]
 def plot_pair(a, b, out):
     fig = plt.figure(figsize=(16, 10))
     ax = fig.add_axes([0.06, 0.07, 0.66, 0.88])
@@ -214,16 +220,20 @@ def plot_pair(a, b, out):
     s = anc.sort_values("age", ascending=False, na_position="last")
     ax.scatter(s[a], s[b], s=s["size"], c=[col_of[x] for x in s["sp"]], marker="o",
                edgecolors="black", linewidths=0.5, alpha=0.9, zorder=3)
+    # modern Iranians: large, on top of ancient points too
+    if len(mod_iran):
+        ax.scatter(mod_iran[a], mod_iran[b], s=IRAN_SIZE, c=[col_of[x] for x in mod_iran["sp"]], marker="o",
+                   edgecolors="black", linewidths=0.8, alpha=0.95, zorder=5)
     ia, ib = pc_cols.index(a), pc_cols.index(b)
     ax.set_xlabel(f"{a} ({pct[ia]:.2f}% of listed eigenvalues)" if ia < len(pct) else a)
     ax.set_ylabel(f"{b} ({pct[ib]:.2f}% of listed eigenvalues)" if ib < len(pct) else b)
-    ax.set_title(f"{prefix.split('/')[-1]}  |  n={len(df)}  (ancient {len(anc)}, modern {len(mod)})")
+    ax.set_title(f"{prefix.split('/')[-1]}  |  n={len(df)}  (ancient {len(anc)}, modern {len(mod) + len(mod_iran)}, of which Iranian {len(mod_iran)})")
     ax.grid(alpha=0.2)
 
     # legend 1: colour = super-population (ancient / modern counts)
     h1 = []
     for sp in sorted(sps, key=lambda x: (x == "Unassigned", x)):
-        na, nm = int(((anc.sp == sp)).sum()), int(((mod.sp == sp)).sum())
+        na, nm = int(((anc.sp == sp)).sum()), int(((mod_all.sp == sp)).sum())
         h1.append(Line2D([], [], marker="o", ls="", color=col_of[sp], markersize=8,
                          markeredgecolor="black", markeredgewidth=0.4,
                          label=f"{sp} (ancient {na}, modern {nm})"))
@@ -233,6 +243,9 @@ def plot_pair(a, b, out):
                  markersize=float(np.sqrt(size_of(np.array([t_]))[0])), label=f"{t_:,} years BP")
           for t_ in ticks]
     h2.append(Line2D([], [], marker="o", ls="", color="0.5", markersize=2, label="Modern (tiny dots)"))
+    if len(mod_iran):
+        h2.append(Line2D([], [], marker="o", ls="", color=col_of[mod_iran["sp"].iloc[0]], markeredgecolor="black",
+                         markersize=float(np.sqrt(IRAN_SIZE)), label=f"Modern Iranians (n={len(mod_iran)})"))
     lax = fig.add_axes([0.73, 0.02, 0.26, 0.94]); lax.axis("off")
     l1 = lax.legend(handles=h1, loc="upper left", bbox_to_anchor=(0, 1), fontsize=8, frameon=False,
                     title="Colour: super-population", title_fontsize=9, labelspacing=0.45)
