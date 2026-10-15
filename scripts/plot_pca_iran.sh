@@ -12,11 +12,11 @@ source ~/.bashrc
 source /share/apps/NYUAD5/miniconda/3-4.11.0/bin/activate
 conda activate /scratch/nme3923/conda-envs/glimpse2
 
-# Interactive PCA of the Iran samples only (Super-population == Iran: modern Iranians of this
-# study + ancient Iranian samples), as ONE self-contained HTML file.
-#   - hover a point to see its Population and the rest of its metadata
-#   - colour = Population; ancient samples have a black outline and are sized by age
-#     (older = bigger); modern samples are plain dots. Markers are ~4x the size used in plot_pca.sh
+# Interactive PCA of the MODERN Iranian samples only (Super-population == Iran and not ancient,
+# i.e. "Undergone Imputation" != Yes in the mega table), as ONE self-contained HTML file.
+#   - hover a point to see its Population and every other metadata column of the mega table
+#     that has a value for that sample (study cluster, source, sex, latitude/longitude, ...)
+#   - colour = Population. Markers are ~4x the size used in plot_pca.sh
 #   - legend: click a Population to hide/show it; dropdowns switch the PCs on each axis;
 #     mouse wheel zooms, drag pans, double-click resets
 # Needs only numpy + pandas (no plotly / internet): the HTML opens in any browser.
@@ -32,7 +32,8 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #             (points are coloured by Population). If the 3rd argument is not a path it is
 #             taken as the Super-population name (old behaviour); anything containing "/" or ending
 #             in .txt is always treated as the colour file.
-#   4th arg   which Super-population to plot (default Iran), or env SUPERPOP=<name>.
+#   4th arg   which Super-population to plot (default Iran), or env SUPERPOP=<name>. Ancient samples
+#             are always left out (set INCLUDE_ANCIENT=1 to put them back).
 #   Set MARKER_SCALE=<x> to resize points further (default 1 = the 4x size described above).
 #
 # Output: <prefix>.pca_iran.html   (+ <prefix>.pca_iran.tsv with the plotted rows)
@@ -74,9 +75,9 @@ python3 -c "import numpy, pandas" 2>/dev/null || {
 
 echo "prefix : $PREFIX"
 echo "table  : $TABLE"
-echo "group  : Super-population == $GROUP"
+echo "group  : Super-population == $GROUP (modern samples only)"
 
-python3 - "$PREFIX" "$TABLE" "$GROUP" "$MARKER_SCALE" <<'PY'
+python3 - "$PREFIX" "$TABLE" "$GROUP" "$MARKER_SCALE" "${INCLUDE_ANCIENT:-0}" <<'PY'
 import json
 import re
 import sys
@@ -84,6 +85,7 @@ import numpy as np
 import pandas as pd
 
 prefix, table_path, group, mscale = sys.argv[1], sys.argv[2], sys.argv[3], float(sys.argv[4])
+include_ancient = sys.argv[5] == "1"
 
 # ---- read fam / eigenvec / eigenval ------------------------------------------------------------
 fam = pd.read_csv(f"{prefix}.fam", sep=r"\s+", header=None, dtype=str,
@@ -123,40 +125,35 @@ if table_path.lower().endswith((".xlsx", ".xls")):
         sys.exit("ERROR: reading .xlsx needs openpyxl; pass the .csv instead")
 else:
     t = pd.read_csv(table_path, dtype=str)
+need = ["IID", "Population", "Super-population", "Undergone Imputation"]
+bad = [c for c in need if c not in t.columns]
+if bad:
+    sys.exit(f"ERROR: table {table_path} lacks column(s) {bad}; its columns are: {', '.join(t.columns)}")
 t = t.drop_duplicates("IID")
 sel = t[t["Super-population"] == group]
 if sel.empty:
     sys.exit(f"ERROR: no samples with Super-population == {group!r} in the table "
              f"(available: {', '.join(sorted(t['Super-population'].dropna().unique()))})")
+is_anc = sel["Undergone Imputation"].str.strip().str.lower() == "yes"
+if not include_ancient:
+    print(f"leaving out {int(is_anc.sum())} ancient {group} samples (modern only)")
+    sel = sel[~is_anc]
 df = ev.merge(sel, left_on="sid", right_on="IID", how="inner")
-print(f"{group}: {len(sel)} samples in the table, {len(df)} present in the PCA")
+print(f"{group}: {len(sel)} modern samples in the table, {len(df)} present in the PCA")
 if df.empty:
     sys.exit("ERROR: none of those samples are in the eigenvec")
-
-# ---- age (years BP) of ancient samples, from 'Archeological Date' -------------------------------
-DATE = re.compile(r"^\s*(?:(?P<a>\d+)\s*-\s*(?P<b>\d+)|(?P<c>\d+))\s*(?P<era>cal\s*BCE|BCE|cal\s*CE|CE|AD|cal\s*AD|calBP|BP)", re.I)
-def age_bp(txt):
-    m = DATE.match(txt) if isinstance(txt, str) else None
-    if not m:
-        return None
-    lo, hi = (m["a"], m["b"]) if m["a"] else (m["c"], m["c"])
-    mid = (float(lo) + float(hi)) / 2
-    era = re.sub(r"\s+", "", m["era"]).lower()
-    return mid + 1950 if era.endswith("bce") else (mid if era.endswith("bp") else 1950 - mid)
 df["ancient"] = df["Undergone Imputation"].str.strip().str.lower() == "yes"
-df["age"] = [age_bp(d) if a else None for d, a in zip(df["Archeological Date"], df["ancient"])]
-amax = max([a for a in df["age"] if a is not None] or [1.0])
-
-# ---- marker radius (px): ~4x the plot_pca.sh markers (modern ~1px, ancient ~2.6-10px)
-def radius(row):
-    if not row["ancient"]:
-        return 4.0 * mscale
-    a = row["age"] if row["age"] is not None else 0.0
-    return (4.0 + 10.0 * min(max(a, 0.0), amax) / amax) * mscale
-df["r"] = df.apply(radius, axis=1)
+df["r"] = 4.0 * mscale                           # ~4x the plot_pca.sh marker radius (px)
 
 def clean(v):
     return None if (v is None or (isinstance(v, float) and np.isnan(v)) or str(v).strip() == "" or str(v) == "nan") else str(v)
+
+# every other table column goes in the tooltip when it has a value, so new columns show up automatically
+skip = {"IID", "Population", "Super-population", "Undergone Imputation"}
+info_cols = [c for c in t.columns if c not in skip]
+empty_cols = [c for c in info_cols if df[c].isna().all()]
+if empty_cols:
+    print("NOTE: no values for these samples in: " + ", ".join(empty_cols) + " (not shown in the tooltip)")
 
 pops = sorted(df["Population"].fillna("Population not recorded").unique())
 rows = []
@@ -167,10 +164,7 @@ for _, r in df.iterrows():
         "pcs": [round(float(r[c]), 6) for c in pc_cols],
         "r": round(float(r["r"]), 2),
         "anc": bool(r["ancient"]),
-        "info": {k: clean(r[k]) for k in (
-            "Empirical cluster (Study Pop only)", "Source Publication(s)", "Sex", "Archeological Period",
-            "Archeological Date", "Original Genome Coverage (ancient samples only)", "Latitude", "Longitude")},
-        "age": None if r["age"] is None or np.isnan(r["age"]) else round(float(r["age"])),
+        "info": {k: clean(r[k]) for k in info_cols if clean(r[k]) is not None},
     })
 payload = {"title": f"{prefix.split('/')[-1]}  |  {group}  |  n={len(rows)}",
            "pcs": pc_cols, "pct": [round(x, 2) for x in pct], "pops": pops, "rows": rows,
@@ -179,7 +173,7 @@ payload = {"title": f"{prefix.split('/')[-1]}  |  {group}  |  n={len(rows)}",
 HTML = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Iran PCA</title>
+<title>Iranian PCA</title>
 <style>
 :root{--bg:#fff;--fg:#1d1d1f;--mut:#6b6b70;--grid:#e6e6ea;--card:#fff;--bd:#cfcfd6}
 @media (prefers-color-scheme:dark){:root{--bg:#16161a;--fg:#e8e8ec;--mut:#9a9aa3;--grid:#2c2c33;--card:#202026;--bd:#3a3a44}}
@@ -209,7 +203,7 @@ svg:active{cursor:grabbing}
   <label>x <select id="sx"></select></label><label>y <select id="sy"></select></label>
   <button id="rst">Reset view</button><button id="all">Show all</button><button id="none">Hide all</button></div>
  <div id="plot"><svg id="svg"></svg></div>
- <div id="note">Hover a point for details &middot; wheel = zoom, drag = pan, double-click = reset &middot; click a Population to hide/show it &middot; ancient samples: outlined, larger = older</div>
+ <div id="note">Hover a point for details &middot; wheel = zoom, drag = pan, double-click = reset &middot; click a Population to hide/show it &middot; colour = Population</div>
 </div>
 <div id="side"><h2>Population</h2><div id="leg"></div></div></div>
 <div id="tip"></div>
@@ -259,12 +253,8 @@ function draw(){
     c.onmouseenter=e=>show(r,e);c.onmousemove=e=>move(e);c.onmouseleave=()=>tip.style.display="none";
     c.onmouseover=()=>c.setAttribute("stroke","#000");c.onmouseout=()=>{c.setAttribute("stroke",r.anc?"#000":"none")}});
 }
-function show(r,e){const rows=[["Population","<b>"+r.pop+"</b>"],["Sample ID",r.id],["Type",r.anc?"Ancient":"Modern"]];
-  const i=r.info;const add=(k,v)=>{if(v!==null&&v!==undefined)rows.push([k,v])};
-  add("Study cluster",i["Empirical cluster (Study Pop only)"]);add("Source",i["Source Publication(s)"]);add("Sex",i["Sex"]);
-  add("Period",i["Archeological Period"]);add("Date",i["Archeological Date"]);if(r.age!==null)add("Age (yr BP)",r.age.toLocaleString());
-  add("Coverage",i["Original Genome Coverage (ancient samples only)"]);
-  if(i["Latitude"]&&i["Longitude"])add("Lat, Lon",(+i["Latitude"]).toFixed(3)+", "+(+i["Longitude"]).toFixed(3));
+function show(r,e){const rows=[["Population","<b>"+r.pop+"</b>"],["Sample ID",r.id]];
+  Object.keys(r.info).forEach(k=>{let v=r.info[k];if(/^(lat|lon)/i.test(k)&&!isNaN(+v))v=(+v).toFixed(4);rows.push([k,v])});
   rows.push([D.pcs[ix],r.pcs[ix].toFixed(4)],[D.pcs[iy],r.pcs[iy].toFixed(4)]);
   tip.innerHTML=rows.map(x=>'<div><span class="k">'+x[0]+':</span> '+x[1]+'</div>').join("");tip.style.display="block";move(e)}
 function move(e){const w=tip.offsetWidth,h=tip.offsetHeight;let x=e.clientX+14,y=e.clientY+14;
