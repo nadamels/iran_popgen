@@ -79,6 +79,7 @@ echo "group  : Super-population == $GROUP (modern samples only)"
 
 python3 - "$PREFIX" "$TABLE" "$GROUP" "$MARKER_SCALE" "${INCLUDE_ANCIENT:-0}" <<'PY'
 import json
+import os
 import re
 import sys
 import numpy as np
@@ -138,6 +139,17 @@ is_anc = sel["Undergone Imputation"].str.strip().str.lower() == "yes"
 if not include_ancient:
     print(f"leaving out {int(is_anc.sum())} ancient {group} samples (modern only)")
     sel = sel[~is_anc]
+    # The table also calls a few reference samples (e.g. SGDP) Super-population Iran. Keep only the
+    # study's own Iranians (Source Publication(s) contains IRAN_SOURCE, default "Iranian cohort");
+    # IRAN_SOURCE="" keeps every modern Iran-labelled sample.
+    iran_src = os.environ.get("IRAN_SOURCE", "Iranian cohort")
+    if group.lower() == "iran" and iran_src and "Source Publication(s)" in sel.columns:
+        keep = sel["Source Publication(s)"].fillna("").str.contains(iran_src, case=False, regex=False)
+        if keep.any() and (~keep).any():
+            print(f"leaving out {int((~keep).sum())} other modern Iran-labelled reference samples (Source lacks {iran_src!r}): "
+                  + ", ".join(f"{i} [{src}]" for i, src in zip(sel.loc[~keep, 'IID'], sel.loc[~keep, 'Source Publication(s)'])))
+        if keep.any():
+            sel = sel[keep]
 df = ev.merge(sel, left_on="sid", right_on="IID", how="inner")
 print(f"{group}: {len(sel)} {'' if include_ancient else 'modern '}samples in the table, {len(df)} present in the PCA")
 if df.empty:
