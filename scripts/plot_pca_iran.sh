@@ -249,9 +249,9 @@ function draw(){
   // modern first (below), ancient on top, big old ancient points below small ones
   const order=D.rows.filter(r=>!hidden.has(r.pop)).sort((a,b)=>(a.anc-b.anc)||(b.r-a.r));
   order.forEach(r=>{const c=el("rect",{x:sx_(r.pcs[ix])-r.r,y:sy_(r.pcs[iy])-r.r,width:2*r.r,height:2*r.r,fill:col[r.pop],"fill-opacity":.85,
-      stroke:"#000","stroke-width":.8},g);
+      stroke:"#000","stroke-width":1.6},g);
     c.onmouseenter=e=>show(r,e);c.onmousemove=e=>move(e);c.onmouseleave=()=>tip.style.display="none";
-    c.onmouseover=()=>c.setAttribute("stroke-width",2.2);c.onmouseout=()=>c.setAttribute("stroke-width",.8)});
+    c.onmouseover=()=>c.setAttribute("stroke-width",3);c.onmouseout=()=>c.setAttribute("stroke-width",1.6)});
 }
 function show(r,e){const rows=[["Population","<b>"+r.pop+"</b>"],["Sample ID",r.id]];
   Object.keys(r.info).forEach(k=>{let v=r.info[k];if(/^(lat|lon)/i.test(k)&&!isNaN(+v))v=(+v).toFixed(4);rows.push([k,v])});

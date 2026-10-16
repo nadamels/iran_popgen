@@ -235,6 +235,7 @@ df["size"] = size_of(df["age"].to_numpy(dtype=float))
 
 # ---- plot --------------------------------------------------------------------------------------
 IRAN_SIZE = 45.0                                # marker area (pt^2) for modern Iranians (target population)
+IRAN_EDGE = 1.5                                 # border width (pt) of the modern-Iranian squares
 anc = df[df.is_ancient]
 mod_all = df[~df.is_ancient & df["IID"].notna()]
 is_iran = mod_all["sp"].str.lower() == "iran"
@@ -255,7 +256,7 @@ def plot_pair(a, b, out, xlim=None, ylim=None):
     # modern Iranians: large, on top of ancient points too
     if len(mod_iran):
         ax.scatter(mod_iran[a], mod_iran[b], s=IRAN_SIZE, c=[col_of[x] for x in mod_iran["sp"]], marker="s",
-                   edgecolors="black", linewidths=0.8, alpha=0.95, zorder=5)
+                   edgecolors="black", linewidths=IRAN_EDGE, alpha=0.95, zorder=5)
     ia, ib = pc_cols.index(a), pc_cols.index(b)
     ax.set_xlabel(f"{a} ({pct[ia]:.2f}% of listed eigenvalues)" if ia < len(pct) else a)
     ax.set_ylabel(f"{b} ({pct[ib]:.2f}% of listed eigenvalues)" if ib < len(pct) else b)
@@ -289,7 +290,7 @@ def plot_pair(a, b, out, xlim=None, ylim=None):
           for t_ in ticks]
     h2.append(Line2D([], [], marker="o", ls="", color="0.5", markersize=2, label="Modern (tiny dots)"))
     if len(mod_iran):
-        h2.append(Line2D([], [], marker="s", ls="", color=col_of[mod_iran["sp"].iloc[0]], markeredgecolor="black",
+        h2.append(Line2D([], [], marker="s", ls="", color=col_of[mod_iran["sp"].iloc[0]], markeredgecolor="black", markeredgewidth=IRAN_EDGE,
                          markersize=float(np.sqrt(IRAN_SIZE)), label=f"Modern Iranians (n={len(mod_iran)})"))
     lax = fig.add_axes([0.73, 0.02, 0.26, 0.94]); lax.axis("off")
     l1 = lax.legend(handles=h1, loc="upper left", bbox_to_anchor=(0, 1), fontsize=8, frameon=False,
@@ -404,7 +405,7 @@ function draw(){const b=cv.getBoundingClientRect(),dpr=window.devicePixelRatio||
  ctx.save();ctx.beginPath();ctx.rect(M.l,M.t,w-M.l-M.r,h-M.t-M.b);ctx.clip();plotted=[];
  for(const r of order){if(!vis(r))continue;const x=sx_(r.p[ix]),y=sy_(r.p[iy]);if(x<M.l-12||x>w-M.r+12||y<M.t-12||y>h-M.b+12)continue;
   const q=rad(r);plotted.push([r,x,y,q]);ctx.fillStyle=r.ok?col(r.sp):"#888";
-  if(r.iran){ctx.globalAlpha=.95;ctx.fillRect(x-q,y-q,2*q,2*q);ctx.lineWidth=.8;ctx.strokeStyle="#000";ctx.strokeRect(x-q,y-q,2*q,2*q)}
+  if(r.iran){ctx.globalAlpha=.95;ctx.fillRect(x-q,y-q,2*q,2*q);ctx.lineWidth=1.6;ctx.strokeStyle="#000";ctx.strokeRect(x-q,y-q,2*q,2*q)}
   else{ctx.globalAlpha=r.anc?.9:.7;ctx.beginPath();ctx.arc(x,y,q,0,6.2832);ctx.fill();if(r.anc){ctx.lineWidth=.6;ctx.strokeStyle="#000";ctx.stroke()}}}
  ctx.restore();ctx.globalAlpha=1}
 function pick(e){const b=cv.getBoundingClientRect(),mx=e.clientX-b.left,my=e.clientY-b.top;
