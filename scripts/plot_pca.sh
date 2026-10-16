@@ -16,8 +16,9 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #   COLOUR = Super-population (colours from Plotting/pca_colors.txt)
 #   SIZE   = age of the sample (older = bigger), ancient samples only
 #   Modern samples = tiny dots (coloured by super-population); no marker shapes for now.
-#   Modern IRANIANS (Super-population Iran, the target population) = large outlined SQUARES drawn
-#   on top of everything else.
+#   Modern IRANIANS of this study (Super-population Iran and 'Source Publication(s)' containing
+#   "Iranian cohort"; env IRAN_SOURCE to change) = large outlined SQUARES drawn on top of everything
+#   else. Other modern Iran-labelled reference samples (e.g. SGDP) stay tiny dots; the log lists them.
 #
 # Usage:   sbatch plot_pca.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_range] [PC2_range]
 #          bash   plot_pca.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_range] [PC2_range]
@@ -84,6 +85,7 @@ echo "colours: $COLORS"
 echo "PC1 range: $PC1_RANGE   PC2 range: $PC2_RANGE"
 
 python3 - "$PREFIX" "$TABLE" "$COLORS" "$PC1_RANGE" "$PC2_RANGE" <<'PY'
+import os
 import re
 import sys
 import numpy as np
@@ -239,7 +241,24 @@ IRAN_EDGE = 1.5                                 # border width (pt) of the moder
 anc = df[df.is_ancient]
 mod_all = df[~df.is_ancient & df["IID"].notna()]
 is_iran = mod_all["sp"].str.lower() == "iran"
+# "Modern Iranians" (the squares) = the Iranians of THIS study. The table also labels a few reference
+# samples (e.g. SGDP Iranians that sit in the reference-panel fam) as Super-population Iran; those stay
+# ordinary tiny dots. The study's samples are recognised by the text in 'Source Publication(s)'
+# (default "Iranian cohort"; set IRAN_SOURCE="" to treat every modern Iran sample as a square).
+IRAN_SOURCE = os.environ.get("IRAN_SOURCE", "Iranian cohort")
+SRC_COL = "Source Publication(s)"
+if IRAN_SOURCE and SRC_COL in mod_all.columns:
+    is_study = mod_all[SRC_COL].fillna("").str.contains(IRAN_SOURCE, case=False, regex=False)
+    if (is_iran & is_study).any():
+        other = mod_all[is_iran & ~is_study]
+        print(f"modern Iran samples in the PCA: {int(is_iran.sum())} = {int((is_iran & is_study).sum())} of this study "
+              f"(Source contains {IRAN_SOURCE!r}, drawn as squares) + {len(other)} other (drawn as tiny dots)"
+              + (": " + ", ".join(f"{i} [{src}]" for i, src in zip(other['sid'], other[SRC_COL])) if len(other) else ""))
+        is_iran = is_iran & is_study
+    else:
+        print(f"WARNING: no modern Iran sample has {IRAN_SOURCE!r} in {SRC_COL!r}; treating all {int(is_iran.sum())} as the study's Iranians")
 mod, mod_iran = mod_all[~is_iran], mod_all[is_iran]
+iran_ids = set(mod_iran["sid"])
 def plot_pair(a, b, out, xlim=None, ylim=None):
     fig = plt.figure(figsize=(16, 10))
     ax = fig.add_axes([0.06, 0.07, 0.66, 0.88])
@@ -280,9 +299,12 @@ def plot_pair(a, b, out, xlim=None, ylim=None):
     h1 = []
     for sp in sorted(sps, key=lambda x: (x == "Unassigned", x)):
         na, nm = int(((anc.sp == sp)).sum()), int(((mod_all.sp == sp)).sum())
+        extra = ""
+        if len(mod_iran) and mod_all.loc[mod_all.sp == sp, "sid"].isin(iran_ids).any() and nm != len(mod_iran):
+            extra = f" = {len(mod_iran)} study + {nm - len(mod_iran)} reference"       # e.g. SGDP Iranians
         h1.append(Line2D([], [], marker="o", ls="", color=col_of[sp], markersize=8,
                          markeredgecolor="black", markeredgewidth=0.4,
-                         label=f"{sp} (ancient {na}, modern {nm})"))
+                         label=f"{sp} (ancient {na}, modern {nm}{extra})"))
     # legend 2: size = age
     ticks = [t_ for t_ in (500, 2000, 4000, 6000, 8000, 10000, 12000) if t_ <= AGE_MAX * 1.05]
     h2 = [Line2D([], [], marker="o", ls="", color="0.75", markeredgecolor="black", markeredgewidth=0.5,
@@ -329,7 +351,7 @@ for _, r in df.iterrows():
         "id": r["sid"],
         "sp": r["sp"],
         "anc": bool(r["is_ancient"]),
-        "iran": bool((not r["is_ancient"]) and str(r["sp"]).lower() == "iran" and not pd.isna(r.get("IID"))),
+        "iran": r["sid"] in iran_ids,
         "ok": bool(not pd.isna(r.get("IID"))),
         "age": None if pd.isna(r["age"]) else round(float(r["age"])),
         "p": [round(float(r[c]), 6) for c in pc_cols[:npc]],
@@ -366,7 +388,7 @@ select,button{background:var(--card);color:var(--fg);border:1px solid var(--bd);
  <div id="plot"><canvas id="cv"></canvas></div>
  <div id="note">Hover a point for details &middot; wheel = zoom, drag = pan, double-click = reset &middot; click a Super-population to hide/show it &middot; colour = Super-population, ancient: outlined, larger = older &middot; modern Iranians: squares</div>
 </div>
-<div id="side"><h2>Super-population</h2><div id="leg"></div></div></div>
+<div id="side"><h2>Super-population</h2><div id="leg"></div><h2>Size = age (ancient samples)</h2><div id="szleg"></div></div></div>
 <div id="tip"></div>
 <script>
 const D=__DATA__, cv=document.getElementById("cv"), ctx=cv.getContext("2d"), tip=document.getElementById("tip");
@@ -382,8 +404,15 @@ const sps=[...new Set(rows.map(r=>r.sp))].sort(); const cnt={};
 rows.forEach(r=>{const c=cnt[r.sp]||(cnt[r.sp]={a:0,m:0});r.anc?c.a++:c.m++});
 const leg=document.getElementById("leg");
 sps.forEach(sp=>{const d=document.createElement("div");d.className="it";
- d.innerHTML='<span class="sw" style="background:'+col(sp)+'"></span><span class="nm">'+sp+'</span><span class="n">'+cnt[sp].a+' anc / '+cnt[sp].m+' mod</span>';
+ const ni=rows.filter(r=>r.iran&&r.sp===sp).length,ex=(ni&&ni!==cnt[sp].m)?' ('+ni+' study + '+(cnt[sp].m-ni)+' ref)':'';
+ d.innerHTML='<span class="sw" style="background:'+col(sp)+'"></span><span class="nm">'+sp+'</span><span class="n">'+cnt[sp].a+' anc / '+cnt[sp].m+' mod'+ex+'</span>';
  d.onclick=()=>{hidden.has(sp)?hidden.delete(sp):hidden.add(sp);d.classList.toggle("off");draw()};leg.appendChild(d)});
+(function(){const el=document.getElementById("szleg"),mk=(w,h,svg,txt)=>{const d=document.createElement("div");d.className="it";d.style.cursor="default";
+  d.innerHTML='<svg width="'+w+'" height="'+h+'" style="flex:none">'+svg+'</svg><span class="nm">'+txt+'</span>';el.appendChild(d)};
+ const W=26,H=24,c=[...[500,2000,4000,6000,8000,10000,12000].filter(t=>t<=AMAX*1.05)];
+ c.forEach(t=>{const q=3+7*Math.min(t,AMAX)/AMAX;mk(W,H,'<circle cx="13" cy="12" r="'+q+'" fill="#bbb" stroke="#000" stroke-width=".6"/>',t.toLocaleString()+" years BP")});
+ mk(W,H,'<circle cx="13" cy="12" r="1.7" fill="#888"/>',"Modern (tiny dots)");
+ if(rows.some(r=>r.iran))mk(W,H,'<rect x="8.5" y="7.5" width="9" height="9" fill="#bbb" stroke="#000" stroke-width="1.6"/>',"Modern Iranians (square)")})();
 all.onclick=()=>{hidden.clear();[...leg.children].forEach(c=>c.classList.remove("off"));draw()};
 none.onclick=()=>{sps.forEach(s=>hidden.add(s));[...leg.children].forEach(c=>c.classList.add("off"));draw()};
 cA.onchange=cM.onchange=draw;
