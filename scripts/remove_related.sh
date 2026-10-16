@@ -26,6 +26,8 @@ conda activate /scratch/nme3923/conda-envs/myenviro
 #
 # After removing samples the script runs KING again on the rest and repeats until KING finds no
 # related pair up to the degree (MAX_ROUNDS, default 5), so the output really is clear of relatives.
+# If MAX_ROUNDS runs out right after a removal, one more KING run checks the result; if related pairs
+# remain the script exits with status 2 and lists them (never reports success on an unverified set).
 #
 # Outputs:
 #   <output_prefix>.{bed,bim,fam}                 unrelated samples only
@@ -72,6 +74,7 @@ done
 # is left; this repeats until KING finds NO related pair up to the degree (or MAX_ROUNDS is hit).
 MAX_ROUNDS=${MAX_ROUNDS:-5}
 CUR="$IN"
+CLEAN=0                     # 1 once a KING run on the CURRENT fileset has found no related pair
 : > "${OUT}.removed_related.txt"
 printf 'round\tFID\tIID\tn_related\tmax_kinship\trelated_kept_samples\n' > "${OUT}.removed_related_details.tsv"
 for ((r = 1; r <= MAX_ROUNDS; r++)); do
@@ -93,20 +96,38 @@ for ((r = 1; r <= MAX_ROUNDS; r++)); do
 
 	if [ "$n" -eq 0 ]; then
 		echo "round ${r}: KING finds no related pair up to degree ${DEGREE}; done"
+		CLEAN=1
 		break
 	fi
 	tail -n "$n" "${OUT}.removed_related.txt" > "${OUT}.tmp_remove${r}.txt"      # this round's removals
 	plink --bfile "$CUR" --remove "${OUT}.tmp_remove${r}.txt" --allow-no-sex --make-bed --out "${OUT}.tmp_round${r}"
 	CUR="${OUT}.tmp_round${r}"
-	if [ "$r" -eq "$MAX_ROUNDS" ]; then
-		echo "WARNING: still removing samples after ${MAX_ROUNDS} rounds; re-run KING on ${OUT} to check what is left" >&2
-	fi
 done
 nrem=$(wc -l < "${OUT}.removed_related.txt")
 
 # ---- write the pruned fileset ----------------------------------------------
 plink --bfile "$CUR" --allow-no-sex --make-bed --out "$OUT"
 rm -f "${OUT}".tmp_round* "${OUT}".tmp_remove*
+
+# ---- final verification ------------------------------------------------------
+# If the loop ended because MAX_ROUNDS ran out, the last removal has NOT been checked by KING yet: check now.
+# A run that ended "clean" was already verified (its last KING run was on exactly this fileset).
+if [ "$CLEAN" -ne 1 ]; then
+	echo "=== final check: MAX_ROUNDS (${MAX_ROUNDS}) reached after a removal; running KING on the result ==="
+	king -b "${OUT}.bed" --related --degree "$DEGREE" --cpus "$CPUS" --prefix "${OUT}.king_final"
+	plink --bfile "$OUT" --missing --allow-no-sex --out "${OUT}.tmpmiss"
+	python3 "$PRUNE_PY" "$DEGREE" "${OUT}.tmpmiss.imiss" "${OUT}.king_final.kin" "${OUT}.king_final.kin0" -- "${OUT}.final_check"
+	rm -f "${OUT}.tmpmiss".*
+	nleft=$(wc -l < "${OUT}.final_check.removed_related.txt")
+	if [ "$nleft" -gt 0 ]; then
+		echo "ERROR: ${OUT} STILL contains related pairs up to degree ${DEGREE} (KING final check)." >&2
+		echo "       ${nleft} more sample(s) would have to go; they are listed in ${OUT}.final_check.removed_related.txt" >&2
+		echo "       KING's pairs: ${OUT}.king_final.kin. Re-run with a higher MAX_ROUNDS, e.g.  MAX_ROUNDS=10 sbatch ..." >&2
+		exit 2
+	fi
+	rm -f "${OUT}.final_check.removed_related.txt" "${OUT}.final_check.removed_related_details.tsv"
+	echo "final check: KING finds no related pair up to degree ${DEGREE}"
+fi
 
 # ---- verify ----------------------------------------------------------------
 nin=$(wc -l < "${IN}.fam"); nout=$(wc -l < "${OUT}.fam")
