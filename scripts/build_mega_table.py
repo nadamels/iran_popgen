@@ -38,6 +38,8 @@ FAM_ORDER = [
     ("Narasimhan2019 + 54 ancient", "Narasimhan2019_plus54Full.fam"),
     ("Lazaridis2022 / Southern Arc ancient", "southern_arc_samples_merged.filtered.renamediids.dupSampVarem.flipped.amb.rel2ndrem.fam"),
     ("Modern Iranians", "all_avr0.2_gq20.SNPsOnly.vcf.filtered.dupSampVarem.flipped.amb.rel1strem.fam"),
+    # later pruning rounds keep a few Iranians (e.g. 86, IGP_19) that the rel1strem set lacks; same group, extra IIDs only
+    ("Modern Iranians", "all_avr0.2_gq20.SNPsOnly.vcf.filtered.dupSampVarem.flipped.amb.rel2ndrem70run3.LDpruned.pca.fam"),
     ("Modern global references", "GA_Paps_refs.related_removed.filtered.flipped.amb.filtered.dupSampVarem.rel2ndrem.fam"),
 ]
 IRAN_FAM = "Modern Iranians"
@@ -96,10 +98,12 @@ def main():
         f = read_fam(famdir / fn)
         assert f["IID"].is_unique, f"duplicate IIDs inside {fn}"
         for iid in f["IID"]:
+            if group in membership.get(iid, []):        # same group listed by two fams (Modern Iranians)
+                continue
             membership.setdefault(iid, []).append(group)
             if len(membership[iid]) == 1:
                 rows.append((iid, group))
-    n_fam_rows = sum(len(v) for v in membership.values())
+    n_fam_rows = sum(len(v) for v in membership.values())  # one per (IID, group)
     dups = {k: v for k, v in membership.items() if len(v) > 1}
     print(f"fam rows {n_fam_rows}; unique IIDs {len(membership)}; IIDs in >1 fam {len(dups)}")
 
