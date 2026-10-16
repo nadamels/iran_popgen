@@ -2,7 +2,9 @@
 """Choose the fewest samples to remove so no pair is related up to a given degree.
 
 Reads KING --related output (.kin and/or .kin0), builds a graph whose edges are
-pairs with Kinship >= 2^-(degree+1.5), and finds a minimum vertex cover per
+pairs that KING itself calls related up to DEGREE (its InfType column: Dup/MZ, PO, FS, 2nd, 3rd - this
+is based on shared IBD segments and can disagree with the Kinship column) OR have
+Kinship >= 2^-(degree+1.5), and finds a minimum vertex cover per
 connected component (exact for small components, greedy + redundancy pruning
 for large ones). Ties are broken in favour of removing the sample with the
 higher missing-genotype rate.
@@ -34,7 +36,14 @@ with open(imiss) as fh:
             except ValueError:
                 fmiss[(p[fi], p[ii])] = 0.0
 
+# InfType labels that count as "related" for each degree (KING's own inference)
+INF_BY_DEGREE = {1: {"dup/mz", "mz", "dup", "po", "fs"}}
+INF_BY_DEGREE[2] = INF_BY_DEGREE[1] | {"2nd"}
+INF_BY_DEGREE[3] = INF_BY_DEGREE[2] | {"3rd"}
+inf_ok = INF_BY_DEGREE.get(degree, INF_BY_DEGREE[3])
+
 kinship = {}
+n_by_inftype = 0
 for path in kin_files:
     try:
         fh = open(path)
@@ -48,12 +57,16 @@ for path in kin_files:
         i1, i2 = h.index("ID1"), h.index("ID2")
         f1 = h.index("FID1") if "FID1" in h else h.index("FID")
         f2 = h.index("FID2") if "FID2" in h else h.index("FID")
+        it = h.index("InfType") if "InfType" in h else None
         for line in fh:
             p = line.split()
             if not p:
                 continue
             kv = float(p[k])
-            if kv >= thr:
+            by_inf = it is not None and len(p) > it and p[it].lower() in inf_ok
+            if kv >= thr or by_inf:
+                if by_inf and kv < thr:
+                    n_by_inftype += 1
                 a, b = (p[f1], p[i1]), (p[f2], p[i2])
                 kinship[frozenset((a, b))] = kv
 
@@ -116,5 +129,6 @@ with open(out + ".removed_related_details.tsv", "w") as fh:
         mk = max(kinship[frozenset((n, m))] for m in adj[n])
         fh.write("%s\t%s\t%d\t%.4f\t%s\n" % (n[0], n[1], len(adj[n]), mk,
                                             ",".join(m[1] for m in kept) or "-"))
-print("related pairs (kinship >= %.4f): %d; samples involved: %d; removed: %d"
-      % (thr, len(kinship), len(adj), len(removed)))
+print("related pairs (KING InfType up to degree %d, or kinship >= %.4f): %d (%d of them only by InfType); "
+      "samples involved: %d; removed: %d"
+      % (degree, thr, len(kinship), n_by_inftype, len(adj), len(removed)))

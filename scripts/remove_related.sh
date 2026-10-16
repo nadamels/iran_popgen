@@ -24,11 +24,15 @@ conda activate /scratch/nme3923/conda-envs/myenviro
 # Usage: sbatch remove_related.sh <input_prefix> <output_prefix> [degree=2]
 #   prefixes may be paths in any directory (no .bed/.bim/.fam)
 #
+# After removing samples the script runs KING again on the rest and repeats until KING finds no
+# related pair up to the degree (MAX_ROUNDS, default 5), so the output really is clear of relatives.
+#
 # Outputs:
 #   <output_prefix>.{bed,bim,fam}                 unrelated samples only
-#   <output_prefix>.removed_related.txt           FID IID of every removed sample
-#   <output_prefix>.removed_related_details.tsv   why each was removed (kinship, relatives kept)
-#   <output_prefix>.king.kin / .kin0              KING's pairwise tables
+#   <output_prefix>.removed_related.txt           FID IID of every removed sample (all rounds)
+#   <output_prefix>.removed_related_details.tsv   why each was removed (round, kinship, relatives kept)
+#   <output_prefix>.king.kin / .kin0              KING's pairwise tables for round 1
+#   <output_prefix>.king_round2.kin ...           later rounds (only if round 1 left relatives)
 #
 # Note: KING groups people by FID. If every FID is 0 all samples are treated as
 # one "family" and relatedness is inferred from the genotypes alone.
@@ -62,24 +66,47 @@ for ext in bed bim fam; do
 done
 [ "$IN" != "$OUT" ] || { echo "ERROR: output prefix must differ from input" >&2; exit 1; }
 
-# ---- KING: pairwise kinship up to the chosen degree ------------------------
-king -b "${IN}.bed" --related --degree "$DEGREE" --cpus "$CPUS" --prefix "${OUT}.king"
+# ---- rounds of: KING -> minimum removal set -> remove -> re-check -------------------------------
+# Kinship estimates shift a little once samples are removed (and KING's relationship call comes from
+# shared IBD segments, not only the Kinship column), so after each removal KING is run again on what
+# is left; this repeats until KING finds NO related pair up to the degree (or MAX_ROUNDS is hit).
+MAX_ROUNDS=${MAX_ROUNDS:-5}
+CUR="$IN"
+: > "${OUT}.removed_related.txt"
+printf 'round\tFID\tIID\tn_related\tmax_kinship\trelated_kept_samples\n' > "${OUT}.removed_related_details.tsv"
+for ((r = 1; r <= MAX_ROUNDS; r++)); do
+	KP="${OUT}.king"; [ "$r" -gt 1 ] && KP="${OUT}.king_round${r}"
+	RP="${OUT}.round${r}"
+	echo "=== round ${r}: KING on $(wc -l < "${CUR}.fam") samples ==="
+	king -b "${CUR}.bed" --related --degree "$DEGREE" --cpus "$CPUS" --prefix "$KP"
 
-# ---- missingness (used only to break ties) ---------------------------------
-plink --bfile "$IN" --missing --allow-no-sex --out "${OUT}.tmpmiss"
+	# missingness (used only to break ties)
+	plink --bfile "$CUR" --missing --allow-no-sex --out "${OUT}.tmpmiss"
+	# minimum set of samples to remove (pairs KING lists as related up to DEGREE, or kinship over the cutoff)
+	python3 "$PRUNE_PY" "$DEGREE" "${OUT}.tmpmiss.imiss" "${KP}.kin" "${KP}.kin0" -- "$RP"
+	rm -f "${OUT}.tmpmiss".*
 
-# ---- minimum set of samples to remove --------------------------------------
-python3 "$PRUNE_PY" "$DEGREE" "${OUT}.tmpmiss.imiss" "${OUT}.king.kin" "${OUT}.king.kin0" -- "$OUT"
-rm -f "${OUT}.tmpmiss".*
+	n=$(wc -l < "${RP}.removed_related.txt")
+	cat "${RP}.removed_related.txt" >> "${OUT}.removed_related.txt"
+	tail -n +2 "${RP}.removed_related_details.tsv" | awk -v r="$r" 'BEGIN{FS=OFS="\t"} {print r, $0}' >> "${OUT}.removed_related_details.tsv"
+	rm -f "${RP}.removed_related.txt" "${RP}.removed_related_details.tsv"
 
+	if [ "$n" -eq 0 ]; then
+		echo "round ${r}: KING finds no related pair up to degree ${DEGREE}; done"
+		break
+	fi
+	tail -n "$n" "${OUT}.removed_related.txt" > "${OUT}.tmp_remove${r}.txt"      # this round's removals
+	plink --bfile "$CUR" --remove "${OUT}.tmp_remove${r}.txt" --allow-no-sex --make-bed --out "${OUT}.tmp_round${r}"
+	CUR="${OUT}.tmp_round${r}"
+	if [ "$r" -eq "$MAX_ROUNDS" ]; then
+		echo "WARNING: still removing samples after ${MAX_ROUNDS} rounds; re-run KING on ${OUT} to check what is left" >&2
+	fi
+done
 nrem=$(wc -l < "${OUT}.removed_related.txt")
 
 # ---- write the pruned fileset ----------------------------------------------
-if [ "$nrem" -gt 0 ]; then
-	plink --bfile "$IN" --remove "${OUT}.removed_related.txt" --allow-no-sex --make-bed --out "$OUT"
-else
-	plink --bfile "$IN" --allow-no-sex --make-bed --out "$OUT"
-fi
+plink --bfile "$CUR" --allow-no-sex --make-bed --out "$OUT"
+rm -f "${OUT}".tmp_round* "${OUT}".tmp_remove*
 
 # ---- verify ----------------------------------------------------------------
 nin=$(wc -l < "${IN}.fam"); nout=$(wc -l < "${OUT}.fam")
