@@ -3,10 +3,15 @@
 #SBATCH -c 28
 #SBATCH -t 6-00:00:00
 
+# `source`d scripts inherit our arguments and conda's activate rejects them (ArgumentError): hide, then restore
+ARGS=("$@")
+set --
+
 #Activate your environments here
 source ~/.bashrc
 source /share/apps/NYUAD5/miniconda/3-4.11.0/bin/activate
 conda activate /scratch/nme3923/conda-envs/myenviro
+set -- "${ARGS[@]}"
 
 #Loading File as myenviro contains PLINK as well as most dependanceis for popgen.
 
