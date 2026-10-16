@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Build the mega sample table.
 
-Rows    : exactly the IIDs in cleaned_fams/*.fam (nothing else), one row per unique IID, grouped by
-          fam file in FAM_ORDER (modern global references last), original fam row order kept inside
-          each group.
+Rows    : exactly the IIDs in fam_files/all_anc_mod.run3.fam (nothing else), one row per IID.
+          Rows are grouped by the cleaned_fams/*.fam each IID came from, in FAM_ORDER (modern global
+          references last), cleaned-fam row order kept inside each group. run3 IIDs that are in no
+          cleaned fam are classified from the metadata and appended at the end of their group.
 Columns : IID | Source Publication(s) | Empirical cluster (Study Pop only) | Population |
           Super-population | Sex | Archeological Period | Archeological Date |
           Original Genome Coverage (ancient samples only) | Undergone Imputation
@@ -87,7 +88,10 @@ def read_fam(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", default=str(Path(__file__).resolve().parents[1]))
-    root = Path(ap.parse_args().root)
+    ap.add_argument("--fam", default=None, help="fam whose IIDs define the rows (default fam_files/all_anc_mod.run3.fam)")
+    args = ap.parse_args()
+    root = Path(args.root)
+    run3_fam = Path(args.fam) if args.fam else root / "fam_files" / "all_anc_mod.run3.fam"
     meta, famdir = root / "metadata", root / "cleaned_fams"
 
     # ---- rows: IIDs from the cleaned fams -------------------------------------------------------
@@ -99,9 +103,19 @@ def main():
             membership.setdefault(iid, []).append(group)
             if len(membership[iid]) == 1:
                 rows.append((iid, group))
+    run3 = read_fam(run3_fam)
+    assert run3["IID"].is_unique, "duplicate IIDs in the row-defining fam"
+    keep = list(run3["IID"])
+    keepset = set(keep)
+    n_cleaned_unique = len(membership)
+    rows = [(i, g) for i, g in rows if i in keepset]
+    membership = {i: g for i, g in membership.items() if i in keepset}
     n_fam_rows = sum(len(v) for v in membership.values())
     dups = {k: v for k, v in membership.items() if len(v) > 1}
-    print(f"fam rows {n_fam_rows}; unique IIDs {len(membership)}; IIDs in >1 fam {len(dups)}")
+    extras = [i for i in keep if i not in membership]
+    print(f"{run3_fam.name}: {len(keep)} IIDs | cleaned fams: {n_cleaned_unique} unique IIDs, "
+          f"{n_cleaned_unique - len(membership)} not in {run3_fam.name} (dropped) | "
+          f"{len(extras)} {run3_fam.name} IIDs in no cleaned fam | IIDs in >1 fam {len(dups)}")
 
     # ---- reference data ---------------------------------------------------------------------------
     H = lib.load_sources(meta)
@@ -141,6 +155,22 @@ def main():
                  **dict(zip(sg["Sample ID (Illumina)"], sg["Genetic sex assignment"].map(SGSEX).fillna("U")))},
         "GenomeAsia 100K": dict(zip(ga["GA sample ID"], ga["Gender"].map({"M": "M", "F": "F"}).fillna("U"))),
     }
+
+    # ---- run3 IIDs that are in no cleaned fam: pick a group from the metadata -------------------------
+    group_of_study = {"M": FAM_ORDER[0][0], "N": FAM_ORDER[1][0], "L": FAM_ORDER[2][0]}
+    for iid in extras:
+        hits = lib.lookup(H, iid)
+        if hits:
+            g = group_of_study[next(k for k in lib.PRECEDENCE if k in hits)]
+        elif re.fullmatch(r"\d+|IGP_\d+", iid):
+            g = IRAN_FAM
+        else:
+            g = FAM_ORDER[-1][0]
+        rows.append((iid, g))
+        membership[iid] = []
+    gidx = {g: n for n, (g, _) in enumerate(FAM_ORDER)}
+    rows.sort(key=lambda r: gidx[r[1]])          # stable: cleaned-fam order kept, extras last in group
+    assert [r[0] for r in rows].count(rows[0][0]) == 1 and len(rows) == len(keep)
 
     # ---- build rows ---------------------------------------------------------------------------------
     out, missing, conflicts, unmapped = [], [], [], set()
@@ -219,8 +249,11 @@ def main():
     dupdf = pd.DataFrame([{"IID": k, "In fam files": "; ".join(v), "Row placed in": v[0]} for k, v in dups.items()])
 
     # ---- checks -----------------------------------------------------------------------------------
-    assert df["IID"].is_unique and set(df["IID"]) == set(membership)
-    checks = [("fam rows read", n_fam_rows), ("unique IIDs (= table rows)", len(df)),
+    assert df["IID"].is_unique and set(df["IID"]) == keepset
+    checks = [("IIDs in row-defining fam (= table rows)", len(df)),
+              ("cleaned-fam rows for those IIDs", n_fam_rows),
+              ("cleaned-fam unique IIDs dropped (not in row-defining fam)", n_cleaned_unique - (len(keep) - len(extras))),
+              ("row-defining-fam IIDs in no cleaned fam (group chosen from metadata)", len(extras)),
               ("IIDs present in more than one fam", len(dups)),
               ("ancient rows (imputed Yes)", int((df["Undergone Imputation"] == "Yes").sum())),
               ("modern rows (imputed No)", int((df["Undergone Imputation"] == "No").sum())),
@@ -252,7 +285,7 @@ def main():
         ("Archeological Date", "Ancient only. Date string as given by the study (calBCE/BCE range), else mean calBP."),
         ("Original Genome Coverage (ancient samples only)", "Mean coverage on the 1240k autosomal targets from the chosen study (blank for moderns)."),
         ("Undergone Imputation", "Yes for every ancient sample, No for every modern sample (by rule)."),
-        ("Row rules", "Rows = unique IIDs of cleaned_fams/*.fam. Grouped by fam in the order of the 'fam_groups' sheet, original fam order kept inside each group. A sample in several fams appears once, in the first group; see cross_fam_duplicate_iids.csv."),
+        ("Row rules", "Rows = the IIDs of fam_files/all_anc_mod.run3.fam, one row each. Grouped by the cleaned fam the IID came from, in the order of the 'fam_groups' sheet, cleaned-fam order kept inside each group; run3 IIDs in no cleaned fam are classified from the metadata and placed at the end of their group. A sample in several cleaned fams appears once, in the first group; see cross_fam_duplicate_iids.csv."),
     ], columns=["Column", "Definition"])
     smap = pd.DataFrame(sorted(SUPERPOP.items()), columns=["Country", "Super-population"])
     with pd.ExcelWriter(meta / "mega_sample_table.xlsx") as xw:

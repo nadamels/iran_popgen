@@ -1,14 +1,11 @@
 IID,Population,Super-population,Source Publication(s),Group,Reason
-I8505,Geoksyur_EN,Central-Asia,Narasimhan et al. 2019 (Science),Narasimhan2019 + 54 ancient,study reports sex as unknown / not determined
 1,Fars,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 13,Fars,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
-14,Iranian (ethnicity not reported),Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 18,Zoroastrian,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 21,Talysh,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 23,Fars,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 35,Mazandarani,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 37,Fars,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
-39,Iranian (ethnicity not reported),Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 48,Zoroastrian,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 49,Fars,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 5,Iranian (ethnicity not reported),Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
@@ -19,9 +16,7 @@ I8505,Geoksyur_EN,Central-Asia,Narasimhan et al. 2019 (Science),Narasimhan2019 +
 61,Assyrian,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 62,Turk_Azeri,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 69,Zoroastrian,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
-74,Iranian (ethnicity not reported),Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 78,Iranian (ethnicity not reported),Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
-82,Iranian (ethnicity not reported),Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 85,Fars,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 89,Azeri,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 91,Zoroastrian,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
@@ -31,7 +26,6 @@ I8505,Geoksyur_EN,Central-Asia,Narasimhan et al. 2019 (Science),Narasimhan2019 +
 99,Zoroastrian,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_10,Azeri,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_100,Armenian,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
-IGP_101,Iranian (ethnicity not reported),Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_104,Fars_Kashan,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_12,Fars,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_15,Assyrian_Armenian,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
@@ -65,13 +59,14 @@ IGP_72,Iranian (ethnicity not reported),Iran,not recorded in repo metadata (Iran
 IGP_75,Fars,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_76,Assyrian_Armenian,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_77,Fars,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
-IGP_8,Iranian (ethnicity not reported),Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_80,Fars_Lur,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_81,Fars_Afghani,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_83,Fars,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_84,Fars,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_87,Jewish,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 IGP_90,Iranian (ethnicity not reported),Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
+86,Zoroastrian,Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
+IGP_19,Iranian (ethnicity not reported),Iran,not recorded in repo metadata (Iranian cohort),Modern Iranians,no sex information in metadata files
 Jarwa:GA000782,Jarwa,South-Asia,GenomeAsia 100K,Modern global references,matched metadata file(s) but sex not reported
 Muria:GA000851,Muria,South-Asia,GenomeAsia 100K,Modern global references,matched metadata file(s) but sex not reported
 Kamar:GA000922,Kamar,South-Asia,GenomeAsia 100K,Modern global references,matched metadata file(s) but sex not reported
@@ -135,7 +130,6 @@ Sindhi:GA001856,Sindhi,South-Asia,GenomeAsia 100K,Modern global references,match
 Sindhi:GA001857,Sindhi,South-Asia,GenomeAsia 100K,Modern global references,matched metadata file(s) but sex not reported
 Sindhi:GA001858,Sindhi,South-Asia,GenomeAsia 100K,Modern global references,matched metadata file(s) but sex not reported
 Sindhi:GA001859,Sindhi,South-Asia,GenomeAsia 100K,Modern global references,matched metadata file(s) but sex not reported
-Sindhi:GA001861,Sindhi,South-Asia,GenomeAsia 100K,Modern global references,matched metadata file(s) but sex not reported
 Sindhi:GA001863,Sindhi,South-Asia,GenomeAsia 100K,Modern global references,matched metadata file(s) but sex not reported
 Sindhi:GA001864,Sindhi,South-Asia,GenomeAsia 100K,Modern global references,matched metadata file(s) but sex not reported
 Brusho:GA001865,Brusho,South-Asia,GenomeAsia 100K,Modern global references,matched metadata file(s) but sex not reported
