@@ -96,7 +96,7 @@ done
 # KING prints "Inference  MZ  PO  FS  2nd  3rd  OTHER"; return how many related pairs it reports up to $DEGREE
 # (empty if the summary line is not found, e.g. a different KING version)
 king_expected_pairs() {
-	awk -v d="$DEGREE" '/^[[:space:]]*Inference[[:space:]]/ { n=$2+$3+$4; if (d>=2) n+=$5; if (d>=3) n+=$6; print n; exit }' "$1"
+	awk -v d="$DEGREE" '/^[[:space:]]*Inference[[:space:]]+[0-9]+[[:space:]]/ { n=$2+$3+$4; if (d>=2) n+=$5; if (d>=3) n+=$6; print n; exit }' "$1"
 }
 
 # king_and_prune <fileset> <king prefix> <prune prefix>
@@ -112,6 +112,8 @@ king_and_prune() {
 	python3 "$PRUNE_PY" "$DEGREE" "${OUT}.tmpmiss.imiss" "${kp}.kin" "${kp}.kin0" -- "$rp"
 	npairs=$(cat "${rp}.npairs" 2>/dev/null || echo 0)
 	EXPECTED=$(king_expected_pairs "${kp}.log")
+	# (the numeric match matters: KING's options block also has a line "Inference Parameter : --degree [2], ..." )
+	[ -z "$EXPECTED" ] && echo "NOTE: could not find KING's 'Inference' summary row in ${kp}.log; the table-completeness cross-check is SKIPPED" >&2
 	UNPARSED=0
 	if [ -n "$EXPECTED" ] && [ "$EXPECTED" -gt "$npairs" ]; then
 		echo "WARNING: KING's own summary reports ${EXPECTED} related pair(s) up to degree ${DEGREE}, but only ${npairs} were read from ${kp}.kin / .kin0" >&2
