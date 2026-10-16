@@ -63,7 +63,12 @@ for path in kin_files:
         h = fh.readline().split()
         if not h:
             continue
-        k = h.index("Kinship")
+        # --related tables (.kin/.kin0) have a Kinship column; --ibdseg tables (.seg) only PropIBD (kinship ~ PropIBD/2)
+        k = h.index("Kinship") if "Kinship" in h else None
+        pi = h.index("PropIBD") if "PropIBD" in h else None
+        if k is None and pi is None:
+            print("NOTE: %s has neither a Kinship nor a PropIBD column; skipped" % path)
+            continue
         i1, i2 = h.index("ID1"), h.index("ID2")
         f1 = h.index("FID1") if "FID1" in h else h.index("FID")
         f2 = h.index("FID2") if "FID2" in h else h.index("FID")
@@ -72,7 +77,7 @@ for path in kin_files:
             p = line.split()
             if not p:
                 continue
-            kv = float(p[k])
+            kv = float(p[k]) if k is not None else float(p[pi]) / 2
             by_inf = False
             if it is not None and len(p) > it:
                 d_inf = inf_degree(p[it])
@@ -83,7 +88,8 @@ for path in kin_files:
                 if by_inf and kv < thr:
                     n_by_inftype += 1
                 a, b = (p[f1], p[i1]), (p[f2], p[i2])
-                kinship[frozenset((a, b))] = kv
+                key = frozenset((a, b))
+                kinship[key] = max(kv, kinship.get(key, kv))        # same pair in two tables: keep the larger
 
 if unknown_labels:
     print("NOTE: unrecognised InfType label(s) ignored: " + ", ".join(sorted(unknown_labels)))

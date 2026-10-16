@@ -81,6 +81,37 @@ king_expected_pairs() {
 	awk -v d="$DEGREE" '/^[[:space:]]*Inference[[:space:]]/ { n=$2+$3+$4; if (d>=2) n+=$5; if (d>=3) n+=$6; print n; exit }' "$1"
 }
 
+# king_and_prune <fileset> <king prefix> <prune prefix>
+#   1. KING --related; 2. minimum removal set from its tables; 3. cross-check against KING's own summary.
+#   KING's .kin table can come out INCOMPLETE (seen: cut off at exactly 2048 rows, i.e. only the first
+#   2048 of all pairs), so pairs KING counts can be missing from it. If that happens, KING --ibdseg (which
+#   writes only the related pairs) is run and its .seg table is added, then the removal set is recomputed.
+#   Sets: N_REMOVE (samples to remove), EXPECTED (KING's pair count), UNPARSED (pairs still missing from the tables).
+king_and_prune() {
+	local fs="$1" kp="$2" rp="$3" npairs
+	king -b "${fs}.bed" --related --degree "$DEGREE" --cpus "$CPUS" --prefix "$kp" 2>&1 | tee "${kp}.log"
+	plink --bfile "$fs" --missing --allow-no-sex --out "${OUT}.tmpmiss"
+	python3 "$PRUNE_PY" "$DEGREE" "${OUT}.tmpmiss.imiss" "${kp}.kin" "${kp}.kin0" -- "$rp"
+	npairs=$(cat "${rp}.npairs" 2>/dev/null || echo 0)
+	EXPECTED=$(king_expected_pairs "${kp}.log")
+	UNPARSED=0
+	if [ -n "$EXPECTED" ] && [ "$EXPECTED" -gt "$npairs" ]; then
+		echo "WARNING: KING's own summary reports ${EXPECTED} related pair(s) up to degree ${DEGREE}, but only ${npairs} were read from ${kp}.kin / .kin0" >&2
+		echo "         (the table is incomplete: $(($(wc -l < "${kp}.kin" 2>/dev/null || echo 1) - 1)) rows for $(wc -l < "${fs}.fam") samples). Trying KING --ibdseg to recover the missing pairs." >&2
+		king -b "${fs}.bed" --ibdseg --degree "$DEGREE" --cpus "$CPUS" --prefix "${kp}_seg" 2>&1 | tee "${kp}_seg.log"
+		python3 "$PRUNE_PY" "$DEGREE" "${OUT}.tmpmiss.imiss" "${kp}.kin" "${kp}.kin0" "${kp}_seg.seg" -- "$rp"
+		npairs=$(cat "${rp}.npairs" 2>/dev/null || echo 0)
+		if [ "$EXPECTED" -gt "$npairs" ]; then
+			UNPARSED=$((EXPECTED - npairs))
+			echo "WARNING: still ${UNPARSED} pair(s) short after --ibdseg ($npairs of ${EXPECTED} found)." >&2
+		else
+			echo "recovered: ${npairs} related pair(s) found (KING reports ${EXPECTED})"
+		fi
+	fi
+	rm -f "${rp}.npairs" "${OUT}.tmpmiss".*
+	N_REMOVE=$(wc -l < "${rp}.removed_related.txt")
+}
+
 # ---- rounds of: KING -> minimum removal set -> remove -> re-check -------------------------------
 # Kinship estimates shift a little once samples are removed (and KING's relationship call comes from
 # shared IBD segments, not only the Kinship column), so after each removal KING is run again on what
@@ -94,24 +125,9 @@ for ((r = 1; r <= MAX_ROUNDS; r++)); do
 	KP="${OUT}.king"; [ "$r" -gt 1 ] && KP="${OUT}.king_round${r}"
 	RP="${OUT}.round${r}"
 	echo "=== round ${r}: KING on $(wc -l < "${CUR}.fam") samples ==="
-	king -b "${CUR}.bed" --related --degree "$DEGREE" --cpus "$CPUS" --prefix "$KP" 2>&1 | tee "${KP}.log"
-
-	# missingness (used only to break ties)
-	plink --bfile "$CUR" --missing --allow-no-sex --out "${OUT}.tmpmiss"
-	# minimum set of samples to remove (pairs KING lists as related up to DEGREE, or kinship over the cutoff)
-	python3 "$PRUNE_PY" "$DEGREE" "${OUT}.tmpmiss.imiss" "${KP}.kin" "${KP}.kin0" -- "$RP"
-	rm -f "${OUT}.tmpmiss".*
-
-	n=$(wc -l < "${RP}.removed_related.txt")
-	npairs=$(cat "${RP}.npairs" 2>/dev/null || echo 0); rm -f "${RP}.npairs"
-	expected=$(king_expected_pairs "${KP}.log")
-	if [ -n "$expected" ] && [ "$expected" -gt "$npairs" ]; then
-		echo "WARNING: KING's own summary reports ${expected} related pair(s) up to degree ${DEGREE}, but only ${npairs} were read from ${KP}.kin / .kin0 -" >&2
-		echo "         ${KP}.log has the summary; the table is missing $((expected - npairs)) pair(s)." >&2
-		UNPARSED=$((expected - npairs))
-	else
-		UNPARSED=0
-	fi
+	king_and_prune "$CUR" "$KP" "$RP"
+	n=$N_REMOVE
+	expected=$EXPECTED
 	cat "${RP}.removed_related.txt" >> "${OUT}.removed_related.txt"
 	tail -n +2 "${RP}.removed_related_details.tsv" | awk -v r="$r" 'BEGIN{FS=OFS="\t"} {print r, $0}' >> "${OUT}.removed_related_details.tsv"
 	rm -f "${RP}.removed_related.txt" "${RP}.removed_related_details.tsv"
@@ -141,15 +157,10 @@ rm -f "${OUT}".tmp_round* "${OUT}".tmp_remove*
 # A run that ended "clean" was already verified (its last KING run was on exactly this fileset).
 if [ "$CLEAN" -ne 1 ]; then
 	echo "=== final check: MAX_ROUNDS (${MAX_ROUNDS}) reached after a removal; running KING on the result ==="
-	king -b "${OUT}.bed" --related --degree "$DEGREE" --cpus "$CPUS" --prefix "${OUT}.king_final" 2>&1 | tee "${OUT}.king_final.log"
-	plink --bfile "$OUT" --missing --allow-no-sex --out "${OUT}.tmpmiss"
-	python3 "$PRUNE_PY" "$DEGREE" "${OUT}.tmpmiss.imiss" "${OUT}.king_final.kin" "${OUT}.king_final.kin0" -- "${OUT}.final_check"
-	rm -f "${OUT}.tmpmiss".*
-	nleft=$(wc -l < "${OUT}.final_check.removed_related.txt")
-	npairs=$(cat "${OUT}.final_check.npairs" 2>/dev/null || echo 0); rm -f "${OUT}.final_check.npairs"
-	expected=$(king_expected_pairs "${OUT}.king_final.log")
-	if [ "$nleft" -eq 0 ] && [ -n "$expected" ] && [ "$expected" -gt "$npairs" ]; then
-		echo "ERROR: final check: KING reports ${expected} related pair(s) in ${OUT} that are not in its .kin table; result NOT verified clean (see ${OUT}.king_final.log)." >&2
+	king_and_prune "$OUT" "${OUT}.king_final" "${OUT}.final_check"
+	nleft=$N_REMOVE
+	if [ "$nleft" -eq 0 ] && [ "$UNPARSED" -gt 0 ]; then
+		echo "ERROR: final check: KING reports ${EXPECTED} related pair(s) in ${OUT} that could not be read from its tables; result NOT verified clean (see ${OUT}.king_final.log)." >&2
 		exit 3
 	fi
 	if [ "$nleft" -gt 0 ]; then
