@@ -190,6 +190,8 @@ with open(out + ".removed_related_details.tsv", "w") as fh:
         mk = max(kinship[frozenset((n, m))] for m in adj[n])
         fh.write("%s\t%s\t%d\t%.4f\t%s\n" % (n[0], n[1], len(adj[n]), mk,
                                             ",".join(m[1] for m in kept) or "-"))
+with open(out + ".npairs", "w") as fh:
+    fh.write("%d\n" % len(kinship))
 print("related pairs (KING InfType up to degree %d, or kinship >= %.4f): %d (%d of them only by InfType); "
       "samples involved: %d; removed: %d"
       % (degree, thr, len(kinship), n_by_inftype, len(adj), len(removed)))

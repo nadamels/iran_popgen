@@ -5,10 +5,15 @@
 #SBATCH --mail-user=nme3923@nyu.edu
 #SBATCH --mail-type=END,FAIL
 
+# `source`d scripts inherit our arguments and conda's activate rejects them (ArgumentError): hide, then restore
+ARGS=("$@")
+set --
+
 #Activate your environments here
 source ~/.bashrc
 source /share/apps/NYUAD5/miniconda/3-4.11.0/bin/activate
 conda activate /scratch/nme3923/conda-envs/myenviro
+set -- "${ARGS[@]}"
 
 #Loading File as myenviro contains PLINK and python; the KING executable ("king") is in the scripts directory.
 
@@ -28,6 +33,8 @@ conda activate /scratch/nme3923/conda-envs/myenviro
 # related pair up to the degree (MAX_ROUNDS, default 5), so the output really is clear of relatives.
 # If MAX_ROUNDS runs out right after a removal, one more KING run checks the result; if related pairs
 # remain the script exits with status 2 and lists them (never reports success on an unverified set).
+# Every KING run is also cross-checked against KING's own "Relationship summary": if KING reports related
+# pairs that are missing from its .kin table, the script stops (status 3) instead of calling the set clean.
 #
 # Outputs:
 #   <output_prefix>.{bed,bim,fam}                 unrelated samples only
@@ -68,6 +75,12 @@ for ext in bed bim fam; do
 done
 [ "$IN" != "$OUT" ] || { echo "ERROR: output prefix must differ from input" >&2; exit 1; }
 
+# KING prints "Inference  MZ  PO  FS  2nd  3rd  OTHER"; return how many related pairs it reports up to $DEGREE
+# (empty if the summary line is not found, e.g. a different KING version)
+king_expected_pairs() {
+	awk -v d="$DEGREE" '/^[[:space:]]*Inference[[:space:]]/ { n=$2+$3+$4; if (d>=2) n+=$5; if (d>=3) n+=$6; print n; exit }' "$1"
+}
+
 # ---- rounds of: KING -> minimum removal set -> remove -> re-check -------------------------------
 # Kinship estimates shift a little once samples are removed (and KING's relationship call comes from
 # shared IBD segments, not only the Kinship column), so after each removal KING is run again on what
@@ -81,7 +94,7 @@ for ((r = 1; r <= MAX_ROUNDS; r++)); do
 	KP="${OUT}.king"; [ "$r" -gt 1 ] && KP="${OUT}.king_round${r}"
 	RP="${OUT}.round${r}"
 	echo "=== round ${r}: KING on $(wc -l < "${CUR}.fam") samples ==="
-	king -b "${CUR}.bed" --related --degree "$DEGREE" --cpus "$CPUS" --prefix "$KP"
+	king -b "${CUR}.bed" --related --degree "$DEGREE" --cpus "$CPUS" --prefix "$KP" 2>&1 | tee "${KP}.log"
 
 	# missingness (used only to break ties)
 	plink --bfile "$CUR" --missing --allow-no-sex --out "${OUT}.tmpmiss"
@@ -90,11 +103,25 @@ for ((r = 1; r <= MAX_ROUNDS; r++)); do
 	rm -f "${OUT}.tmpmiss".*
 
 	n=$(wc -l < "${RP}.removed_related.txt")
+	npairs=$(cat "${RP}.npairs" 2>/dev/null || echo 0); rm -f "${RP}.npairs"
+	expected=$(king_expected_pairs "${KP}.log")
+	if [ -n "$expected" ] && [ "$expected" -gt "$npairs" ]; then
+		echo "WARNING: KING's own summary reports ${expected} related pair(s) up to degree ${DEGREE}, but only ${npairs} were read from ${KP}.kin / .kin0 -" >&2
+		echo "         ${KP}.log has the summary; the table is missing $((expected - npairs)) pair(s)." >&2
+		UNPARSED=$((expected - npairs))
+	else
+		UNPARSED=0
+	fi
 	cat "${RP}.removed_related.txt" >> "${OUT}.removed_related.txt"
 	tail -n +2 "${RP}.removed_related_details.tsv" | awk -v r="$r" 'BEGIN{FS=OFS="\t"} {print r, $0}' >> "${OUT}.removed_related_details.tsv"
 	rm -f "${RP}.removed_related.txt" "${RP}.removed_related_details.tsv"
 
 	if [ "$n" -eq 0 ]; then
+		if [ "$UNPARSED" -gt 0 ]; then
+			echo "ERROR: round ${r}: nothing to remove according to the table, but KING itself reports ${expected} related pair(s) in ${CUR}." >&2
+			echo "       Not claiming the result is clean. Look at ${KP}.log and ${KP}.kin (are those pairs in the table? what do their InfType / ID columns look like?)." >&2
+			exit 3
+		fi
 		echo "round ${r}: KING finds no related pair up to degree ${DEGREE}; done"
 		CLEAN=1
 		break
@@ -114,11 +141,17 @@ rm -f "${OUT}".tmp_round* "${OUT}".tmp_remove*
 # A run that ended "clean" was already verified (its last KING run was on exactly this fileset).
 if [ "$CLEAN" -ne 1 ]; then
 	echo "=== final check: MAX_ROUNDS (${MAX_ROUNDS}) reached after a removal; running KING on the result ==="
-	king -b "${OUT}.bed" --related --degree "$DEGREE" --cpus "$CPUS" --prefix "${OUT}.king_final"
+	king -b "${OUT}.bed" --related --degree "$DEGREE" --cpus "$CPUS" --prefix "${OUT}.king_final" 2>&1 | tee "${OUT}.king_final.log"
 	plink --bfile "$OUT" --missing --allow-no-sex --out "${OUT}.tmpmiss"
 	python3 "$PRUNE_PY" "$DEGREE" "${OUT}.tmpmiss.imiss" "${OUT}.king_final.kin" "${OUT}.king_final.kin0" -- "${OUT}.final_check"
 	rm -f "${OUT}.tmpmiss".*
 	nleft=$(wc -l < "${OUT}.final_check.removed_related.txt")
+	npairs=$(cat "${OUT}.final_check.npairs" 2>/dev/null || echo 0); rm -f "${OUT}.final_check.npairs"
+	expected=$(king_expected_pairs "${OUT}.king_final.log")
+	if [ "$nleft" -eq 0 ] && [ -n "$expected" ] && [ "$expected" -gt "$npairs" ]; then
+		echo "ERROR: final check: KING reports ${expected} related pair(s) in ${OUT} that are not in its .kin table; result NOT verified clean (see ${OUT}.king_final.log)." >&2
+		exit 3
+	fi
 	if [ "$nleft" -gt 0 ]; then
 		echo "ERROR: ${OUT} STILL contains related pairs up to degree ${DEGREE} (KING final check)." >&2
 		echo "       ${nleft} more sample(s) would have to go; they are listed in ${OUT}.final_check.removed_related.txt" >&2

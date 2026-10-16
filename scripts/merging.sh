@@ -5,10 +5,15 @@
 #SBATCH --mail-user=nme3923@nyu.edu
 #SBATCH --mail-type=END,FAIL
 
+# `source`d scripts inherit our arguments and conda's activate rejects them (ArgumentError): hide, then restore
+ARGS=("$@")
+set --
+
 #Activate your environments here
 source ~/.bashrc
 source /share/apps/NYUAD5/miniconda/3-4.11.0/bin/activate
 conda activate /scratch/nme3923/conda-envs/myenviro
+set -- "${ARGS[@]}"
 
 #Loading File
 # Usage: sbatch merging.sh <file1_prefix> <file2_prefix> <output_prefix>
