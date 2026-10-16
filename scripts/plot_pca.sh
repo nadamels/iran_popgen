@@ -141,7 +141,11 @@ ev = ev.rename(columns={key: "sid"})
 if len(pc_cols) < 2:
     sys.exit("ERROR: eigenvec has fewer than 2 PCs")
 eigval = np.loadtxt(f"{prefix}.eigenval", ndmin=1)
-pct = 100 * eigval / eigval.sum()
+# PLINK writes only the top PCs, so eigval.sum() is not the total variance. The relationship matrix has a
+# diagonal of ~1, so its total variance (sum of ALL eigenvalues) is ~ the number of samples.
+pct = 100 * eigval / len(fam)
+if eigval.sum() > 1.05 * len(fam):
+    print(f"WARNING: eigenvalues sum to {eigval.sum():.1f} > {len(fam)} samples; the % variance labels are unreliable")
 
 # ---- fam <-> eigenvec consistency --------------------------------------------------------------
 fam_ids, ev_ids = set(fam["sid"]), set(ev["sid"])
