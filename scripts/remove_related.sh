@@ -24,10 +24,17 @@ set -- "${ARGS[@]}"
 # KING (--related) gives the pairwise kinship table; prune_related.py then finds
 # the smallest set of samples whose removal breaks every related pair (e.g. in a
 # trio/cluster only the "hub" sample is removed, not everyone). Ties are broken
-# by removing the sample with more missing data.
+# by the Population rule below, then by removing the sample with more missing data.
 #
-# Usage: sbatch remove_related.sh <input_prefix> <output_prefix> [degree=2]
+# Usage: sbatch remove_related.sh <input_prefix> <output_prefix> [degree=2] [mega_sample_table.xlsx|.csv]
 #   prefixes may be paths in any directory (no .bed/.bim/.fam)
+#
+# Which sample is removed when there is a choice (the minimum number of removals always comes first):
+# a sample whose Population in the mega table is "Iranian (ethnicity not reported)" is removed in
+# preference to one with a known population (env PREFER_REMOVE_POP changes the label), then the one
+# with more missing data. The table is the 4th argument, else $MASTER_TABLE, else
+# metadata/mega_sample_table.xlsx under $SLURM_SUBMIT_DIR / the current directory; without a table
+# only the missing-data rule applies (the log says so). Sample IDs must match the table's IID column.
 #
 # After removing samples the script runs KING again on the rest and repeats until KING finds no
 # related pair up to the degree (MAX_ROUNDS, default 5), so the output really is clear of relatives.
@@ -49,8 +56,8 @@ export PATH="/scratch/nme3923/IranGen/scripts:$PATH"
 
 set -euo pipefail
 
-if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
-	echo "Usage: $0 <input_prefix> <output_prefix> [degree=2]" >&2
+if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
+	echo "Usage: $0 <input_prefix> <output_prefix> [degree=2] [mega_sample_table.xlsx|.csv]" >&2
 	exit 1
 fi
 
@@ -65,6 +72,17 @@ DEGREE=${3:-2}
 DEGREE=${DEGREE#degree=}   # accept "2" or "degree=2"
 [[ "$DEGREE" =~ ^[1-3]$ ]] || { echo "ERROR: degree must be 1, 2 or 3 (got '${3:-}')" >&2; exit 1; }
 CPUS=${SLURM_CPUS_PER_TASK:-${SLURM_JOB_CPUS_PER_NODE:-10}}
+
+# table used for the Population preference (optional)
+for cand in "${4:-}" "${MASTER_TABLE:-}" "${SLURM_SUBMIT_DIR:-$PWD}/metadata/mega_sample_table.xlsx" "$PWD/metadata/mega_sample_table.xlsx"; do
+	if [ -n "$cand" ] && [ -s "$cand" ]; then PREFER_REMOVE_TABLE=$(abspath "$cand"); break; fi
+done
+if [ -n "${PREFER_REMOVE_TABLE:-}" ]; then
+	export PREFER_REMOVE_TABLE
+	echo "Population preference: table ${PREFER_REMOVE_TABLE}; removing '${PREFER_REMOVE_POP:-Iranian (ethnicity not reported)}' samples first when there is a choice"
+else
+	echo "NOTE: no mega table found (4th argument / \$MASTER_TABLE / metadata/mega_sample_table.xlsx): Population preference OFF, only missing data breaks ties" >&2
+fi
 # the helper python script lives next to this one (sbatch runs a spooled copy)
 PRUNE_PY=/scratch/nme3923/IranGen/scripts/prune_related.py
 [ -f "$PRUNE_PY" ] || PRUNE_PY="$(dirname "${BASH_SOURCE[0]}")/prune_related.py"
@@ -120,7 +138,7 @@ MAX_ROUNDS=${MAX_ROUNDS:-5}
 CUR="$IN"
 CLEAN=0                     # 1 once a KING run on the CURRENT fileset has found no related pair
 : > "${OUT}.removed_related.txt"
-printf 'round\tFID\tIID\tn_related\tmax_kinship\trelated_kept_samples\n' > "${OUT}.removed_related_details.tsv"
+printf 'round\tFID\tIID\tn_related\tmax_kinship\trelated_kept_samples\tpreferred_population\n' > "${OUT}.removed_related_details.tsv"
 for ((r = 1; r <= MAX_ROUNDS; r++)); do
 	KP="${OUT}.king"; [ "$r" -gt 1 ] && KP="${OUT}.king_round${r}"
 	RP="${OUT}.round${r}"
