@@ -7,7 +7,7 @@ Rows    : exactly the IIDs in fam_files/all_anc_mod.run3.fam (nothing else), one
           cleaned fam are classified from the metadata and appended at the end of their group.
 Columns : IID | Source Publication(s) | Empirical cluster (Study Pop only) | Population |
           Super-population | Sex | Archeological Period | Archeological Date |
-          Original Genome Coverage (ancient samples only) | Undergone Imputation
+          Original Genome Coverage (ancient samples only) | Undergone Imputation | Latitude | Longitude
 Metadata: ancient  -> metadata/{laz,nar,matheison}-raw-metadata.xlsx (+ working labels in
                       full_sample_metadata.xlsx)
           modern   -> full_sample_metadata.xlsx (Modern Samples, Orignal Iranian Labels),
@@ -44,7 +44,7 @@ FAM_ORDER = [
 IRAN_FAM = "Modern Iranians"
 COLS = ["IID", "Source Publication(s)", "Empirical cluster (Study Pop only)", "Population", "Super-population",
         "Sex", "Archeological Period", "Archeological Date", "Original Genome Coverage (ancient samples only)",
-        "Undergone Imputation"]
+        "Undergone Imputation", "Latitude", "Longitude"]
 CITE = {"L": "Lazaridis et al. 2022 (Science)", "N": "Narasimhan et al. 2019 (Science)",
         "M": "Mathieson et al. 2015 (Nature)"}
 
@@ -212,6 +212,7 @@ def main():
             cv = h["coverage"] if not pd.isna(h["coverage"]) else next((c for c in wcov if not np.isnan(c)), np.nan)
             rec["Original Genome Coverage (ancient samples only)"] = round(cv, 6) if not pd.isna(cv) else np.nan
             rec["Undergone Imputation"] = "Yes"
+            rec["Latitude"], rec["Longitude"] = h["latitude"], h["longitude"]
         else:
             raw = iid.split(":", 1)[-1]
             found = {n: m[raw] for n, m in sex_src.items() if raw in m}
@@ -260,6 +261,7 @@ def main():
               ("sex M / F / U", " / ".join(str(int((df.Sex == s).sum())) for s in "MFU")),
               ("sex conflicts between metadata files (first listed used)", len(conflicts)),
               ("ancient rows with Super-population Unassigned", int((df["Super-population"] == "Unassigned").sum())),
+              ("ancient rows with latitude+longitude", int((df.Latitude.notna() & df.Longitude.notna()).sum())),
               ("ancient rows missing coverage", int(((df["Undergone Imputation"] == "Yes") &
                                                      df["Original Genome Coverage (ancient samples only)"].isna()).sum()))]
     for c in checks:
@@ -285,6 +287,8 @@ def main():
         ("Archeological Date", "Ancient only. Date string as given by the study (calBCE/BCE range), else mean calBP."),
         ("Original Genome Coverage (ancient samples only)", "Mean coverage on the 1240k autosomal targets from the chosen study (blank for moderns)."),
         ("Undergone Imputation", "Yes for every ancient sample, No for every modern sample (by rule)."),
+        ("Latitude", "Decimal degrees, from the same raw study table as the rest of the ancient row (Lazaridis 2022 'Lat.', Narasimhan 2019 / Mathieson 2015 'Latitude'). Blank when the study gives none and for all modern samples (no coordinates in any modern metadata file)."),
+        ("Longitude", "Decimal degrees, same source and rules as Latitude."),
         ("Row rules", "Rows = the IIDs of fam_files/all_anc_mod.run3.fam, one row each. Grouped by the cleaned fam the IID came from, in the order of the 'fam_groups' sheet, cleaned-fam order kept inside each group; run3 IIDs in no cleaned fam are classified from the metadata and placed at the end of their group. A sample in several cleaned fams appears once, in the first group; see cross_fam_duplicate_iids.csv."),
     ], columns=["Column", "Definition"])
     smap = pd.DataFrame(sorted(SUPERPOP.items()), columns=["Country", "Super-population"])
