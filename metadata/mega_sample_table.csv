@@ -38,7 +38,6 @@ I0164,Mathieson et al. 2015 (Nature),Central_LNBA,Central_LNBA,Western-Europe,F,
 I0171,Mathieson et al. 2015 (Nature),Central_LNBA,Central_LNBA,Western-Europe,F,BA,2287-2041 calBCE (KIA27952 ),0.143,Yes,51.82,10.91
 I0172,Mathieson et al. 2015 (Nature),Central_MN,Central_MN,Western-Europe,M,N,3360-3086 calBCE (Er8699),25.372,Yes,51.42,11.68
 I0174,Mathieson et al. 2015 (Nature),Hungary_EN,Hungary_EN,Eastern-Europe,M,EN,5702-5536 calBCE (MAMS 11939 ),0.224,Yes,46.2,18.7
-I0176,Mathieson et al. 2015 (Nature),Hungary_EN,Hungary_EN,Eastern-Europe,F,EN,5207-4944 calBCE (Beta - 310038),0.066,Yes,46.4,18.74
 I0211,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),EHG,EEHG,Eastern-Europe,M,M / N,"6773-5886 BCE [other dates in the layer used in the Bayesian modeling analysis we used to obtain this range are (7280±80 BP, OxA-1665), 6410-6050 calBCE (7350±90 BP, OxA-2266), 6390-6030 calBCE (7330±90 BP, OxA-1667), 6590-6240 calBCE (7560±90 BP, OxA-1668), 6590-6240 calBCE (7560±90 BP, OxA-1669), 6360-6000 calBCE (7280±90 BP, OxA-2124), 6530-6210 calBCE (7510±90 BP, OxA-2125), 6850-6410 calBCE (7750±110 BP, OxA-1973), layer date]",0.136,Yes,61.65,35.65
 I0231,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Yamnaya_Samara,Western_Steppe_EMBA,Eastern-Europe,M,EMBA,"2921-2762 calBCE [2921-2762 calBCE (4260±30 BP, Beta-392487), 2913-2882 calBCE (4275±20 BP, PSUAMS-4279)]",9.905002,Yes,52.71085,49.466855555555554
 I0232,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Srubnaya,Western_Steppe_MLBA,Eastern-Europe,M,MLBA,1850-1200 BCE,8.649537,Yes,48.1,54.44
@@ -72,15 +71,12 @@ I0429,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Yamnaya_S
 I0431,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Srubnaya,Western_Steppe_MLBA,Eastern-Europe,F,MLBA,1850-1600 BCE,0.265684,Yes,53.08,50.36
 I0432,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Poltavka_outlier,Poltavka_o,Eastern-Europe,M,EMBA,"2925-2491 calBCE (4180±84 BP, AA-12569)",0.87,Yes,53.66,50.67
 I0433,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Samara_Eneolithic,Khvalynsk_EN,Eastern-Europe,M,N,"4689-4543 calBCE (5760±25 BP, PSUAMS-4032)",0.476,Yes,52.22,48.1
-I0434,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Samara_Eneolithic,Khvalynsk_EN,Eastern-Europe,M,N,"5051-4860 calBCE (6070±25 BP, PSUAMS-4033)",0.053,Yes,52.22,48.1
 I0438,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Yamnaya_Samara,Western_Steppe_EMBA,Eastern-Europe,M,EMBA,"3021-2635 calBCE (4254±61 BP, AA-47807)",0.736,Yes,53.38,50.38
 I0439,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Yamnaya_Samara,Western_Steppe_EMBA,Eastern-Europe,M,EMBA,"3321-2921 calBCE (4420±30 BP, Beta-392491)",0.26,Yes,53.38,50.39
 I0440,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Poltavka,Western_Steppe_EMBA,Eastern-Europe,M,EMBA,"2887-2666 calBCE (4180±30 BP, Beta-392492)",4.953,Yes,53.38,50.39
-I0441,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Yamnaya_Samara,Western_Steppe_EMBA,Eastern-Europe,F,EMBA,"3010-2622 calBCE (4234±60 BP, AA-47805)",0.091,Yes,52.3,52.05
 I0443,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Yamnaya_Samara,Western_Steppe_EMBA,Eastern-Europe,M,EMBA,3300-2700 BCE,5.317,Yes,53.38,50.39
 I0444,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Yamnaya_Samara,Western_Steppe_EMBA,Eastern-Europe,M,EMBA,"3335-2882 calBCE (4370±75 BP, AA-12570)",0.653,Yes,53.31,51.15
 I0550,Mathieson et al. 2015 (Nature),Central_LNBA,Central_LNBA,Western-Europe,F,BA,2570-2471 calBCE (MAMS 23344),0.15,Yes,51.273,11.6559
-I0551,Mathieson et al. 2015 (Nature),Central_MN,Central_MN,Western-Europe,M,N,3400-3025 BCE,0.091,Yes,51.520005,11.852407
 I0559,Mathieson et al. 2015 (Nature),Central_MN,Central_MN,Western-Europe,M,N,3652-3527 calBCE (MAMS 22818),0.163,Yes,51.79,11.14
 I0560,Mathieson et al. 2015 (Nature),Central_MN,Central_MN,Western-Europe,F,N,3640-3376 calBCE (Er7856),0.407,Yes,51.79,11.14
 I0581,Mathieson et al. 2015 (Nature),Iberia_Chalcolithic,Iberia_Chalcolithic,Southern-Europe,M,ChL,3010-2975 calBCE (Beta 416455),0.158,Yes,42.33333333,-3.5
@@ -96,12 +92,8 @@ I0736,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Anatolia_
 I0744,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Anatolia_Neolithic,Anatolia_N,Anatolia,M,M / N,"6402-6243 calBCE (7455±30 BP, PSUAMS-2299)",2.39,Yes,40.3,29.56666667
 I0745,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Anatolia_Neolithic,Anatolia_N,Anatolia,M,M / N,"6374-6227 calBCE (7405±30 BP, PSUAMS-2105)",7.785,Yes,40.3,29.56666667
 I0746,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Anatolia_Neolithic,Anatolia_N,Anatolia,M,M / N,"6067-5892 calBCE (7110±50 BP, Poz-82177)",8.465,Yes,40.3,29.56666667
-I0795,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),LBK_EN,LBK_EN,Western-Europe,M,N,"5217-5041 calBCE (6174±29 BP, MAMS-22823)",0.097,Yes,51.28305556,11.65
-I0797,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),LBK_EN,LBK_EN,Western-Europe,M,N,5500-4850 BCE,0.087,Yes,51.28305556,11.65
 I0803,Mathieson et al. 2015 (Nature),Central_LNBA,Central_LNBA,Western-Europe,F,BA,2132-1942 calBCE (MAMS 22822),0.228,Yes,51.167663,11.847527
-I0804,Mathieson et al. 2015 (Nature),Central_LNBA,Central_LNBA,Western-Europe,M,BA,2137-1965 calBCE (MAMS 22821),0.054,Yes,51.167663,11.847527
 I0805,Mathieson et al. 2015 (Nature),Bell_Beaker_LN,Bell_Beaker_LN,Western-Europe,M,N,2467-2142 calBCE (Er8558),0.232,Yes,51.79166667,11.14722222
-I0807,Mathieson et al. 2015 (Nature),Central_MN,Central_MN,Western-Europe,M,N,3970-3710 calBCE (Er7784),0.086,Yes,51.42,11.68
 I0821,Mathieson et al. 2015 (Nature); Narasimhan et al. 2019 (Science),LBK_EN,LBK_EN,Western-Europe,M,EN,5201-4850 calBCE (KIA40348),0.116,Yes,51.89583333,11.04666667
 I1096,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Anatolia_Neolithic,Anatolia_N,Anatolia,M,M / N,6500-6200 BCE,2.865,Yes,40.3,29.56666667
 I1098,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Anatolia_Neolithic,Anatolia_N,Anatolia,F,M / N,"6422-6253 calBCE (7475±25 BP, PSUAMS-2947)",2.994,Yes,40.3,29.56666667
@@ -138,7 +130,6 @@ I1536,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Central_L
 I1538,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Central_LNBA,Western_Steppe_MLBA,Western-Europe,M,MLBA,2500-2050 BCE,0.126,Yes,51.42,11.68
 I1539,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Central_LNBA,Western_Steppe_MLBA,Western-Europe,F,MLBA,"2625-2291 calBCE (3967±57 BP, Erl-7779)",0.132,Yes,51.42,11.68
 I1540,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Central_LNBA,Corded_Ware_Germany_o,Western-Europe,M,MLBA,2500-2050 BCE,0.298,Yes,51.42,11.68
-I1542,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Central_LNBA,Western_Steppe_MLBA,Western-Europe,M,MLBA,2500-2050 BCE,0.068,Yes,51.42,11.68
 I1544,Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Central_LNBA,Western_Steppe_MLBA,Western-Europe,M,MLBA,2500-2050 BCE,0.104,Yes,51.42,11.68
 I1546,Mathieson et al. 2015 (Nature),Bell_Beaker_LN,Bell_Beaker_LN,Western-Europe,F,N,2500-2050 BCE,0.143,Yes,51.82,10.91
 I1549,Mathieson et al. 2015 (Nature),Bell_Beaker_LN,Bell_Beaker_LN,Western-Europe,F,N,2500-2050 BCE,2.357,Yes,51.82,10.91
@@ -150,29 +141,19 @@ I1583,Lazaridis et al. 2022 (Science); Narasimhan et al. 2019 (Science); Mathies
 I1585,Lazaridis et al. 2022 (Science); Mathieson et al. 2015 (Nature),Anatolia_Neolithic,TUR_Marmara_Barcın_N,Anatolia,F,N,"6217-6007 calBCE (7215±30 BP, PSUAMS-2953)",9.158491,Yes,40.3,29.56666667
 I0244,Narasimhan et al. 2019 (Science),Steppe_MLBA_oWSHG,Steppe_MLBA_oWSHG,Eastern-Europe,F,MLBA,"2465-1981 calBCE [2341-1981 calBCE (3752±52 BP, AA-53806), 2465-2054 calBCE (3815±60 BP, Le-6545)]",3.822483,Yes,53.58975,50.57129167
 I0507,Narasimhan et al. 2019 (Science),Steppe_MLBA_oWSHG,Steppe_MLBA_oWSHG,Central-Asia,M,MLBA,"1871-1636 calBCE (3420±30 BP, Beta-391199)",2.114,Yes,45.13237778,79.36439444
-I0937,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,F,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.076196,Yes,52.81666667,60.46666667
-I0938,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,F,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.098218,Yes,52.81666667,60.46666667
 I0939,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,F,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.606801,Yes,52.81666667,60.46666667
 I0940,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA_1d.rel.I1055,Western_Steppe_MLBA_1d.rel.I1055,Central-Asia,F,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.123001,Yes,52.81666667,60.46666667
 I0942,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.135251,Yes,52.81666667,60.46666667
 I0943,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,F,MLBA,2050-1650 BCE [based on directly dated samples from the same site],1.419945,Yes,52.81666667,60.46666667
-I0944,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Eastern-Europe,F,MLBA,"2023-1744 calBCE (3540±52 BP, AA-90949)",0.054005,Yes,53.876,59.076
 I0945,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Eastern-Europe,F,MLBA,2200-1700 BCE,0.189165,Yes,53.876,59.076
-I0946,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Eastern-Europe,F,MLBA,"2130-1765 calBCE (3584±55 BP, AA-90948)",0.08202,Yes,53.876,59.076
-I0982,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,F,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.065777,Yes,52.81666667,60.46666667
 I0983,Narasimhan et al. 2019 (Science),Steppe_MLBA_oWSHG,Steppe_MLBA_oWSHG,Central-Asia,F,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.506103,Yes,52.81666667,60.46666667
 I0984,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,"2023-1782 calBCE (3572±29 BP, OxA-12530)",0.990519,Yes,52.81666667,60.46666667
-I0985,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA_1d.rel.I1084,Western_Steppe_MLBA_1d.rel.I1084,Central-Asia,F,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.056195,Yes,52.81666667,60.46666667
 I0986,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.11707,Yes,52.81666667,60.46666667
 I0989,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.211599,Yes,52.81666667,60.46666667
-I1003,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.054175,Yes,52.81666667,60.46666667
-I1006,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.069187,Yes,52.81666667,60.46666667
 I1007,Narasimhan et al. 2019 (Science),Steppe_MLBA_oWSHG,Steppe_MLBA_oWSHG,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.108994,Yes,52.81666667,60.46666667
 I1008,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.313842,Yes,52.81666667,60.46666667
-I1010,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA_brother.I1086,Western_Steppe_MLBA_brother.I1086,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.062091,Yes,52.81666667,60.46666667
 I1011,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],1.942397,Yes,52.81666667,60.46666667
 I1012,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,"2130-1750 BCE [based on five directly dated samples: 2023-1782 calBCE (3572±29 BP, OxA-12530); 1973-1772 calBCE (3549±29 BP, OxA-12531); 2005-1780 calBCE (3440±30 BP, Beta-436293); 2130-1930 calBCE (3520±30 BP, Beta-436294)]",0.293272,Yes,52.81666667,60.46666667
-I1013,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,F,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.046524,Yes,52.81666667,60.46666667
 I1017,Narasimhan et al. 2019 (Science),Steppe_MLBA_oWSHG,Steppe_MLBA_oWSHG,Central-Asia,M,MLBA,"1929-1753 calBCE (3520±30 BP, Beta-436294)",0.36,Yes,52.81666667,60.46666667
 I1018,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.347,Yes,52.81666667,60.46666667
 I1019,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.427,Yes,52.81666667,60.46666667
@@ -207,14 +188,12 @@ I1853,Narasimhan et al. 2019 (Science),Central_Steppe_MLBA,Central_Steppe_MLBA,C
 I1856,Narasimhan et al. 2019 (Science),Central_Steppe_MLBA,Central_Steppe_MLBA,Central-Asia,M,MLBA,"1685-1531 calBCE (3330±25 BP, PSUAMS-2067)",1.642,Yes,53.87313333,91.46046667
 I1931,Narasimhan et al. 2019 (Science),Steppe_MLBA_oWSHG,Steppe_MLBA_oWSHG,Central-Asia,F,MLBA,"1495-1300 calBCE (3130±30 BP, Beta-391198)",0.327,Yes,45.13237778,79.36439444
 I1945,Narasimhan et al. 2019 (Science),Iran_N,Ganj_Dareh_N,Iran,M,M / N,8000-7700 BCE,0.242441,Yes,34.45,48.116
-I1946,Narasimhan et al. 2019 (Science),Ganj_Dareh_N_father.of.I1947_father.of.I1952,Ganj_Dareh_N_father.of.I1947_father.of.I1952,Iran,M,M / N,"8250-7850 BCE [father of I1947 at 8210-7845 calBCE (8860±30 BP, Beta-432800), father of I1952 at 8219-7761 calBCE (8850±50 BP, Poz-81114)]",0.154656,Yes,34.45,48.116
 I1949,Narasimhan et al. 2019 (Science),Ganj_Dareh_N,Ganj_Dareh_N,Iran,M,M / N,"8241-7962 calBCE (8915±40 BP, PSUAMS-2261)",0.141247,Yes,34.45,48.116
 I1954,Narasimhan et al. 2019 (Science),Ganj_Dareh_N,Ganj_Dareh_N,Iran,M,M / N,"8294-7992 calBCE (9000±40 BP, Beta-436170)",5.003401,Yes,34.45,48.116
 I1960,Narasimhan et al. 2019 (Science),WSHG,WSHG,Central-Asia,F,N,"6361-6071 calBCE [6335-6071 calBCE (7330±40 BP, Poz-82198), 6361-6086 calBCE (7355±40 BP, OxA-33489, d15N=+15.3 permil possible marine influence)]",5.346,Yes,56.03622222,69.33886111
 I2069,Narasimhan et al. 2019 (Science),Afanasievo,Afanasievo,Central-Asia,F,EMBA,"3331-2922 calBCE (4430±40 BP, Poz-83425)",4.791,Yes,51.51300833333333,84.83533888888888
 I2071,Narasimhan et al. 2019 (Science),Afanasievo,Afanasievo,Central-Asia,M,EMBA,"3331-2704 calBCE [2926-2704 calBCE (4260±35 BP, Poz-83510), 3322-2923 calBCE (4423±29 BP, OxA-31219), 3331-2935 calBCE (4442±29 BP, OxA-31220)]",0.635,Yes,51.49763611111111,85.97078888888889
 I2085,Narasimhan et al. 2019 (Science),BMAC,BMAC,Central-Asia,M,BA,"2011-1886 calBCE (3580±20 BP, PSUAMS-2313)",0.130472,Yes,38.1907,62.0343
-I2087,Narasimhan et al. 2019 (Science),BMAC,BMAC,Central-Asia,M,BA,"2196-2034 calBCE (3715±20 BP, PSUAMS-2335)",0.064651,Yes,38.1907,62.0343
 I2116,Narasimhan et al. 2019 (Science),BMAC,BMAC,Central-Asia,F,BA,"2118-1883 calBCE (3605±35 BP, Poz-83490)",0.348086,Yes,38.1907,62.0343
 I2121,Narasimhan et al. 2019 (Science),BMAC,BMAC,Central-Asia,F,BA,"2203-2041 calBCE (3735±20 BP, PSUAMS-2314)",0.232939,Yes,38.1907,62.0343
 I2923,Narasimhan et al. 2019 (Science),Tepe_Hissar_C,Tepe_Hissar_C,Iran,M,C / EN,"2878-2636 calBCE (4160±25 BP, PSUAMS-1915)",1.35,Yes,36.15444444,54.38361111
@@ -250,25 +229,17 @@ I6671,Narasimhan et al. 2019 (Science),Parkhai_Anau_EN,Parkhai_Anau_EN,Central-A
 I6674,Narasimhan et al. 2019 (Science),Parkhai_Anau_EN,Parkhai_Anau_EN,Central-Asia,F,C / EN,"2338-2039 calBCE (3775±40 BP, PSUAMS-2951)",2.046477,Yes,38.348048,56.24543
 I6708,Narasimhan et al. 2019 (Science),Kanai_MBA,Kanai_MBA,Central-Asia,M,EMBA,"2193-2031 calBCE (3705±20 BP, PSUAMS-2916)",0.126689,Yes,48.832683,83.909744
 I6711,Narasimhan et al. 2019 (Science),Afanasievo,Afanasievo,Central-Asia,M,EMBA,"2950-2650 BCE [son of RISE511 with a date of 2909-2679 calBCE (4224±36 BP, OxA-31568)]",0.213903,Yes,54.35661,90.919186
-I6712,Narasimhan et al. 2019 (Science),Afanasievo_son.I10565,Afanasievo_son.I10565,Central-Asia,M,EMBA,"2858-2505 calBCE (4095±25 BP, PSUAMS-3883)",1.291225,Yes,54.35661,90.919186
 I6713,Narasimhan et al. 2019 (Science),Afanasievo,Afanasievo,Central-Asia,F,EMBA,3000-2000 BCE,0.918905,Yes,54.35661,90.919186
 I7489,Narasimhan et al. 2019 (Science),Western_Steppe_EMBA,Western_Steppe_EMBA,Eastern-Europe,F,EMBA,"3323-2928 calBCE (4430±25 BP, PSUAMS-5790)",1.070382,Yes,52.91277778,50.99055556
 I7671,Narasimhan et al. 2019 (Science),Western_Steppe_EMBA,Western_Steppe_EMBA,Eastern-Europe,M,EMBA,"2885-2680 calBCE (4185±20 BP, PSUAMS-4275)",1.682285,Yes,53.16638888888889,50.67361111111111
 I8502,Narasimhan et al. 2019 (Science),Geoksyur_EN_1.or.2d.rel.I8524_1d.rel.I8505,Geoksyur_EN_1.or.2d.rel.I8524_1d.rel.I8505,Central-Asia,F,C / EN,"3309-2923 calBCE (4420±25 BP, PSUAMS-4038)",0.173724,Yes,37.1907,61.0343
 I8503,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,F,C / EN,3500-2800 BCE,0.139246,Yes,37.1907,61.0343
 I8504,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,M,C / EN,"3092-2925 calBCE (4400±25 BP, PSUAMS-3986)",0.393825,Yes,37.1907,61.0343
-I8505,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,U,C / EN,3500-2800 BCE,0.104389,Yes,37.1907,61.0343
-I8510,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,F,C / EN,"3341-3094 calBCE (4490±25 BP, PSUAMS-3987)",0.379169,Yes,37.1907,61.0343
-I8524,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,M,C / EN,3500-2800 BCE,0.215971,Yes,37.1907,61.0343
-I8530,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,F,C / EN,3500-2800 BCE,0.137141,Yes,37.1907,61.0343
-I8532,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,F,C / EN,3500-2800 BCE,0.104372,Yes,37.1907,61.0343
-I8534,Narasimhan et al. 2019 (Science),Geoksyur_EN_mother.or.daughter.I12486,Geoksyur_EN_mother.or.daughter.I12486,Central-Asia,F,C / EN,"3010-2881 calBCE (4300±25 BP, PSUAMS-3988)",0.213756,Yes,37.1907,61.0343
 I8745,Narasimhan et al. 2019 (Science),Western_Steppe_EMBA,Western_Steppe_EMBA,Eastern-Europe,M,EMBA,2500-2200 BCE,0.776334,Yes,49.96666667,44.66666667
 I10110,Narasimhan et al. 2019 (Science),Central_Steppe_MLBA,Central_Steppe_MLBA,Central-Asia,F,MLBA,1400-900 BCE,3.756894,Yes,50.82,75.6
 I10111,Narasimhan et al. 2019 (Science),Central_Steppe_MLBA,Central_Steppe_MLBA,Central-Asia,M,MLBA,1400-900 BCE,4.669616,Yes,50.82,75.6
 I10112,Narasimhan et al. 2019 (Science),Central_Steppe_MLBA,Central_Steppe_MLBA,Central-Asia,M,MLBA,1600-1400 BCE,4.761182,Yes,50.82,75.6
 I10140,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,1400-1200 BCE,1.03763,Yes,46.96586667,80.03473333
-I10409,Narasimhan et al. 2019 (Science),Indus_Periphery3,Indus_Periphery3,Central-Asia,M,BA,"2280-2044 calBCE (3755±25 BP, PSUAMS-4599)",0.097283,Yes,38.1907,62.0343
 I10410,Narasimhan et al. 2019 (Science),BMAC,BMAC,Central-Asia,F,BA,1900-1700 BCE,0.256483,Yes,38.1907,62.0343
 I10411,Narasimhan et al. 2019 (Science),BMAC,BMAC,Central-Asia,M,BA,2300-2200 BCE,0.224585,Yes,38.1907,62.0343
 I10564,Narasimhan et al. 2019 (Science),Afanasievo,Afanasievo,Central-Asia,F,EMBA,3300-2500 BCE,0.369583,Yes,54.35661,90.919186
@@ -276,22 +247,16 @@ I10565,Narasimhan et al. 2019 (Science),Afanasievo,Afanasievo,Central-Asia,F,EMB
 I10974,Narasimhan et al. 2019 (Science),SPGT,SPGT,South-Asia,M,LBA / IA,"1006-904 calBCE (2800±20 BP, PSUAMS-4867)",1.229949,Yes,34.75146111111111,72.40193611111111
 I11026,Narasimhan et al. 2019 (Science),BMAC,BMAC,Central-Asia,F,BA,1600-1300 BCE,0.32537,Yes,37.66666667,67.0
 I11027,Narasimhan et al. 2019 (Science),BMAC,BMAC,Central-Asia,M,BA,"1662-1521 calBCE (3315±25 BP, PSUAMS-6198)",2.414842,Yes,37.66666667,67.0
-I11039,Narasimhan et al. 2019 (Science),Gonur4_BA,Gonur4_BA,Central-Asia,F,BA,"2297-2147 calBCE (3805±20 BP, PSUAMS-4602)",0.097675,Yes,38.1907,62.0343
 I11041,Narasimhan et al. 2019 (Science),Indus_Periphery2,Indus_Periphery2,Central-Asia,M,BA,"2140-1972 calBCE (3675±25 BP, PSUAMS-4603)",0.115931,Yes,38.1907,62.0343
 I11112,Narasimhan et al. 2019 (Science),Afanasievo,Afanasievo,Central-Asia,M,EMBA,"3000-2700 BCE [2926-2779 calBCE (4271±30 BP, Bln-5280), based on a sample of wood from the grave]",0.889992,Yes,53.87388888888889,91.46972222222223
-I11214,Narasimhan et al. 2019 (Science),Central_Steppe_MLBA,Central_Steppe_MLBA,Central-Asia,F,MLBA,2000-900 BCE,0.088378,Yes,53.824194444444444,84.61233333333332
 I11456,Lazaridis et al. 2022 (Science); Narasimhan et al. 2019 (Science),IRN_Shahr_I_Sokhta_BA,IRN_Shahr_I_Sokhta_BA,Iran,F,BA,2600-2500 BCE,2.418633,Yes,30.649857,61.400311
 I11459,Lazaridis et al. 2022 (Science); Narasimhan et al. 2019 (Science),IRN_Shahr_I_Sokhta_BA,IRN_Shahr_I_Sokhta_BA,Iran,M,BA,"2874-2630 calBCE (4150±25 BP, PSUAMS-5715)",0.500774,Yes,30.649857,61.400311
 I11462,Narasimhan et al. 2019 (Science),Shahr_I_Sokhta_BA1,Shahr_I_Sokhta_BA1,Iran,M,BA,"2911-2880 calBCE (4270±20 BP, PSUAMS-4778)",1.879541,Yes,30.649857,61.400311
 I11466,Lazaridis et al. 2022 (Science); Narasimhan et al. 2019 (Science),IRN_Shahr_I_Sokhta_BA,IRN_Shahr_I_Sokhta_BA,Iran,F,BA,2500-2000 BCE,0.214651,Yes,30.649857,61.400311
-I11472,Narasimhan et al. 2019 (Science),Shahr_I_Sokhta_BA3,Shahr_I_Sokhta_BA3,Iran,F,BA,2900-2700 BCE,0.06397,Yes,30.649857,61.400311
 I11474,Narasimhan et al. 2019 (Science),Shahr_I_Sokhta_BA1,Shahr_I_Sokhta_BA1,Iran,M,BA,2700-2600 BCE,0.890731,Yes,30.649857,61.400311
 I11476,Narasimhan et al. 2019 (Science),Shahr_I_Sokhta_BA1,Shahr_I_Sokhta_BA1,Iran,F,BA,3200-2100 BCE,2.055129,Yes,30.649857,61.400311
 I11478,Narasimhan et al. 2019 (Science),Shahr_I_Sokhta_BA1,Shahr_I_Sokhta_BA1,Iran,M,BA,3200-1900 BCE,1.985607,Yes,30.649857,61.400311
-I11479,Narasimhan et al. 2019 (Science),Shahr_I_Sokhta_BA1,Shahr_I_Sokhta_BA1,Iran,F,BA,"2911-2697 calBCE [2911-2761 calBCE (4245±25 BP, PSUAMS-4779); 2898-2697 calBCE (4210±25 BP, PSUAMS-5716)]",0.0883,Yes,30.649857,61.400311
-I11483,Narasimhan et al. 2019 (Science),Shahr_I_Sokhta_BA1,Shahr_I_Sokhta_BA1,Iran,F,BA,"3090-2917 calBCE (4385±25 BP, PSUAMS-5717)",0.058539,Yes,30.649857,61.400311
 I11501,Narasimhan et al. 2019 (Science),Central_Steppe_EMBA,Central_Steppe_EMBA,Central-Asia,F,EMBA,"3341-3097 calBCE (4495±25 BP, PSUAMS-4604)",1.116814,Yes,49.49,58.51
-I11519,Narasimhan et al. 2019 (Science),BMAC,BMAC,Central-Asia,F,BA,1600-1300 BCE,0.07936,Yes,37.66666667,67.0
 I11520,Narasimhan et al. 2019 (Science),Bustan_BA_o2,Bustan_BA_o2,Central-Asia,M,BA,"1613-1509 calBCE (3280±20 BP, PSUAMS-4605)",3.64891,Yes,37.66666667,67.0
 I11521,Narasimhan et al. 2019 (Science),Bustan_BA_o1,Bustan_BA_o1,Central-Asia,F,BA,1600-1300 BCE,1.541477,Yes,37.66666667,67.0
 I11526,Narasimhan et al. 2019 (Science),Aigyrzhal_BA,Aigyrzhal_BA,Central-Asia,M,BA,"2203-2041 calBCE (3735±20 BP, PSUAMS-4607)",1.507304,Yes,41.431467,75.885481
@@ -308,31 +273,26 @@ I11736,Narasimhan et al. 2019 (Science),Mereke_EBA_Yamnaya,Mereke_EBA_Yamnaya,Ce
 I11737,Narasimhan et al. 2019 (Science),Central_Steppe_EMBA,Central_Steppe_EMBA,Central-Asia,M,EMBA,"2195-2032 calBCE (3710±20 BP, PSUAMS-4902)",4.010802,Yes,50.46,49.2
 I11752,Narasimhan et al. 2019 (Science),Afanasievo,Afanasievo,Central-Asia,F,EMBA,2900-2500 BCE,2.630007,Yes,51.304433333333336,83.2005
 I12260,Narasimhan et al. 2019 (Science),Ksirov_H_Kushan_1d.rel.I12292,Ksirov_H_Kushan_1d.rel.I12292,Central-Asia,M,IA,"200-1 BCE [based on being a first degree relative of an individual with a direct date of 166-44 calBCE (2075±20 BP, PSUAMS-6159)]",0.112875,Yes,37.41563,68.17371
-I12292,Narasimhan et al. 2019 (Science),Ksirov_H_Kushan,Ksirov_H_Kushan,Central-Asia,M,IA,"166-44 calBCE (2075±20 BP, PSUAMS-6159)",0.831969,Yes,37.41563,68.17371
 I12294,Narasimhan et al. 2019 (Science),Ksirov_H_Kushan,Ksirov_H_Kushan,Central-Asia,M,IA,"88 calBCE - 50 calCE (2020±20 BP, PSUAMS-6160)",0.408975,Yes,37.41563,68.17371
-I12478,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,F,C / EN,3500-2800 BCE,0.070807,Yes,37.1907,61.0343
-I12479,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,F,C / EN,3500-2800 BCE,0.07241,Yes,37.1907,61.0343
 I12480,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,F,C / EN,3500-2800 BCE,0.678828,Yes,37.1907,61.0343
 I12481,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,M,C / EN,3500-2800 BCE,0.782561,Yes,37.1907,61.0343
 I12482,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,M,C / EN,3500-2800 BCE,0.261743,Yes,37.1907,61.0343
-I12483,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,F,C / EN,3500-2800 BCE,0.392972,Yes,37.1907,61.0343
 I12484,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,F,C / EN,3500-2800 BCE,0.119506,Yes,37.1907,61.0343
 I12485,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,F,C / EN,3500-2800 BCE,2.210772,Yes,37.1907,61.0343
 I12486,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,F,C / EN,3500-2800 BCE,3.113796,Yes,37.1907,61.0343
 I12487,Narasimhan et al. 2019 (Science),Geoksyur_EN,Geoksyur_EN,Central-Asia,M,C / EN,3500-2800 BCE,0.539743,Yes,37.1907,61.0343
 I12499,Narasimhan et al. 2019 (Science),Steppe_MLBA_oBMAC,Steppe_MLBA_oBMAC,Central-Asia,M,MLBA,"1497-1318 calBCE (3145±25 BP, PSUAMS-5284)",3.155089,Yes,40.54,64.99
+I1084,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.262,Yes,52.81666667,60.46666667
+I1086,Narasimhan et al. 2019 (Science),Western_Steppe_MLBA,Western_Steppe_MLBA,Central-Asia,M,MLBA,2050-1650 BCE [based on directly dated samples from the same site],0.555,Yes,52.81666667,60.46666667
+I1947,Narasimhan et al. 2019 (Science),Ganj_Dareh_N,Ganj_Dareh_N,Iran,M,M / N,"8210-7836 calBCE (8860±30 BP, Beta-432800)",3.312513,Yes,34.45,48.116
 I0698,Lazaridis et al. 2022 (Science),BGR_Yabalkovo_N,BGR_Yabalkovo_N,Eastern-Europe,M,N,6000-5900 BCE,2.574043,Yes,42.1,25.75
 I0704,Lazaridis et al. 2022 (Science),BGR_Dzhulyunitsa_N,BGR_Dzhulyunitsa_N,Eastern-Europe,F,N,"6059-5839 calBCE (7070±50 BP, Poz-81119)",0.114687,Yes,43.16089,25.88341
 I0727,Lazaridis et al. 2022 (Science); Narasimhan et al. 2019 (Science); Mathieson et al. 2015 (Nature),Anatolia_Neolithic,TUR_Marmara_Menteşe_N,Anatolia,M,N,6400-5600 BCE,0.171,Yes,40.26,29.65
 I0739,Lazaridis et al. 2022 (Science),ROU_N,ROU_N,Eastern-Europe,M,N,"4895-4686 calBCE (5900±40 BP, Poz-82187)",0.74,Yes,44.303228,26.400452
-I0854,Lazaridis et al. 2022 (Science); Mathieson et al. 2015 (Nature),Anatolia_Neolithic_1d_rel_I0736,TUR_Marmara_Barcın_N_sister.of.I0736,Anatolia,F,N,"6228-6081 calBCE (7310±30 BP, PSUAMS-2298)",1.922,Yes,40.3037,29.6085
-I0861_d,Lazaridis et al. 2022 (Science),ISR_Natufian_EpiP,ISR_Natufian_EpiP,Levant,M,,12000-9500 BCE,0.014,Yes,32.65,35.067
 I10167,Lazaridis et al. 2022 (Science),MKD_Anc_outlier2,MKD_Anc_outlier2,Southern-Europe,M,Anc,"193-50 calBCE (2110±20 BP, PSUAMS-6972)",0.138561,Yes,41.28,22.49
 I10252,Lazaridis et al. 2022 (Science),ARM_Yerevan2_unknown,ARM_Yerevan2_unknown,Caucuses,F,unknown,100 BCE - 300 CE,1.525123,Yes,40.833333,43.916667
-I10377,Lazaridis et al. 2022 (Science),MKD_Anc,MKD_Anc,Southern-Europe,M,,700-500 BCE,0.048772,Yes,42.03,21.64
 I10379,Lazaridis et al. 2022 (Science),MKD_Anc,MKD_Anc,Southern-Europe,F,Anc,"768-540 calBCE (2485±20 BP, PSUAMS-6973)",1.807265,Yes,42.03,21.64
 I10381,Lazaridis et al. 2022 (Science),MKD_Anc,MKD_Anc,Southern-Europe,M,Anc,"765-489 calBCE (2475±20 BP, PSUAMS-6974)",0.263302,Yes,41.93,21.34
-I10382,Lazaridis et al. 2022 (Science),MKD_Anc,MKD_Anc,Southern-Europe,F,Anc,700-500 BCE,0.078543,Yes,41.93,21.34
 I10383,Lazaridis et al. 2022 (Science),MKD_Anc,MKD_Anc,Southern-Europe,F,Anc,"787-545 calBCE (2520±25 BP, PSUAMS-6975)",3.860229,Yes,41.28,22.49
 I10384,Lazaridis et al. 2022 (Science),MKD_Anc,MKD_Anc,Southern-Europe,M,Anc,700-500 BCE,3.75471,Yes,41.11,20.79
 I10385,Lazaridis et al. 2022 (Science),MKD_Anc,MKD_Anc,Southern-Europe,F,Anc,"768-540 calBCE (2485±20 BP, PSUAMS-6976)",4.310371,Yes,41.11,20.79
@@ -361,8 +321,6 @@ I10546,Lazaridis et al. 2022 (Science),TUR_Marmara_Ilıpınar_Byz,TUR_Marmara_Il
 I10547,Lazaridis et al. 2022 (Science),TUR_Marmara_Ilıpınar_ChL,TUR_Marmara_Ilıpınar_ChL,Anatolia,F,ChL,5000-4000 BCE,0.572013,Yes,40.48,29.296
 I10548,Lazaridis et al. 2022 (Science),BGR_Ryahovets_Mdv,BGR_Ryahovets_Mdv,Eastern-Europe,F,Mdv,1000-1250 CE,4.24634,Yes,43.12,25.68
 I10558,Lazaridis et al. 2022 (Science),ROU_Arman_BA,ROU_Arman_BA,Eastern-Europe,F,BA,"2129-1940 calBCE (3640±20 BP, PSUAMS-8285)",3.083034,Yes,45.22509,26.68277
-I10559,Lazaridis et al. 2022 (Science),ROU_Arman_BA,ROU_Arman_BA,Eastern-Europe,M,BA,2150-1850 BCE,0.088984,Yes,45.22509,26.68277
-I10561,Lazaridis et al. 2022 (Science),ROU_Arman_BA,ROU_Arman_BA,Eastern-Europe,M,BA,"2021-1884 calBCE (3585±20 BP, PSUAMS-8342)",0.057272,Yes,45.22509,26.68277
 I10562,Lazaridis et al. 2022 (Science),ROU_Arman_BA,ROU_Arman_BA,Eastern-Europe,F,BA,2150-1850 BCE,0.305959,Yes,45.22509,26.68277
 I1072_d,Lazaridis et al. 2022 (Science),ISR_Natufian_EpiP,ISR_Natufian_EpiP,Levant,M,Natufian,12000-9500 BCE,0.112,Yes,32.65,35.067
 I11134,Lazaridis et al. 2022 (Science),BGR_Dzhulyunitsa_N,BGR_Dzhulyunitsa_N,Eastern-Europe,F,N,6100-5450 BCE,2.123934,Yes,43.16089,25.88341
@@ -370,24 +328,17 @@ I11135,Lazaridis et al. 2022 (Science),BGR_Dzhulyunitsa_N,BGR_Dzhulyunitsa_N,Eas
 I11270,Lazaridis et al. 2022 (Science),BGR_Dzhulyunitsa_N,BGR_Dzhulyunitsa_N,Eastern-Europe,M,N,6100-5450 BCE,0.350101,Yes,43.16089,25.88341
 I11446,Lazaridis et al. 2022 (Science),SRB_Yamnaya_BA,SRB_Yamnaya_EBA,Southern-Europe,F,BA,"3092-2915 calBCE (4385±25 BP, UCIAMS-226535, PSUG-5441)",0.152243,Yes,44.842204,20.686966
 I11843,Lazaridis et al. 2022 (Science),HRV_Cetina_BA,HRV_Cetina_BA,Southern-Europe,M,BA,2000-1600 BCE,0.455,Yes,43.9672237,16.4326708
-I11853,Lazaridis et al. 2022 (Science),ARM_Karmir_Blur_IA,ARM_Karmir_Blur_EIA,Caucuses,F,IA,"900-809 calBCE (2700±20 BP, PSUAMS-6155)",0.078994,Yes,40.15118,44.44316667
 I11855,Lazaridis et al. 2022 (Science),ARM_Karmir_Blur_IA,ARM_Karmir_Blur_EIA,Caucuses,F,IA,"902-812 calBCE (2710±20 BP, PSUAMS-6156)",1.484969,Yes,40.15118,44.44316667
 I12510,Lazaridis et al. 2022 (Science),MDA_Slobodzeya_BA,MDA_Slobodzeya_MBA,Eastern-Europe,F,BA,"2136-1959 calBCE (3665±20 BP, PSUAMS-7554)",0.924556,Yes,47.919275,28.85375277777778
-I1296,Lazaridis et al. 2022 (Science),BGR_MalakPreslavets_N,BGR_MalakPreslavets_N,Eastern-Europe,M,N,"5733-5631 calBCE (6796±36 BP, OxA-32540)",0.094856,Yes,43.98,26.4
 I1298,Lazaridis et al. 2022 (Science),BGR_Ohoden_N,BGR_Ohoden_N,Eastern-Europe,F,N,"6057-5805 calBCE (7060±50 BP, Poz-81112)",0.226649,Yes,43.374337,23.729298
-I13031,Lazaridis et al. 2022 (Science),ARM_Karmir_Blur_IA,ARM_Karmir_Blur_EIA,Caucuses,M,IA,"891-793 calBCE (2655±20 BP, PSUAMS-6166)",0.099486,Yes,40.15118,44.44316667
 I13035,Lazaridis et al. 2022 (Science),ARM_Karmir_Blur_Urartian_outlier,ARM_Karmir_Blur_Urartian_outlier,Caucuses,M,Urartian,"752-417 calBCE (2455±20 BP, PSUAMS-6168)",0.115893,Yes,40.15118,44.44316667
-I13167,Lazaridis et al. 2022 (Science),MNE_BA,MNE_LBA,Southern-Europe,M,BA,"1216-1052 calBCE (2935±20 BP, PSUAMS-7922)",3.419537,Yes,42.366667,18.733333
 I13168,Lazaridis et al. 2022 (Science),MNE_BA,MNE_LBA,Southern-Europe,F,BA,"1416-1271 calBCE (3080±25 BP, PSUAMS-7834)",4.089529,Yes,42.366667,18.733333
 I13169,Lazaridis et al. 2022 (Science),MNE_BA,MNE_LBA,Southern-Europe,M,BA,"1407-1271 calBCE (3070±20 BP, PSUAMS-7923)",4.640845,Yes,42.366667,18.733333
 I13170,Lazaridis et al. 2022 (Science),MNE_IA,MNE_IA,Southern-Europe,F,IA,800-400 BCE,4.104019,Yes,42.382,18.74
 I13171,Lazaridis et al. 2022 (Science),MNE_BA,MNE_LBA,Southern-Europe,F,BA,1450-1000 BCE,3.478714,Yes,42.366667,18.733333
 I13172,Lazaridis et al. 2022 (Science),MNE_BA,MNE_LBA,Southern-Europe,F,BA,"1380-1132 calBCE (3010±20 BP, PSUAMS-7925)",3.857766,Yes,42.366667,18.733333
-I13428,Lazaridis et al. 2022 (Science),GRC_Mycenaean_Kastrouli_BA,GRC_Mycenaean_Kastrouli_BA,Southern-Europe,M,BA,"1386-1217 calBCE (3030±20 BP, PSUAMS-7560)",0.064,Yes,38.399083,22.575
 I13506_d,Lazaridis et al. 2022 (Science),GRC_Mycenaean_Palace_of_Nestor_BA_father.or.son.I13518,GRC_Mycenaean_Palace_of_Nestor_BA_father.or.son.I13518,Southern-Europe,M,BA,1200-1070 BCE,0.241,Yes,37.026797,21.694586
-I13510,Lazaridis et al. 2022 (Science),GRC_Mycenaean_Palace_of_Nestor_BA,GRC_Mycenaean_Palace_of_Nestor_BA,Southern-Europe,M,BA,1360-1295 BCE,0.08015,Yes,37.026797,21.694586
 I13514,Lazaridis et al. 2022 (Science),GRC_Mycenaean_Palace_of_Nestor_BA,GRC_Mycenaean_Palace_of_Nestor_BA,Southern-Europe,F,BA,1360-1070 BCE,2.807,Yes,37.026797,21.694586
-I13516,Lazaridis et al. 2022 (Science),GRC_Mycenaean_Palace_of_Nestor_BA,GRC_Mycenaean_Palace_of_Nestor_BA,Southern-Europe,F,BA,1410-1360 BCE,0.07,Yes,37.026797,21.694586
 I13577,Lazaridis et al. 2022 (Science),GRC_Mycenaean_Kastrouli_BA,GRC_Mycenaean_Kastrouli_BA,Southern-Europe,M,BA,1350-1150 BCE,0.3,Yes,38.399083,22.575
 I13578,Lazaridis et al. 2022 (Science),GRC_Mycenaean_Kastrouli_BA,GRC_Mycenaean_Kastrouli_BA,Southern-Europe,F,BA,"1397-1222 calBCE (3045±25 BP, PSUAMS-6186)",0.133968,Yes,38.399083,22.575
 I13579,Lazaridis et al. 2022 (Science),GRC_Mycenaean_Kastrouli_BA,GRC_Mycenaean_Kastrouli_BA,Southern-Europe,M,BA,"1382-1134 calBCE (3015±20 BP, PSUAMS-6187)",0.201294,Yes,38.399083,22.575
@@ -408,7 +359,6 @@ I14052,Lazaridis et al. 2022 (Science),ARM_Brardzryal_Urartian,ARM_Brardzryal_Ur
 I14053,Lazaridis et al. 2022 (Science),ARM_Brardzryal_Urartian,ARM_Brardzryal_Urartian,Caucuses,M,Urartian,800-680 BCE,3.312264,Yes,40.91666,44.5
 I14054,Lazaridis et al. 2022 (Science),ARM_Brardzryal_Urartian,ARM_Brardzryal_Urartian,Caucuses,M,Urartian,"809-596 calBCE (2580±25 BP, UCIAMS-226537, PSUG-5443)",3.552258,Yes,40.91666,44.5
 I14055,Lazaridis et al. 2022 (Science),ARM_Brardzryal_Urartian,ARM_Brardzryal_Urartian,Caucuses,M,Urartian,800-680 BCE,0.267522,Yes,40.91666,44.5
-I14056,Lazaridis et al. 2022 (Science),ARM_Brardzryal_Urartian,ARM_Brardzryal_Urartian,Caucuses,M,Urartian,800-680 BCE,0.093726,Yes,40.91666,44.5
 I14057,Lazaridis et al. 2022 (Science),ARM_Brardzryal_Urartian,ARM_Brardzryal_Urartian,Caucuses,M,Urartian,"776-545 calBCE (2510±20 BP, UCIAMS-226538, PSUG-5444)",3.0758,Yes,40.91666,44.5
 I14065,Lazaridis et al. 2022 (Science),ARM_Bagheri_Tchala_IA_brother.I14619,ARM_Bagheri_Tchala_EIA_brother.I14619,Caucuses,M,IA,1050-800 BCE,1.7032,Yes,40.91666,44.5
 I14066,Lazaridis et al. 2022 (Science),ARM_Bagheri_Tchala_IA,ARM_Bagheri_Tchala_EIA,Caucuses,F,IA,1050-800 BCE,1.857838,Yes,40.91666,44.5
@@ -416,7 +366,6 @@ I1414,Lazaridis et al. 2022 (Science); Narasimhan et al. 2019 (Science),JOR_PPNB
 I14157,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,F,ChL,4500-3500 BCE,2.923767,Yes,47.7467,22.395
 I14158,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,F,ChL,4500-3500 BCE,1.322765,Yes,47.7467,22.395
 I14159,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,M,ChL,4500-3500 BCE,2.999048,Yes,47.7467,22.395
-I1415,Lazaridis et al. 2022 (Science); Narasimhan et al. 2019 (Science),JOR_PPNB,JOR_PPNB,Levant,M,PPN,"8176-7608 calBCE (8790±50 BP, Poz-81101)",0.089108,Yes,31.988,35.976
 I14160,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,F,ChL,4500-3500 BCE,3.592874,Yes,47.7467,22.395
 I14161,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,M,ChL,4500-3500 BCE,3.089767,Yes,47.7467,22.395
 I14162,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,F,ChL,4500-3500 BCE,2.570245,Yes,47.7467,22.395
@@ -427,7 +376,6 @@ I14166,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkereszt
 I14339,Lazaridis et al. 2022 (Science),ARM_Berkaber_KuraAraxes_BA,ARM_Berkaber_KuraAraxes_EBA,Caucuses,M,BA,"2566-2347 calBCE (3950±20 BP, PSUAMS-7732)",0.569689,Yes,41.03,45.08
 I14340,Lazaridis et al. 2022 (Science),ARM_Berkaber_KuraAraxes_BA_father.or.son.I14343,ARM_Berkaber_KuraAraxes_EBA_father.or.son.I14343,Caucuses,M,BA,"2468-2299 calBCE (3905±25 BP, PSUAMS-6795)",2.665319,Yes,41.03,45.08
 I14341,Lazaridis et al. 2022 (Science),ARM_Berkaber_KuraAraxes_BA,ARM_Berkaber_KuraAraxes_EBA,Caucuses,M,BA,2600-2300 BCE,0.490502,Yes,41.03,45.08
-I14500,Lazaridis et al. 2022 (Science),MNE_BA,MNE_LBA,Southern-Europe,F,BA,1300-1000 BCE,0.117,Yes,42.366667,18.733333
 I14501,Lazaridis et al. 2022 (Science),MNE_BA,MNE_LBA,Southern-Europe,F,BA,1450-1000 BCE,0.733978,Yes,42.366667,18.733333
 I14588,Lazaridis et al. 2022 (Science),ARM_Bagheri_Tchala_IA,ARM_Bagheri_Tchala_EIA,Caucuses,M,IA,1050-800 BCE,4.107091,Yes,40.91666,44.5
 I14601,Lazaridis et al. 2022 (Science),ARM_Bagheri_Tchala_IA,ARM_Bagheri_Tchala_EIA,Caucuses,M,IA,1050-800 BCE,5.160646,Yes,40.91666,44.5
@@ -444,7 +392,6 @@ I14645,Lazaridis et al. 2022 (Science),TUR_SE_Gaziantep_Byz,TUR_SE_Gaziantep_Byz
 I14647,Lazaridis et al. 2022 (Science),TUR_SE_Gaziantep_Byz,TUR_SE_Gaziantep_Byz,Anatolia,M,Byz,1100-1300 CE,0.494475,Yes,36.87,37.54
 I14648,Lazaridis et al. 2022 (Science),TUR_SE_Gaziantep_Byz,TUR_SE_Gaziantep_Byz,Anatolia,F,Byz,"1031-1158 calCE (955±20 BP, PSUAMS-6840)",3.140302,Yes,36.87,37.54
 I14649,Lazaridis et al. 2022 (Science),TUR_SE_Gaziantep_BA,TUR_SE_Gaziantep_BA,Anatolia,M,BA,2308-2129 calBCE,0.128222,Yes,36.87,37.54
-I14650,Lazaridis et al. 2022 (Science),TUR_SE_Gaziantep_Byz,TUR_SE_Gaziantep_Byz,Anatolia,M,Byz,1100-1300 CE,0.29774,Yes,36.87,37.54
 I14652,Lazaridis et al. 2022 (Science),TUR_SE_Gaziantep_Byz,TUR_SE_Gaziantep_Byz,Anatolia,M,Byz,1100-1300 CE,0.209744,Yes,36.87,37.54
 I14685,Lazaridis et al. 2022 (Science),ALB_Mdv,ALB_PostMdv,Southern-Europe,F,Mdv,1400-1700 CE,3.411275,Yes,42.12,20.518056
 I14686,Lazaridis et al. 2022 (Science),ALB_Mdv,ALB_PostMdv,Southern-Europe,M,Mdv,1400-1700 CE,3.431775,Yes,42.12,20.518056
@@ -453,7 +400,6 @@ I14688,Lazaridis et al. 2022 (Science),ALB_Çinamak_Anc,ALB_Çinamak_Anc,Souther
 I14689,Lazaridis et al. 2022 (Science),ALB_Çinamak_BA,ALB_Çinamak_EBA,Southern-Europe,M,BA,"2663-2472 calBCE (4045±25 BP, PSUAMS-7926)",0.834527,Yes,42.020556,20.388611
 I14690,Lazaridis et al. 2022 (Science),ALB_Çinamak_Anc,ALB_Çinamak_Anc,Southern-Europe,M,Anc,1700-400 BCE,2.295621,Yes,42.020556,20.388611
 I14692,Lazaridis et al. 2022 (Science),ALB_Çinamak_Anc,ALB_Çinamak_Anc,Southern-Europe,F,Anc,1500-400 BCE,3.533113,Yes,42.020556,20.388611
-I14730,Lazaridis et al. 2022 (Science),TUR_SE_Batman_ChL,TUR_SE_Batman_ChL,Anatolia,F,ChL,5000-3000 BCE,0.081224,Yes,37.79,41.01
 I14733,Lazaridis et al. 2022 (Science),TUR_SE_Batman_Anc,TUR_SE_Batman_Anc,Anatolia,M,Anc,"537-398 calBCE (2385±20 BP, PSUAMS-6940)",1.932835,Yes,37.79,41.01
 I14734,Lazaridis et al. 2022 (Science),TUR_SE_Batman_Anc,TUR_SE_Batman_Anc,Anatolia,M,Anc,1000-100 BCE,0.982525,Yes,37.79,41.01
 I14735,Lazaridis et al. 2022 (Science),TUR_SE_Batman_Anc,TUR_SE_Batman_Anc,Anatolia,F,Anc,1000-100 BCE,0.120514,Yes,37.79,41.01
@@ -464,8 +410,6 @@ I14762,Lazaridis et al. 2022 (Science),TUR_SE_Kilis_BA,TUR_SE_Kilis_MBA,Anatolia
 I14764,Lazaridis et al. 2022 (Science),TUR_E_Van_Urartian_outlier,TUR_E_Van_Urartian_outlier,Anatolia,F,Urartian,"761-479 calBCE (2470±20 BP, PSUAMS-6842)",2.91864,Yes,38.34,43.45
 I14765,Lazaridis et al. 2022 (Science),TUR_E_Van_Urartian,TUR_E_Van_Urartian,Anatolia,M,Urartian,850-750 BCE,1.985841,Yes,38.34,43.45
 I14767,Lazaridis et al. 2022 (Science),TUR_E_Van_BIA_Urartian,TUR_E_Van_BIA_pre-Urartian,Anatolia,F,Urartian,"1396-1218 calBCE (3040±25 BP, PSUAMS-6843)",3.307352,Yes,38.98,43.75
-I14782,Lazaridis et al. 2022 (Science),TUR_SE_Kilis_BA_father.I14784.father.I14789,TUR_SE_Kilis_MBA_father.I14784.father.I14789,Anatolia,M,BA,2000-1500 BCE,1.869819,Yes,36.69,37.17
-I14785,Lazaridis et al. 2022 (Science),TUR_SE_Kilis_BA_brother.I14786,TUR_SE_Kilis_MBA_brother.I14786,Anatolia,M,BA,2000-1500 BCE,0.26843,Yes,36.69,37.17
 I14787,Lazaridis et al. 2022 (Science),TUR_SE_Kilis_Byz,TUR_SE_Kilis_Byz,Anatolia,M,Byz,950-1050 CE,0.412157,Yes,36.69,37.17
 I14788,Lazaridis et al. 2022 (Science),TUR_SE_Kilis_BA,TUR_SE_Kilis_MBA,Anatolia,M,BA,3000-2000 BCE,1.38055,Yes,36.69,37.17
 I14790,Lazaridis et al. 2022 (Science),TUR_SE_Kilis_Byz_mother.or.daughter.I14791,TUR_SE_Kilis_Byz_mother.or.daughter.I14791,Anatolia,F,Byz,950-1050 CE,0.552839,Yes,36.69,37.17
@@ -494,22 +438,18 @@ I14916,Lazaridis et al. 2022 (Science),GRC_Minoan_Zakros_BA,GRC_Minoan_Zakros_BA
 I1510_d,Lazaridis et al. 2022 (Science),TUR_Marmara_Ilıpınar_N,TUR_Marmara_Ilıpınar_N,Anatolia,F,,6150-5800 BCE,,Yes,40.48,29.296
 I15132,Lazaridis et al. 2022 (Science),ARM_Berkaber_KuraAraxes_BA,ARM_Berkaber_KuraAraxes_EBA,Caucuses,F,BA,"2618-2468 calBCE (4020±25 BP, PSUAMS-6796)",2.699712,Yes,41.03,45.08
 I15462,Lazaridis et al. 2022 (Science),HRV_Trogir_Byz,HRV_Trogir_Byz,Southern-Europe,F,Byz,"677-824 calCE (1256±17 BP, MAMS-38379)",4.546069,Yes,43.530795,16.260044
-I15463,Lazaridis et al. 2022 (Science),HRV_Trogir_Byz,HRV_Trogir_Byz,Southern-Europe,F,Byz,700-800 CE,3.215413,Yes,43.530795,16.260044
 I15571,Lazaridis et al. 2022 (Science),GRC_Mycenaean_Attica_BA,GRC_Mycenaean_Attica_BA,Southern-Europe,F,BA,"1505-1429 calBCE (3200±20 BP, PSUAMS-6939)",0.738654,Yes,37.960919,23.939801
 I15582,Lazaridis et al. 2022 (Science),GRC_Mycenaean_Attica_BA,GRC_Mycenaean_Attica_BA,Southern-Europe,F,BA,"1610-1448 calBCE (3255±25 BP, PSUAMS-7850)",0.36018,Yes,37.960919,23.939801
 I15616,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,M,ChL,4500-3500 BCE,3.063625,Yes,47.7467,22.395
-I15617,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL_brother.I18114.brother.I7135,ROU_Bodrogkeresztur_ChL_brother.I18114.brother.I7135,Eastern-Europe,M,ChL,4500-3500 BCE,2.216475,Yes,47.7467,22.395
 I15618,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,F,ChL,4500-3500 BCE,1.604462,Yes,47.7467,22.395
 I15619,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,M,ChL,4500-3500 BCE,1.976248,Yes,47.7467,22.395
 I15620,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,M,ChL,4500-3500 BCE,2.604263,Yes,47.7467,22.395
 I15621,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,M,ChL,4500-3500 BCE,1.497449,Yes,47.7467,22.395
 I15622,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL_sister.I7133,ROU_Bodrogkeresztur_ChL_sister.I7133,Eastern-Europe,F,ChL,4500-3500 BCE,1.252694,Yes,47.7467,22.395
 I15623,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,M,ChL,4500-3500 BCE,1.44403,Yes,47.7467,22.395
-I15705,Lazaridis et al. 2022 (Science),ALB_N,ALB_N,Southern-Europe,F,N,"6223-6067 calBCE (7270±30 BP, PSUAMS-7927)",0.089628,Yes,40.810556,20.793889
 I15706,Lazaridis et al. 2022 (Science),ALB_Mdv,ALB_PostMdv,Southern-Europe,M,Mdv,"1527-1660 calCE (270±13 BP) [R_combine: (260±20 BP, PSUAMS-7160); (275±15 BP, PSUAMS-8304)]",3.569291,Yes,40.998333,19.8325
 I15707,Lazaridis et al. 2022 (Science),ALB_Mdv,ALB_PostMdv,Southern-Europe,M,Mdv,"1472-1632 calCE (355±15 BP, PSUAMS-7161)",3.732539,Yes,42.12,20.518056
 I15729,Lazaridis et al. 2022 (Science),ARM_Nerkin_Getashen_BA,ARM_Nerkin_Getashen_LBA,Caucuses,F,BA,1250-1150 BCE,3.884014,Yes,40.91666,44.5
-I15731,Lazaridis et al. 2022 (Science),ARM_Nerkin_Getashen_BA_son.I18166,ARM_Nerkin_Getashen_LBA_son.I18166,Caucuses,M,BA,1420-1250 BCE,0.306769,Yes,40.91666,44.5
 I15732,Lazaridis et al. 2022 (Science),ARM_Nerkin_Getashen_BA,ARM_Nerkin_Getashen_LBA,Caucuses,M,BA,"1439-1293 calBCE (3110±25 BP, PSUAMS-7162)",3.832896,Yes,40.91666,44.5
 I15733,Lazaridis et al. 2022 (Science),ARM_Nerkin_Getashen_BA,ARM_Nerkin_Getashen_LBA,Caucuses,M,BA,"1434-1300 calBCE (3110±20 BP, UCIAMS-226541, PSUG-5449)",3.514525,Yes,40.91666,44.5
 I15734,Lazaridis et al. 2022 (Science),ARM_Nerkin_Getashen_BA,ARM_Nerkin_Getashen_LBA,Caucuses,F,BA,"1438-1302 calBCE (3115±20 BP, PSUAMS-7201)",3.745052,Yes,40.91666,44.5
@@ -524,10 +464,8 @@ I16117,Lazaridis et al. 2022 (Science),ARM_Bover_Urartian,ARM_Bover_Urartian,Cau
 I16118,Lazaridis et al. 2022 (Science),ARM_Karmir_Blur_Urartian,ARM_Karmir_Blur_Urartian,Caucuses,F,Urartian,670-620 BCE,0.619838,Yes,40.15118,44.44316667
 I16119,Lazaridis et al. 2022 (Science),ARM_Karmir_Blur_Anc,ARM_Karmir_Blur_Anc,Caucuses,M,Anc,"399-231 calBCE (2280±20 BP, PSUAMS-7164)",1.219895,Yes,40.15118,44.44316667
 I16120,Lazaridis et al. 2022 (Science),ARM_Dzori_Gekh_BA,ARM_Dzori_Gekh_LBA,Caucuses,M,BA,1500-1380 BCE,0.667342,Yes,40.91666,44.5
-I16191,Lazaridis et al. 2022 (Science),ARM_Pijut_Urartian,ARM_Pijut_Urartian,Caucuses,M,Urartian,"779-549 calBCE (2520±20 BP, PSUAMS-7165)",1.621508,Yes,40.91666,44.5
 I16193,Lazaridis et al. 2022 (Science),ARM_Pijut_Urartian,ARM_Pijut_Urartian,Caucuses,M,Urartian,800-550 BCE,0.562228,Yes,40.91666,44.5
 I16194,Lazaridis et al. 2022 (Science),ARM_Pijut_Urartian,ARM_Pijut_Urartian,Caucuses,M,Urartian,800-550 BCE,0.439431,Yes,40.91666,44.5
-I16195,Lazaridis et al. 2022 (Science),ARM_Pijut_Urartian,ARM_Pijut_Urartian,Caucuses,F,Urartian,800-550 BCE,0.078273,Yes,40.91666,44.5
 I16196,Lazaridis et al. 2022 (Science),ARM_Lori_Berd_BA,ARM_Lori_Berd_LBA,Caucuses,M,BA,1250-1100 BCE,1.085878,Yes,40.91666,44.5
 I16217,Lazaridis et al. 2022 (Science),ARM_Karashamb_BA,ARM_Karashamb_LBA,Caucuses,F,BA,"1213-1048 calBCE (2925±20 BP, PSUAMS-9001)",1.189586,Yes,40.416667,45.2
 I16220,Lazaridis et al. 2022 (Science),ARM_Karashamb_BA,ARM_Karashamb_LBA,Caucuses,M,BA,"1382-1134 calBCE (3015±20 BP, PSUAMS-7539)",1.444697,Yes,40.416667,45.2
@@ -542,9 +480,7 @@ I1639,Lazaridis et al. 2022 (Science),ARM_Aghitu_Anc,ARM_Aghitu_Anc,Caucuses,F,A
 I16536,Lazaridis et al. 2022 (Science),ARM_Bragdzor_IA,ARM_Bragdzor_EIA,Caucuses,M,IA,"897-798 calBCE (2670±20 BP, PSUAMS-7932)",0.204107,Yes,40.91666,44.5
 I16537,Lazaridis et al. 2022 (Science),ARM_Pijut_BA,ARM_Pijut_LBA,Caucuses,F,BA,"1115-932 calBCE (2860±20 BP, PSUAMS-7889)",1.269829,Yes,40.91666,44.5
 I16554,Lazaridis et al. 2022 (Science),ARM_Tekhut_BA,ARM_Tekhut_LBA,Caucuses,M,BA,"1214-1050 calBCE (2930±20 BP, PSUAMS-7890)",1.837584,Yes,40.91666,44.5
-I16571,Lazaridis et al. 2022 (Science),TUR_SE_Gaziantep_Byz,TUR_SE_Gaziantep_Byz,Anatolia,F,Byz,1100-1300 CE,0.052414,Yes,36.87,37.54
 I1657,Lazaridis et al. 2022 (Science),ARM_Talin_KuraAraxes_BA_mother.or.daughter.of.I1658,ARM_Talin_KuraAraxes_EBA_mother.or.daughter.of.I1658,Caucuses,F,BA,"3339-3012 calBCE (4455±30 BP, PSUAMS-2220)",2.942,Yes,40.39075,43.89106667
-I16580,Lazaridis et al. 2022 (Science),TUR_SE_Kilis_BA_A,TUR_SE_Kilis_EBA_A,Anatolia,F,BA,3000-2000 BCE,0.054888,Yes,36.69,37.17
 I1659,Lazaridis et al. 2022 (Science),ARM_Agarak_Mdv,ARM_Agarak_Mdv,Caucuses,F,Mdv,"1271-1379 CE (795±33 BP, OxA-31675)",3.169,Yes,38.865,46.199
 I1660,Lazaridis et al. 2022 (Science),ARM_Agarak_Mdv,ARM_Agarak_Mdv,Caucuses,F,Mdv,1100-1300 CE,3.539,Yes,38.865,46.199
 I16707,Lazaridis et al. 2022 (Science),ARM_Karnut_IA,ARM_Karnut_EIA,Caucuses,M,IA,"931-816 calBCE (2740±25 BP, PSUAMS-7829)",1.18793,Yes,40.783,43.95
@@ -554,7 +490,6 @@ I16813,Lazaridis et al. 2022 (Science),SRB_BA,SRB_BA,Southern-Europe,M,BA,"2131-
 I16814,Lazaridis et al. 2022 (Science),SRB_IA,SRB_IA,Southern-Europe,M,IA,"1011-901 calBCE (2800±20 BP, PSUAMS-7894)",3.499419,Yes,45.888056,20.166667
 I16920,Lazaridis et al. 2022 (Science),ARM_Berkaber_KuraAraxes_BA,ARM_Berkaber_KuraAraxes_EBA,Caucuses,F,BA,2600-2300 BCE,0.425498,Yes,41.03,45.08
 I16994,Lazaridis et al. 2022 (Science),MNE_Vrbička_N,MNE_Vrbička_N,Southern-Europe,M,N,3500-2500 BCE,0.184791,Yes,42.890889,18.870639
-I16995,Lazaridis et al. 2022 (Science),MNE_Vrbička_Mes,MNE_Vrbička_Mes,Southern-Europe,M,Mes,3500-2500 BCE,0.062698,Yes,42.890889,18.870639
 I1700,Lazaridis et al. 2022 (Science); Narasimhan et al. 2019 (Science),JOR_PPNB,JOR_PPNB,Levant,M,PPN,8300-7900 BCE,0.119765,Yes,31.988,35.976
 I1708,Lazaridis et al. 2022 (Science),JOR_PPNC_1d.rel.I1699,JOR_PPNC_1d.rel.I1699,Levant,F,PPN,6800-6700 BCE,0.360863,Yes,31.988,35.976
 I17180,Lazaridis et al. 2022 (Science),ARM_Pijut_Urartian,ARM_Pijut_Urartian,Caucuses,M,Urartian,"755-420 calBCE (2460±20 BP, PSUAMS-7895)",0.833059,Yes,40.91666,44.5
@@ -562,7 +497,6 @@ I17182,Lazaridis et al. 2022 (Science),ARM_Keti_IA,ARM_Keti_EIA,Caucuses,F,IA,"1
 I17183,Lazaridis et al. 2022 (Science),ARM_Keti_BA,ARM_Keti_LBA,Caucuses,M,BA,"1398-1228 calBCE (3050±20 BP, PSUAMS-7897)",1.535172,Yes,40.8716,43.8445
 I17184,Lazaridis et al. 2022 (Science),ARM_Keti_Urartian,ARM_Keti_Urartian,Caucuses,M,Urartian,"783-549 calBCE (2525±20 BP, PSUAMS-7898)",1.207478,Yes,40.8716,43.8445
 I17308,Lazaridis et al. 2022 (Science),ARM_Keti_Anc,ARM_Keti_Anc,Caucuses,M,Anc,"394-208 calBCE (2260±20 BP, PSUAMS-9003)",0.546649,Yes,40.8716,43.8445
-I17642,Lazaridis et al. 2022 (Science),ROU_Brailita_Mdv,ROU_Brailita_Mdv,Eastern-Europe,M,,"901-1029 calCE (1055±20 BP, PSUAMS-8307)",0.035557,Yes,45.301785,27.966771
 I17835,Lazaridis et al. 2022 (Science),ROU_N,ROU_N,Eastern-Europe,M,N,6000-5500 BCE,0.167,Yes,44.26,23.9
 I17912,Lazaridis et al. 2022 (Science),SRB_BA,SRB_BA,Southern-Europe,F,BA,2100-1800 BCE,1.206958,Yes,45.888056,20.166667
 I17913,Lazaridis et al. 2022 (Science),SRB_BA,SRB_BA,Southern-Europe,F,BA,2100-1800 BCE,2.704306,Yes,45.888056,20.166667
@@ -575,15 +509,11 @@ I17981,Lazaridis et al. 2022 (Science),BGR_Dzhulyunitsa_N,BGR_Dzhulyunitsa_N,Eas
 I18071,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,M,BA,2000-1000 BCE,0.171898,Yes,44.8520052,15.4199444
 I18072,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,M,BA,2000-1000 BCE,0.502629,Yes,44.8520052,15.4199444
 I18073,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,F,BA,2000-1000 BCE,0.158809,Yes,44.8520052,15.4199444
-I18074,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,F,BA,2000-1000 BCE,0.083684,Yes,44.8520052,15.4199444
-I18075,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,M,BA,2000-1000 BCE,0.065138,Yes,44.8520052,15.4199444
 I18077,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,F,BA,2000-1000 BCE,0.586218,Yes,44.8520052,15.4199444
 I18078,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,F,BA,2000-1000 BCE,0.424032,Yes,44.8520052,15.4199444
 I18079,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,F,BA,2000-1000 BCE,0.23244,Yes,44.8520052,15.4199444
 I18082,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,F,BA,2000-1000 BCE,0.54531,Yes,44.8520052,15.4199444
-I18086_d,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,F,,2000-1000 BCE,0.014652,Yes,44.8520052,15.4199444
 I18087,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,F,BA,2000-1000 BCE,0.36045,Yes,44.8520052,15.4199444
-I18088,Lazaridis et al. 2022 (Science),HRV_Cetina_BA,HRV_Cetina_BA,Southern-Europe,M,BA,2000-1600 BCE,0.093108,Yes,43.9672237,16.4326708
 I18113,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,M,ChL,4500-3500 BCE,0.4701,Yes,47.7467,22.395
 I18115,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,F,ChL,4500-3500 BCE,5.598,Yes,47.7467,22.395
 I18116,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,M,ChL,4500-3500 BCE,0.739397,Yes,47.7467,22.395
@@ -639,7 +569,6 @@ I18727,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Sou
 I18729,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,M,BA,1500-800 BCE,1.496205,Yes,44.8520052,15.4199444
 I18730,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,F,BA,1500-800 BCE,1.43405,Yes,44.8520052,15.4199444
 I18732,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,M,BA,1500-800 BCE,1.798079,Yes,44.8520052,15.4199444
-I18733,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,F,,1500-800 BCE,0.030343,Yes,44.8520052,15.4199444
 I18734,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,F,BA,1500-800 BCE,0.618283,Yes,44.8520052,15.4199444
 I18737,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,M,BA,1500-800 BCE,0.972105,Yes,44.8520052,15.4199444
 I18738,Lazaridis et al. 2022 (Science),HRV_Bezdanjača_BA,HRV_Bezdanjača_BA,Southern-Europe,F,BA,1500-800 BCE,1.341359,Yes,44.8520052,15.4199444
@@ -653,11 +582,9 @@ I18792,Lazaridis et al. 2022 (Science),BGR_RomByz,BGR_RomByz,Eastern-Europe,M,Ro
 I18793,Lazaridis et al. 2022 (Science),BGR_Boyanovo_BA,BGR_Boyanovo_EBA,Eastern-Europe,F,BA,2500-2000 BCE,0.424,Yes,42.281,26.63425
 I18794,Lazaridis et al. 2022 (Science),BGR_Boyanovo_BA,BGR_Boyanovo_EBA,Eastern-Europe,M,BA,2500-2000 BCE,0.431,Yes,42.281,26.63425
 I1879,Lazaridis et al. 2022 (Science),HRV_Vinkovci_Mdv,HRV_Vinkovci_Mdv,Southern-Europe,M,Mdv,"1468-1636 calCE (348±26 BP, BRAMS-1303)",0.142,Yes,45.28274,18.79404
-I18801_d,Lazaridis et al. 2022 (Science),BGR_Mogila_Yamnaya_EBA,BGR_Mogila_Yamnaya_EBA,Eastern-Europe,M,,3000-2500 BCE,0.042662,Yes,42.514,26.571056
 I18830,Lazaridis et al. 2022 (Science),HRV_Anc_brother.I18831,HRV_Anc_brother.I18831,Southern-Europe,M,Anc,500-1 BCE,2.164,Yes,43.88741,15.72534
 I19017,Lazaridis et al. 2022 (Science),HRV_Cetina_BA,HRV_Cetina_BA,Southern-Europe,F,BA,2000-1600 BCE,0.107,Yes,43.9672237,16.4326708
 I19027,Lazaridis et al. 2022 (Science),HRV_Cetina_BA,HRV_Cetina_BA,Southern-Europe,F,BA,2000-1600 BCE,0.445,Yes,43.9672237,16.4326708
-I19029,Lazaridis et al. 2022 (Science),HRV_Cetina_BA,HRV_Cetina_BA,Southern-Europe,M,BA,2000-1600 BCE,0.081,Yes,43.9672237,16.4326708
 I19321,Lazaridis et al. 2022 (Science),ARM_Noratus_IA,ARM_Noratus_EIA,Caucuses,M,IA,1150-1050 BCE,7.923,Yes,40.416667,45.2
 I19322,Lazaridis et al. 2022 (Science),ARM_Noratus_Anc,ARM_Noratus_Anc,Caucuses,F,Anc,"777-544 calBCE (2510±25 BP, PSUAMS-9004)",5.339,Yes,40.416667,45.2
 I19323,Lazaridis et al. 2022 (Science),ARM_Noratus_BA,ARM_Noratus_LBA,Caucuses,M,BA,1500-1380 BCE,6.357,Yes,40.416667,45.2
@@ -700,10 +627,7 @@ I19456,Lazaridis et al. 2022 (Science),BGR_TellKran_BA,BGR_TellKran_EBA,Eastern-
 I19457,Lazaridis et al. 2022 (Science),BGR_Tell_Ezero_BA,BGR_Tell_Ezero_EBA,Eastern-Europe,M,BA,2500-2250 BCE,0.202,Yes,42.462247,26.025931
 I19458,Lazaridis et al. 2022 (Science),BGR_Tell_Ezero_BA,BGR_Tell_Ezero_EBA,Eastern-Europe,M,BA,"2466-2297 calBCE (3900±25 BP, PSUAMS-8406)",0.228,Yes,42.462247,26.025931
 I19460,Lazaridis et al. 2022 (Science),BGR_Tell_Ezero_BA,BGR_Tell_Ezero_EBA,Eastern-Europe,F,BA,2500-2250 BCE,0.139,Yes,42.462247,26.025931
-I19462,Lazaridis et al. 2022 (Science),BGR_Nova_Zagora_BA,BGR_Nova_Zagora_EBA,Eastern-Europe,F,BA,3000-2000 BCE,0.081,Yes,42.494242,26.00875
 I19481,Lazaridis et al. 2022 (Science),BGR_Diamandievo_IA,BGR_Diamandievo_IA,Eastern-Europe,F,IA,700-500 BCE,0.186,Yes,41.53,25.06
-I19490,Lazaridis et al. 2022 (Science),BGR_KapitanAndreevo_IA,BGR_KapitanAndreevo_IA,Eastern-Europe,M,,1100-500 BCE,0.045,Yes,41.73,26.33
-I19493,Lazaridis et al. 2022 (Science),BGR_KapitanAndreevo_IA,BGR_KapitanAndreevo_IA,Eastern-Europe,F,IA,1100-500 BCE,0.066,Yes,41.73,26.33
 I19500,Lazaridis et al. 2022 (Science),BGR_Anc,BGR_Anc,Eastern-Europe,M,Anc,300-200 BCE,0.509,Yes,42.56,25.41
 I19539,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_StratonikIA_Byz,TUR_Aegean_Muğla_Stratonikeia_Byz,Anatolia,F,Byz,650-1300 CE,1.274,Yes,37.3,28.03
 I19561,Lazaridis et al. 2022 (Science),BIH_unknown,BIH_unknown,Southern-Europe,M,unknown,3000-1 BCE,0.659,Yes,45.074167,18.148889
@@ -715,7 +639,6 @@ I20071,Lazaridis et al. 2022 (Science),MDA_Catacomb_Dănceni_BA,MDA_Catacomb_Dă
 I20077,Lazaridis et al. 2022 (Science),MDA_Catacomb_BA,MDA_Catacomb_MBA,Eastern-Europe,M,BA,2800-2200 BCE,0.605,Yes,46.613002,28.465447
 I20083,Lazaridis et al. 2022 (Science),MDA_Catacomb_BA,MDA_Catacomb_MBA,Eastern-Europe,M,BA,2800-2200 BCE,0.226,Yes,46.848186,29.596806
 I20086,Lazaridis et al. 2022 (Science),MDA_unknown,MDA_unknown,Eastern-Europe,M,unknown,4000-2500 BCE,0.128,Yes,46.646667,29.808611
-I20088,Lazaridis et al. 2022 (Science),MDA_Catacomb_BA,MDA_Catacomb_MBA,Eastern-Europe,F,BA,2800-2200 BCE,0.078,Yes,46.5022902,29.866422
 I20139,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_Camandras_Dalagöz_Rom,TUR_Aegean_Muğla_Camandras_Dalagöz_Rom,Anatolia,M,Rom,27 BCE - 476 CE,1.703,Yes,37.3,28.03
 I20140,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_StratonikIA_Byz_brother.I20141,TUR_Aegean_Muğla_Stratonikeia_Byz_brother.I20141,Anatolia,M,Byz,"1031-1158 calCE (955±15 BP, PSUAMS-8565)",2.455,Yes,37.3,28.03
 I20142,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_StratonikIA_Byz,TUR_Aegean_Muğla_Stratonikeia_Byz,Anatolia,F,Byz,650-1300 CE,0.871,Yes,37.3,28.03
@@ -733,7 +656,6 @@ I20185,Lazaridis et al. 2022 (Science),BGR_KapitanAndreevo_IA,BGR_KapitanAndreev
 I20186,Lazaridis et al. 2022 (Science),BGR_KapitanAndreevo_IA,BGR_KapitanAndreevo_IA,Eastern-Europe,M,IA,1100-500 BCE,5.218,Yes,41.73,26.33
 I20187,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_StratonikIA_Byz,TUR_Aegean_Muğla_Stratonikeia_Byz,Anatolia,M,Byz,650-1300 CE,4.599,Yes,37.3,28.03
 I20224,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_Değirmendere_Anc,TUR_Aegean_Muğla_Değirmendere_Anc,Anatolia,M,Anc,750-480 BCE,3.602,Yes,37.34,28.04
-I20226,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_Değirmendere_Anc_sister.I20229,TUR_Aegean_Muğla_Değirmendere_Anc_sister.I20229,Anatolia,F,Anc,750-480 BCE,1.013,Yes,37.34,28.04
 I20227,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_Değirmendere_Anc,TUR_Aegean_Muğla_Değirmendere_Anc,Anatolia,F,Anc,750-480 BCE,2.918,Yes,37.34,28.04
 I20228,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_Değirmendere_Anc,TUR_Aegean_Muğla_Değirmendere_Anc,Anatolia,F,Anc,750-480 BCE,1.18,Yes,37.34,28.04
 I20230,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_Değirmendere_Anc,TUR_Aegean_Muğla_Değirmendere_Anc,Anatolia,M,Anc,750-480 BCE,3.919,Yes,37.34,28.04
@@ -765,7 +687,6 @@ I20442,Lazaridis et al. 2022 (Science),ARM_Sarukhan_Anc,ARM_Sarukhan_Anc,Caucuse
 I20443,Lazaridis et al. 2022 (Science),ARM_Sarukhan_IA,ARM_Sarukhan_EIA,Caucuses,M,IA,"1013-846 calBCE (2795±25 BP, PSUAMS-9013)",4.441,Yes,40.29221,45.130679
 I20444,Lazaridis et al. 2022 (Science),ARM_Sarukhan_unknown,ARM_Sarukhan_unknown,Caucuses,M,unknown,200 BCE - 50 CE,1.191,Yes,40.29221,45.130679
 I20502,Lazaridis et al. 2022 (Science),HRV_ChL,HRV_ChL,Southern-Europe,M,ChL,5000-3000 BCE,2.548,Yes,45.312965,18.402813
-I20570,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_Çapalıbağ_Mdv,TUR_Aegean_Muğla_Çapalıbağ_Mdv,Anatolia,F,Mdv,"1465-1633 calCE (355±20 BP, PSUAMS-8790)",5.299,Yes,37.34,28.04
 I20571,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_Çapalıbağ_Mdv,TUR_Aegean_Muğla_Çapalıbağ_Mdv,Anatolia,M,Mdv,"1444-1618 calCE (400±20 BP, PSUAMS-8836)",5.824,Yes,37.34,28.04
 I20572,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_Çapalıbağ_Mdv,TUR_Aegean_Muğla_Çapalıbağ_Mdv,Anatolia,M,Mdv,"1325-1425 calCE (550±20 BP, PSUAMS-8791)",4.693,Yes,37.34,28.04
 I20573,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_Çapalıbağ_Mdv,TUR_Aegean_Muğla_Çapalıbağ_Mdv,Anatolia,M,Mdv,"1404-1440 calCE (510±20 BP, PSUAMS-8792)",5.325,Yes,37.34,28.04
@@ -776,11 +697,9 @@ I20809,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkereszt
 I20810,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,F,ChL,4500-3500 BCE,4.574,Yes,47.7467,22.395
 I2176,Lazaridis et al. 2022 (Science),BGR_Smyadovo_BA_contam,BGR_Smyadovo_EBA_contam,Eastern-Europe,M,BA,"3340-3026 calBCE (4470±30 BP, Ly-5516)",1.655342,Yes,43.05777778,26.98361111
 I2180,Lazaridis et al. 2022 (Science),BGR_Smyadovo_BA,BGR_Smyadovo_EBA,Eastern-Europe,F,BA,"3098-2914 calBCE (4394±29 BP, OxA-23059)",2.948625,Yes,43.066667,27.016667
-I2216,Lazaridis et al. 2022 (Science),BGR_MalakPreslavets_N,BGR_MalakPreslavets_N,Eastern-Europe,F,N,"5983-5793 calBCE (7000±30 BP, PSUAMS-2340)",0.092764,Yes,43.98,26.4
 I2323_all,Lazaridis et al. 2022 (Science),IRN_HajjiFiruz_ChL,IRN_HajjiFiruz_ChL,Iran,F,ChL,"6064-5846 calBCE (7090±50 BP, Poz-81115)",0.818,Yes,36.9944,45.4744
 I2327_all,Lazaridis et al. 2022 (Science),IRN_HajjiFiruz_IA,IRN_HajjiFiruz_IA,Iran,M,IA,"1201-1015 calBCE (2910±20 BP, PSUAMS-4413)",4.803,Yes,36.9944,45.4744
 I2337_all,Lazaridis et al. 2022 (Science),IRN_TepeHissar_ChL,IRN_TepeHissar_ChL,Iran,M,ChL,"3640-3518 calBCE (4780±30 BP, PSUAMS-1919)",1.206802,Yes,36.15444444,54.38361111
-I2428,Lazaridis et al. 2022 (Science),BGR_ChL,BGR_ChL,Eastern-Europe,M,ChL,4600-4300 BCE,0.065,Yes,43.05777778,26.98361111
 I2495_all,Lazaridis et al. 2022 (Science),TUR_Med_Isparta_BA,TUR_Med_Isparta_BA,Anatolia,M,BA,"2560-2295 calBCE (3925±35 BP, Poz-81111)",9.984,Yes,37.91774,30.70839
 I2499_all,Lazaridis et al. 2022 (Science),TUR_Med_Isparta_BA,TUR_Med_Isparta_BA,Anatolia,F,BA,"2836-2468 calBCE (4040±35 BP, Poz-82213)",0.755,Yes,37.91774,30.70839
 I2525,Lazaridis et al. 2022 (Science),BGR_Samovodene_Mdv,BGR_Samovodene_Mdv,Eastern-Europe,M,Mdv,"889-989 calCE (1120±20 BP, PSUAMS-2222)",8.859,Yes,43.139507,25.610236
@@ -792,7 +711,6 @@ I3121_all,Lazaridis et al. 2022 (Science),TUR_Marmara_Ilıpınar_N,TUR_Marmara_I
 I3303,Lazaridis et al. 2022 (Science),TUR_Aegean_Bodrum_Halikarnassos_Anc,TUR_Aegean_Bodrum_Halikarnassos_Anc2,Anatolia,M,Anc,"361-166 calBCE (2185±25 BP, PSUAMS-3994)",0.51,Yes,37.044768,27.436551
 I3310,Lazaridis et al. 2022 (Science),TUR_Aegean_Bodrum_Halikarnassos_Anc,TUR_Aegean_Bodrum_Halikarnassos_Anc1,Anatolia,F,Anc,323-31 BCE,0.242997,Yes,37.044768,27.436551
 I3311,Lazaridis et al. 2022 (Science),TUR_Aegean_Bodrum_Halikarnassos_Anc,TUR_Aegean_Bodrum_Halikarnassos_Anc1,Anatolia,M,Anc,323-31 BCE,2.537,Yes,37.044768,27.436551
-I3881,Lazaridis et al. 2022 (Science),MKD_N,MKD_N,Southern-Europe,F,N,6000-3500 BCE,0.051049,Yes,41.36,22.88
 I3911_all,Lazaridis et al. 2022 (Science),IRN_DinkhaTepe_BIA_A,IRN_DinkhaTepe_BIA_A,Iran,M,IA,2000-1000 BCE,6.512,Yes,37.00786335,45.16575874
 I3912_all,Lazaridis et al. 2022 (Science),IRN_DinkhaTepe_BIA_B,IRN_DinkhaTepe_BIA_B,Iran,M,IA,"1881-1693 calBCE (3465±25 BP, PSUAMS-1943)",7.575,Yes,37.00786335,45.16575874
 I3913_all,Lazaridis et al. 2022 (Science),IRN_DinkhaTepe_BIA_A,IRN_DinkhaTepe_BIA_A,Iran,F,IA,"2012-1775 calBCE (3555±25 BP, PSUAMS-1944)",7.763,Yes,37.00786335,45.16575874
@@ -815,7 +733,6 @@ I4236,Lazaridis et al. 2022 (Science),IRN_DinkhaTepe_BIA_B,IRN_DinkhaTepe_BIA_B,
 I4237_all,Lazaridis et al. 2022 (Science),IRN_DinkhaTepe_BIA_A,IRN_DinkhaTepe_BIA_A,Iran,F,IA,"1011-860 calBCE (2795±20 BP, PSUAMS-2621)",3.737747,Yes,37.00786335,45.16575874
 I4238_all,Lazaridis et al. 2022 (Science),IRN_DinkhaTepe_BIA_B,IRN_DinkhaTepe_BIA_B,Iran,M,IA,"1224-1056 calBCE (2950±15 BP, PSUAMS-2770)",5.145,Yes,37.00786335,45.16575874
 I4239_all,Lazaridis et al. 2022 (Science),IRN_DinkhaTepe_BIA_B,IRN_DinkhaTepe_BIA_B,Iran,F,IA,"1391-1221 calBCE (3040±20 BP, PSUAMS-2162)",6.255,Yes,37.00786335,45.16575874
-I4241_all,Lazaridis et al. 2022 (Science),IRN_HajjiFiruz_ChL,IRN_HajjiFiruz_ChL,Iran,M,ChL,"6021-5891 calBCE (7080±30 BP, PSUAMS-2163)",4.806,Yes,36.9944,45.4744
 I4243_all,Lazaridis et al. 2022 (Science),IRN_HajjiFiruz_BA,IRN_HajjiFiruz_BA,Iran,F,BA,"2463-2236 calBCE (3875±25 BP, PSUAMS-2113)",7.285,Yes,36.9944,45.4744
 I4269_all,Lazaridis et al. 2022 (Science),IRN_Hasanlu_IA,IRN_Hasanlu_IA,Iran,M,IA,"823-787 calBCE (2635±20 BP, PSUAMS-3001)",7.531,Yes,37.005,45.459
 I4272_all,Lazaridis et al. 2022 (Science),IRN_DinkhaTepe_BIA_A,IRN_DinkhaTepe_BIA_A,Iran,F,IA,"1895-1749 calBCE (3510±20 BP, PSUAMS-2957)",6.149,Yes,37.00786335,45.16575874
@@ -870,9 +787,7 @@ I5742,Lazaridis et al. 2022 (Science),TUR_BlackSea_Amasya_BA,TUR_BlackSea_Amasya
 I5743,Lazaridis et al. 2022 (Science),TUR_BlackSea_Amasya_BA,TUR_BlackSea_Amasya_EBA,Anatolia,F,BA,"3081-2907 calBCE (4365±25 BP, PSUAMS-3110)",4.122,Yes,40.69,35.56
 I5744,Lazaridis et al. 2022 (Science),TUR_BlackSea_Amasya_BA,TUR_BlackSea_Amasya_EBA,Anatolia,F,BA,3000-2500 BCE,0.491299,Yes,40.69,35.56
 I6184,Lazaridis et al. 2022 (Science),ROU_Trestiana_BA,ROU_Trestiana_BA,Eastern-Europe,M,BA,6000-5300 BCE,0.218,Yes,46.189619,27.669532
-I6185,Lazaridis et al. 2022 (Science),ROU_Trestiana_BA,ROU_Trestiana_BA,Eastern-Europe,M,BA,"1873-1630 calBCE (3430±25 BP, PSUAMS-3982)",0.056,Yes,46.189619,27.669532
 I6388,Lazaridis et al. 2022 (Science),IRN_Hasanlu_IA,IRN_Hasanlu_IA,Iran,M,IA,"1190-999 calBCE (2885±20 BP, PSUAMS-2813)",1.768356,Yes,37.005,45.459
-I6426,Lazaridis et al. 2022 (Science),IRN_Hasanlu_IA,IRN_Hasanlu_IA,Iran,M,IA,"1377-1130 calBCE (3005±20 BP, PSUAMS-2814)",0.088386,Yes,37.005,45.459
 I6428,Lazaridis et al. 2022 (Science),IRN_Hasanlu_IA,IRN_Hasanlu_IA,Iran,M,IA,"1115-932 calBCE (2860±20 BP, PSUAMS-2617)",3.807963,Yes,37.005,45.459
 I6429,Lazaridis et al. 2022 (Science),IRN_Hasanlu_IA,IRN_Hasanlu_IA,Iran,M,IA,"1011-904 calBCE (2805±20 BP, PSUAMS-2618)",4.023253,Yes,37.005,45.459
 I6430,Lazaridis et al. 2022 (Science),IRN_Hasanlu_IA,IRN_Hasanlu_IA,Iran,M,IA,1200-600 BCE,2.915592,Yes,37.005,45.459
@@ -880,12 +795,9 @@ I6431,Lazaridis et al. 2022 (Science),IRN_Hasanlu_IA,IRN_Hasanlu_IA,Iran,M,IA,"1
 I6432,Lazaridis et al. 2022 (Science),IRN_Hasanlu_IA,IRN_Hasanlu_IA,Iran,F,IA,"1262-1116 calBCE (2965±20 BP, PSUAMS-2620)",3.287239,Yes,37.005,45.459
 I6441,Lazaridis et al. 2022 (Science),IRQ_Nemrik9_BA,IRQ_Nemrik9_LBA,Levant,M,BA,1500-1200 BCE,1.636667,Yes,36.716667,42.85
 I6445,Lazaridis et al. 2022 (Science),IRQ_Nemrik9_PPNA,IRQ_Nemrik9_PPN,Levant,F,PPN,9500-8000 BCE,0.31548,Yes,36.716667,42.85
-I6457,Lazaridis et al. 2022 (Science),IRQ_Nemrik9_PPNA,IRQ_Nemrik9_PPN,Levant,M,PPN,9500-8000 BCE,0.061881,Yes,36.716667,42.85
 I6573,Lazaridis et al. 2022 (Science),TUR_C_Gordion_Anc,TUR_C_Gordion_Anc,Anatolia,F,Anc,323-31 BCE,0.643443,Yes,39.65248,31.996659
 I6574,Lazaridis et al. 2022 (Science),TUR_C_Gordion_Anc,TUR_C_Gordion_Anc,Anatolia,F,Anc,323-31 BCE,0.714613,Yes,39.65248,31.996659
-I6662,Lazaridis et al. 2022 (Science),ROU_N,ROU_N,Eastern-Europe,F,N,5500-4300 BCE,0.054789,Yes,44.322017,23.838043
 I6663,Lazaridis et al. 2022 (Science),ROU_N,ROU_N,Eastern-Europe,M,N,5500-4300 BCE,0.219096,Yes,44.322017,23.838043
-I7079,Lazaridis et al. 2022 (Science),TUR_BlackSea_Amasya_EBA,TUR_BlackSea_Amasya_EBA,Anatolia,M,,"2570-2351 calBCE (3960±20 BP, PSUAMS-3225)",0.048,Yes,40.69,35.56
 I7126,Lazaridis et al. 2022 (Science),ROU_N_outlier1,ROU_N_outlier1,Eastern-Europe,M,N,"5305-5071 calBCE (6240±25 BP, PSUAMS-4341)",4.457307,Yes,47.7467,22.395
 I7127,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,M,ChL,"4224-3976 calBCE (5240±25 BP, PSUAMS-4226)",4.448334,Yes,47.7467,22.395
 I7128,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL,ROU_Bodrogkeresztur_ChL,Eastern-Europe,F,ChL,"4229-3985 calBCE (5260±25 BP, PSUAMS-4227)",3.653526,Yes,47.7467,22.395
@@ -911,15 +823,24 @@ I8373,Lazaridis et al. 2022 (Science),TUR_Marmara_İznik_Basilica_RomByz_A,TUR_M
 I8432,Lazaridis et al. 2022 (Science),TUR_SE_Mardin_PPN,TUR_SE_Mardin_PPN,Anatolia,F,PPN,9000-8500 BCE,0.154,Yes,37.5262,41.8452
 I8471,Lazaridis et al. 2022 (Science),ALB_BA,ALB_MBA,Southern-Europe,M,BA,"1880-1695 calBCE (3465±20 BP, PSUAMS-7540)",0.167808,Yes,42.15,19.29
 I8728,Lazaridis et al. 2022 (Science); Narasimhan et al. 2019 (Science),IRN_Shahr_I_Sokhta_BA,IRN_Shahr_I_Sokhta_BA,Iran,M,BA,2600-2500 BCE,1.288887,Yes,30.649857,61.400311
+I1687_d,Lazaridis et al. 2022 (Science),ISR_Natufian_EpiP,ISR_Natufian_EpiP,Levant,F,,"11541-11150 calBCE (11405±120 BP, RTK-6607)",0.011,Yes,32.65,35.067
+I14497,Lazaridis et al. 2022 (Science),MNE_BA_1d.rel_I14500,MNE_LBA_1d.rel_I14500,Southern-Europe,F,BA,1300-1000 BCE,0.071807,Yes,42.366667,18.733333
+I14498,Lazaridis et al. 2022 (Science),MNE_BA,MNE_LBA,Southern-Europe,M,BA,1300-1000 BCE,0.81847,Yes,42.366667,18.733333
+I14651,Lazaridis et al. 2022 (Science),TUR_SE_Gaziantep_Byz,TUR_SE_Gaziantep_Byz,Anatolia,M,Byz,1100-1300 CE,1.074684,Yes,36.87,37.54
+I14784,Lazaridis et al. 2022 (Science),TUR_SE_Kilis_BA,TUR_SE_Kilis_MBA,Anatolia,M,BA,"1876-1632 calBCE (3435±25 BP, PSUAMS-6834)",2.420326,Yes,36.69,37.17
+I14786,Lazaridis et al. 2022 (Science),TUR_SE_Kilis_BA,TUR_SE_Kilis_MBA,Anatolia,F,BA,"1686-1518 calBCE (3330±25 BP, PSUAMS-6835)",2.2982,Yes,36.69,37.17
+I15741,Lazaridis et al. 2022 (Science),HRV_Trogir_Byz,HRV_Trogir_Byz,Southern-Europe,F,Byz,"771-952 calCE (1171±17 BP, MAMS-38383)",3.006719,Yes,43.530795,16.260044
+I17181,Lazaridis et al. 2022 (Science),ARM_Pijut_Urartian,ARM_Pijut_Urartian,Caucuses,F,Urartian,"776-545 calBCE (2510±20 BP, PSUAMS-7908)",1.46744,Yes,40.91666,44.5
+I18114,Lazaridis et al. 2022 (Science),ROU_Bodrogkeresztur_ChL_brother.I15617.brother.I7135,ROU_Bodrogkeresztur_ChL_brother.I15617.brother.I7135,Eastern-Europe,M,ChL,4500-3500 BCE,0.834582,Yes,47.7467,22.395
+I18166,Lazaridis et al. 2022 (Science),ARM_Lchashen_BA,ARM_Lchashen_LBA,Caucuses,F,BA,1420-1250 BCE,1.539675,Yes,40.516618,44.933321
+I20229,Lazaridis et al. 2022 (Science),TUR_Aegean_Muğla_Değirmendere_Anc,TUR_Aegean_Muğla_Değirmendere_Anc,Anatolia,F,Anc,750-480 BCE,4.966,Yes,37.34,28.04
 1,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Fars,Iran,U,,,,No,,
 13,not recorded in repo metadata (Iranian cohort),Iran_cluster_4,Fars,Iran,U,,,,No,,
-14,not recorded in repo metadata (Iranian cohort),,Iranian (ethnicity not reported),Iran,U,,,,No,,
 18,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Zoroastrian,Iran,U,,,,No,,
 21,not recorded in repo metadata (Iranian cohort),Iran_cluster_3,Talysh,Iran,U,,,,No,,
 23,not recorded in repo metadata (Iranian cohort),Iran_cluster_4,Fars,Iran,U,,,,No,,
 35,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Mazandarani,Iran,U,,,,No,,
 37,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Fars,Iran,U,,,,No,,
-39,not recorded in repo metadata (Iranian cohort),,Iranian (ethnicity not reported),Iran,U,,,,No,,
 48,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Zoroastrian,Iran,U,,,,No,,
 49,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Fars,Iran,U,,,,No,,
 5,not recorded in repo metadata (Iranian cohort),Iran_cluster_2,Iranian (ethnicity not reported),Iran,U,,,,No,,
@@ -930,9 +851,7 @@ I8728,Lazaridis et al. 2022 (Science); Narasimhan et al. 2019 (Science),IRN_Shah
 61,not recorded in repo metadata (Iranian cohort),Iran_cluster_0,Assyrian,Iran,U,,,,No,,
 62,not recorded in repo metadata (Iranian cohort),Iran_cluster_3,Turk_Azeri,Iran,U,,,,No,,
 69,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Zoroastrian,Iran,U,,,,No,,
-74,not recorded in repo metadata (Iranian cohort),Iran_cluster_0,Iranian (ethnicity not reported),Iran,U,,,,No,,
 78,not recorded in repo metadata (Iranian cohort),Iran_cluster_4,Iranian (ethnicity not reported),Iran,U,,,,No,,
-82,not recorded in repo metadata (Iranian cohort),Iran_cluster_3,Iranian (ethnicity not reported),Iran,U,,,,No,,
 85,not recorded in repo metadata (Iranian cohort),Iran_cluster_3,Fars,Iran,U,,,,No,,
 89,not recorded in repo metadata (Iranian cohort),Iran_cluster_3,Azeri,Iran,U,,,,No,,
 91,not recorded in repo metadata (Iranian cohort),Iran_cluster_4,Zoroastrian,Iran,U,,,,No,,
@@ -942,7 +861,6 @@ I8728,Lazaridis et al. 2022 (Science); Narasimhan et al. 2019 (Science),IRN_Shah
 99,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Zoroastrian,Iran,U,,,,No,,
 IGP_10,not recorded in repo metadata (Iranian cohort),Iran_cluster_0,Azeri,Iran,U,,,,No,,
 IGP_100,not recorded in repo metadata (Iranian cohort),Iran_cluster_0,Armenian,Iran,U,,,,No,,
-IGP_101,not recorded in repo metadata (Iranian cohort),Iran_cluster_0,Iranian (ethnicity not reported),Iran,U,,,,No,,
 IGP_104,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Fars_Kashan,Iran,U,,,,No,,
 IGP_12,not recorded in repo metadata (Iranian cohort),Iran_cluster_4,Fars,Iran,U,,,,No,,
 IGP_15,not recorded in repo metadata (Iranian cohort),Iran_cluster_0,Assyrian_Armenian,Iran,U,,,,No,,
@@ -976,13 +894,14 @@ IGP_72,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Iranian (et
 IGP_75,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Fars,Iran,U,,,,No,,
 IGP_76,not recorded in repo metadata (Iranian cohort),Iran_cluster_0,Assyrian_Armenian,Iran,U,,,,No,,
 IGP_77,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Fars,Iran,U,,,,No,,
-IGP_8,not recorded in repo metadata (Iranian cohort),,Iranian (ethnicity not reported),Iran,U,,,,No,,
 IGP_80,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Fars_Lur,Iran,U,,,,No,,
 IGP_81,not recorded in repo metadata (Iranian cohort),Iran_cluster_4,Fars_Afghani,Iran,U,,,,No,,
 IGP_83,not recorded in repo metadata (Iranian cohort),Iran_cluster_3,Fars,Iran,U,,,,No,,
 IGP_84,not recorded in repo metadata (Iranian cohort),Iran_cluster_4,Fars,Iran,U,,,,No,,
 IGP_87,not recorded in repo metadata (Iranian cohort),Iran_cluster_0,Jewish,Iran,U,,,,No,,
 IGP_90,not recorded in repo metadata (Iranian cohort),Iran_cluster_2,Iranian (ethnicity not reported),Iran,U,,,,No,,
+86,not recorded in repo metadata (Iranian cohort),Iran_cluster_1,Zoroastrian,Iran,U,,,,No,,
+IGP_19,not recorded in repo metadata (Iranian cohort),Iran_cluster_0,Iranian (ethnicity not reported),Iran,U,,,,No,,
 Austronesian:GA000431,GenomeAsia 100K,,Austronesian,South-East-Asia,M,,,,No,,
 Austronesian:GA000433,GenomeAsia 100K,,Austronesian,South-East-Asia,M,,,,No,,
 Austronesian:GA000435,GenomeAsia 100K,,Austronesian,South-East-Asia,F,,,,No,,
@@ -1051,7 +970,6 @@ Aeta:GA000526,GenomeAsia 100K,,Aeta,South-East-Asia,M,,,,No,,
 Aeta:GA000527,GenomeAsia 100K,,Aeta,South-East-Asia,F,,,,No,,
 Aeta:GA000528,GenomeAsia 100K,,Aeta,South-East-Asia,M,,,,No,,
 Aeta:GA000529,GenomeAsia 100K,,Aeta,South-East-Asia,F,,,,No,,
-Aeta:GA000530,GenomeAsia 100K,,Aeta,South-East-Asia,M,,,,No,,
 Aeta:GA000531,GenomeAsia 100K,,Aeta,South-East-Asia,M,,,,No,,
 Aeta:GA000532,GenomeAsia 100K,,Aeta,South-East-Asia,F,,,,No,,
 Aeta:GA000533,GenomeAsia 100K,,Aeta,South-East-Asia,M,,,,No,,
@@ -1099,21 +1017,13 @@ SouthIndian:GA000640,GenomeAsia 100K,,SouthIndian,South-Asia,F,,,,No,,
 SouthIndian:GA000642,GenomeAsia 100K,,SouthIndian,South-Asia,F,,,,No,,
 Jarwa:GA000781,GenomeAsia 100K,,Jarwa,South-Asia,F,,,,No,,
 Jarwa:GA000782,GenomeAsia 100K,,Jarwa,South-Asia,U,,,,No,,
-Jarwa:GA000783,GenomeAsia 100K,,Jarwa,South-Asia,F,,,,No,,
-Jarwa:GA000784,GenomeAsia 100K,,Jarwa,South-Asia,F,,,,No,,
-Jarwa:GA000787,GenomeAsia 100K,,Jarwa,South-Asia,M,,,,No,,
 Jarwa:GA000788,GenomeAsia 100K,,Jarwa,South-Asia,M,,,,No,,
-Jarwa:GA000790,GenomeAsia 100K,,Jarwa,South-Asia,M,,,,No,,
 Jarwa:GA000791,GenomeAsia 100K,,Jarwa,South-Asia,M,,,,No,,
-Jarwa:GA000792,GenomeAsia 100K,,Jarwa,South-Asia,M,,,,No,,
 Onge:GA000794,GenomeAsia 100K,,Onge,South-Asia,M,,,,No,,
 Onge:GA000797,GenomeAsia 100K,,Onge,South-Asia,F,,,,No,,
-Onge:GA000800,GenomeAsia 100K,,Onge,South-Asia,F,,,,No,,
-Onge:GA000801,GenomeAsia 100K,,Onge,South-Asia,F,,,,No,,
 Onge:GA000802,GenomeAsia 100K,,Onge,South-Asia,M,,,,No,,
 Onge:GA000804,GenomeAsia 100K,,Onge,South-Asia,F,,,,No,,
 Onge:GA000805,GenomeAsia 100K,,Onge,South-Asia,M,,,,No,,
-Onge:GA000807,GenomeAsia 100K,,Onge,South-Asia,M,,,,No,,
 Agharia:GA000809,GenomeAsia 100K,,Agharia,South-Asia,M,,,,No,,
 Agharia:GA000810,GenomeAsia 100K,,Agharia,South-Asia,F,,,,No,,
 Agharia:GA000811,GenomeAsia 100K,,Agharia,South-Asia,M,,,,No,,
@@ -1175,13 +1085,10 @@ Bagdi:GA000871,GenomeAsia 100K,,Bagdi,South-Asia,F,,,,No,,
 Bagdi:GA000872,GenomeAsia 100K,,Bagdi,South-Asia,M,,,,No,,
 Birhor:GA000873,GenomeAsia 100K,,Birhor,South-Asia,F,,,,No,,
 Birhor:GA000878,GenomeAsia 100K,,Birhor,South-Asia,F,,,,No,,
-Birhor:GA000881,GenomeAsia 100K,,Birhor,South-Asia,M,,,,No,,
 Birhor:GA000882,GenomeAsia 100K,,Birhor,South-Asia,F,,,,No,,
 Birhor:GA000885,GenomeAsia 100K,,Birhor,South-Asia,M,,,,No,,
-Birhor:GA000887,GenomeAsia 100K,,Birhor,South-Asia,F,,,,No,,
 Birhor:GA000888,GenomeAsia 100K,,Birhor,South-Asia,F,,,,No,,
 Birhor:GA000889,GenomeAsia 100K,,Birhor,South-Asia,F,,,,No,,
-Birhor:GA000891,GenomeAsia 100K,,Birhor,South-Asia,M,,,,No,,
 Birhor:GA000892,GenomeAsia 100K,,Birhor,South-Asia,M,,,,No,,
 BisonHornMaria:GA000893,GenomeAsia 100K,,BisonHornMaria,South-Asia,F,,,,No,,
 BisonHornMaria:GA000896,GenomeAsia 100K,,BisonHornMaria,South-Asia,F,,,,No,,
@@ -1190,7 +1097,6 @@ BisonHornMaria:GA000899,GenomeAsia 100K,,BisonHornMaria,South-Asia,F,,,,No,,
 BisonHornMaria:GA000900,GenomeAsia 100K,,BisonHornMaria,South-Asia,M,,,,No,,
 HillKorwa:GA000901,GenomeAsia 100K,,HillKorwa,South-Asia,M,,,,No,,
 HillKorwa:GA000902,GenomeAsia 100K,,HillKorwa,South-Asia,F,,,,No,,
-HillKorwa:GA000903,GenomeAsia 100K,,HillKorwa,South-Asia,M,,,,No,,
 HillKorwa:GA000904,GenomeAsia 100K,,HillKorwa,South-Asia,F,,,,No,,
 HillKorwa:GA000905,GenomeAsia 100K,,HillKorwa,South-Asia,F,,,,No,,
 HillKorwa:GA000906,GenomeAsia 100K,,HillKorwa,South-Asia,F,,,,No,,
@@ -1203,7 +1109,6 @@ Kamar:GA000914,GenomeAsia 100K,,Kamar,South-Asia,M,,,,No,,
 Kamar:GA000915,GenomeAsia 100K,,Kamar,South-Asia,M,,,,No,,
 Kamar:GA000916,GenomeAsia 100K,,Kamar,South-Asia,M,,,,No,,
 Kamar:GA000917,GenomeAsia 100K,,Kamar,South-Asia,F,,,,No,,
-Kamar:GA000918,GenomeAsia 100K,,Kamar,South-Asia,F,,,,No,,
 Kamar:GA000919,GenomeAsia 100K,,Kamar,South-Asia,M,,,,No,,
 Kamar:GA000920,GenomeAsia 100K,,Kamar,South-Asia,F,,,,No,,
 Kamar:GA000921,GenomeAsia 100K,,Kamar,South-Asia,M,,,,No,,
@@ -1319,9 +1224,7 @@ Mog:GA001037,GenomeAsia 100K,,Mog,South-Asia,M,,,,No,,
 Mog:GA001038,GenomeAsia 100K,,Mog,South-Asia,M,,,,No,,
 Mog:GA001039,GenomeAsia 100K,,Mog,South-Asia,F,,,,No,,
 Mog:GA001040,GenomeAsia 100K,,Mog,South-Asia,M,,,,No,,
-Toto:GA001042,GenomeAsia 100K,,Toto,South-Asia,F,,,,No,,
 Toto:GA001044,GenomeAsia 100K,,Toto,South-Asia,M,,,,No,,
-Toto:GA001046,GenomeAsia 100K,,Toto,South-Asia,M,,,,No,,
 Toto:GA001047,GenomeAsia 100K,,Toto,South-Asia,M,,,,No,,
 Toto:GA001048,GenomeAsia 100K,,Toto,South-Asia,F,,,,No,,
 Toto:GA001049,GenomeAsia 100K,,Toto,South-Asia,M,,,,No,,
@@ -1417,9 +1320,7 @@ Paniya:GA001155,GenomeAsia 100K,,Paniya,South-Asia,M,,,,No,,
 Paniya:GA001156,GenomeAsia 100K,,Paniya,South-Asia,M,,,,No,,
 Paniya:GA001157,GenomeAsia 100K,,Paniya,South-Asia,M,,,,No,,
 Paniya:GA001158,GenomeAsia 100K,,Paniya,South-Asia,M,,,,No,,
-Toda:GA001159,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
 Toda:GA001160,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
-Toda:GA001161,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
 Toda:GA001162,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
 Toda:GA001163,GenomeAsia 100K,,Toda,South-Asia,M,,,,No,,
 Toda:GA001164,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
@@ -1427,10 +1328,8 @@ Toda:GA001166,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
 Toda:GA001167,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
 Toda:GA001168,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
 Toda:GA001169,GenomeAsia 100K,,Toda,South-Asia,M,,,,No,,
-Toda:GA001171,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
 Toda:GA001172,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
 Toda:GA001173,GenomeAsia 100K,,Toda,South-Asia,M,,,,No,,
-Toda:GA001174,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
 Toda:GA001176,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
 Toda:GA001178,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
 Kota:GA001179,GenomeAsia 100K,,Kota,South-Asia,F,,,,No,,
@@ -1901,7 +1800,6 @@ Sindhi:GA001856,GenomeAsia 100K,,Sindhi,South-Asia,U,,,,No,,
 Sindhi:GA001857,GenomeAsia 100K,,Sindhi,South-Asia,U,,,,No,,
 Sindhi:GA001858,GenomeAsia 100K,,Sindhi,South-Asia,U,,,,No,,
 Sindhi:GA001859,GenomeAsia 100K,,Sindhi,South-Asia,U,,,,No,,
-Sindhi:GA001861,GenomeAsia 100K,,Sindhi,South-Asia,U,,,,No,,
 Sindhi:GA001863,GenomeAsia 100K,,Sindhi,South-Asia,U,,,,No,,
 Sindhi:GA001864,GenomeAsia 100K,,Sindhi,South-Asia,U,,,,No,,
 Brusho:GA001865,GenomeAsia 100K,,Brusho,South-Asia,U,,,,No,,
@@ -2170,7 +2068,6 @@ Southern_Han_Chinese:HG00533,1000 Genomes Phase 3,,Southern_Han_Chinese,East-Asi
 Southern_Han_Chinese:HG00534,1000 Genomes Phase 3,,Southern_Han_Chinese,East-Asia,F,,,,No,,
 Southern_Han_Chinese:HG00536,1000 Genomes Phase 3,,Southern_Han_Chinese,East-Asia,M,,,,No,,
 Southern_Han_Chinese:HG00537,1000 Genomes Phase 3,,Southern_Han_Chinese,East-Asia,F,,,,No,,
-Southern_Han_Chinese:HG00542,1000 Genomes Phase 3,,Southern_Han_Chinese,East-Asia,M,,,,No,,
 Southern_Han_Chinese:HG00543,1000 Genomes Phase 3,,Southern_Han_Chinese,East-Asia,F,,,,No,,
 Puerto_Rican:HG00551,1000 Genomes Phase 3,,Puerto_Rican,Americas,F,,,,No,,
 Puerto_Rican:HG00553,1000 Genomes Phase 3,,Puerto_Rican,Americas,M,,,,No,,
@@ -3215,7 +3112,6 @@ Esan:HG03313,1000 Genomes Phase 3,,Esan,Africa,M,,,,No,,
 Esan:HG03342,1000 Genomes Phase 3,,Esan,Africa,F,,,,No,,
 Esan:HG03343,1000 Genomes Phase 3,,Esan,Africa,M,,,,No,,
 Esan:HG03351,1000 Genomes Phase 3,,Esan,Africa,F,,,,No,,
-Esan:HG03352,1000 Genomes Phase 3,,Esan,Africa,M,,,,No,,
 Esan:HG03354,1000 Genomes Phase 3,,Esan,Africa,F,,,,No,,
 Esan:HG03363,1000 Genomes Phase 3,,Esan,Africa,F,,,,No,,
 Esan:HG03366,1000 Genomes Phase 3,,Esan,Africa,F,,,,No,,
@@ -4489,7 +4385,6 @@ Hazara:HGDP00103,HGDP,,Hazara,South-Asia,M,,,,No,,
 Hazara:HGDP00104,HGDP,,Hazara,South-Asia,M,,,,No,,
 Hazara:HGDP00105,HGDP,,Hazara,South-Asia,M,,,,No,,
 Hazara:HGDP00106,HGDP,,Hazara,South-Asia,M,,,,No,,
-Hazara:HGDP00108,HGDP,,Hazara,South-Asia,M,,,,No,,
 Hazara:HGDP00109,HGDP,,Hazara,South-Asia,M,,,,No,,
 Hazara:HGDP00110,HGDP,,Hazara,South-Asia,M,,,,No,,
 Hazara:HGDP00115,HGDP,,Hazara,South-Asia,M,,,,No,,
@@ -4522,7 +4417,6 @@ Makrani:HGDP00151,HGDP,,Makrani,South-Asia,F,,,,No,,
 Makrani:HGDP00153,HGDP,,Makrani,South-Asia,F,,,,No,,
 Makrani:HGDP00154,HGDP,,Makrani,South-Asia,F,,,,No,,
 Makrani:HGDP00155,HGDP,,Makrani,South-Asia,F,,,,No,,
-Makrani:HGDP00157,SGDP,,Makrani,South-Asia,F,,,,No,,
 Makrani:HGDP00158,HGDP,,Makrani,South-Asia,M,,,,No,,
 Makrani:HGDP00160,SGDP,,Makrani,South-Asia,M,,,,No,,
 Makrani:HGDP00161,HGDP,,Makrani,South-Asia,M,,,,No,,
@@ -4588,7 +4482,6 @@ Kalash:HGDP00304,HGDP,,Kalash,South-Asia,F,,,,No,,
 Kalash:HGDP00307,HGDP,,Kalash,South-Asia,M,,,,No,,
 Kalash:HGDP00309,HGDP,,Kalash,South-Asia,M,,,,No,,
 Kalash:HGDP00311,HGDP,,Kalash,South-Asia,M,,,,No,,
-Kalash:HGDP00313,HGDP,,Kalash,South-Asia,M,,,,No,,
 Kalash:HGDP00315,HGDP,,Kalash,South-Asia,M,,,,No,,
 Kalash:HGDP00319,HGDP,,Kalash,South-Asia,M,,,,No,,
 Kalash:HGDP00323,HGDP,,Kalash,South-Asia,F,,,,No,,
@@ -4646,7 +4539,6 @@ Mbuti:HGDP00474,SGDP,,Mbuti,Africa,M,,,,No,,
 Biaka:HGDP00475,HGDP,,Biaka,Africa,M,,,,No,,
 Mbuti:HGDP00476,SGDP,,Mbuti,Africa,F,,,,No,,
 Mbuti:HGDP00478,HGDP,,Mbuti,Africa,M,,,,No,,
-Biaka:HGDP00479,HGDP,,Biaka,Africa,M,,,,No,,
 Bougainville:HGDP00491,HGDP,,Bougainville,Oceania,M,,,,No,,
 French:HGDP00511,HGDP,,French,Western-Europe,M,,,,No,,
 French:HGDP00512,HGDP,,French,Western-Europe,M,,,,No,,
@@ -4723,9 +4615,7 @@ Druze:HGDP00584,HGDP,,Druze,Levant,F,,,,No,,
 Druze:HGDP00586,HGDP,,Druze,Levant,F,,,,No,,
 Druze:HGDP00587,HGDP,,Druze,Levant,F,,,,No,,
 Druze:HGDP00588,HGDP,,Druze,Levant,M,,,,No,,
-Druze:HGDP00590,HGDP,,Druze,Levant,F,,,,No,,
 Druze:HGDP00591,HGDP,,Druze,Levant,F,,,,No,,
-Druze:HGDP00594,HGDP,,Druze,Levant,M,,,,No,,
 Druze:HGDP00595,HGDP,,Druze,Levant,M,,,,No,,
 Druze:HGDP00597,SGDP,,Druze,Levant,M,,,,No,,
 Druze:HGDP00598,HGDP,,Druze,Levant,M,,,,No,,
@@ -4824,7 +4714,6 @@ Bedouin:HGDP00701,HGDP,,Bedouin,Arabia,F,,,,No,,
 Colombian:HGDP00703,HGDP,,Colombian,Americas,M,,,,No,,
 Colombian:HGDP00704,HGDP,,Colombian,Americas,F,,,,No,,
 Colombian:HGDP00708,HGDP,,Colombian,Americas,F,,,,No,,
-Colombian:HGDP00710,HGDP,,Colombian,Americas,M,,,,No,,
 Cambodian:HGDP00711,HGDP,,Cambodian,South-East-Asia,M,,,,No,,
 Cambodian:HGDP00712,HGDP,,Cambodian,South-East-Asia,F,,,,No,,
 Cambodian:HGDP00713,SGDP,,Cambodian,South-East-Asia,F,,,,No,,
@@ -4835,18 +4724,15 @@ Cambodian:HGDP00717,SGDP,,Cambodian,South-East-Asia,M,,,,No,,
 Cambodian:HGDP00719,HGDP,,Cambodian,South-East-Asia,F,,,,No,,
 Cambodian:HGDP00721,HGDP,,Cambodian,South-East-Asia,F,,,,No,,
 Palestinian:HGDP00722,SGDP,,Palestinian,Levant,M,,,,No,,
-Palestinian:HGDP00723,HGDP,,Palestinian,Levant,M,,,,No,,
 Palestinian:HGDP00724,HGDP,,Palestinian,Levant,M,,,,No,,
 Palestinian:HGDP00725,SGDP,,Palestinian,Levant,F,,,,No,,
 Palestinian:HGDP00726,HGDP,,Palestinian,Levant,M,,,,No,,
-Palestinian:HGDP00727,HGDP,,Palestinian,Levant,M,,,,No,,
 Palestinian:HGDP00729,HGDP,,Palestinian,Levant,M,,,,No,,
 Palestinian:HGDP00730,HGDP,,Palestinian,Levant,M,,,,No,,
 Palestinian:HGDP00731,HGDP,,Palestinian,Levant,M,,,,No,,
 Palestinian:HGDP00732,HGDP,,Palestinian,Levant,M,,,,No,,
 Palestinian:HGDP00733,HGDP,,Palestinian,Levant,M,,,,No,,
 Palestinian:HGDP00734,HGDP,,Palestinian,Levant,M,,,,No,,
-Palestinian:HGDP00735,HGDP,,Palestinian,Levant,F,,,,No,,
 Palestinian:HGDP00736,HGDP,,Palestinian,Levant,F,,,,No,,
 Palestinian:HGDP00737,SGDP,,Palestinian,Levant,F,,,,No,,
 Palestinian:HGDP00738,HGDP,,Palestinian,Levant,F,,,,No,,
@@ -4925,9 +4811,6 @@ Han:HGDP00821,HGDP,,Han,East-Asia,M,,,,No,,
 Han:HGDP00822,HGDP,,Han,East-Asia,M,,,,No,,
 Japanese:HGDP00828,HGDP,,Japanese,East-Asia,M,,,,No,,
 Surui:HGDP00845,HGDP,,Surui,Americas,M,,,,No,,
-Surui:HGDP00846,SGDP,,Surui,Americas,F,,,,No,,
-Surui:HGDP00849,HGDP,,Surui,Americas,M,,,,No,,
-Surui:HGDP00852,SGDP,,Surui,Americas,F,,,,No,,
 Maya:HGDP00854,HGDP,,Maya,Americas,F,,,,No,,
 Maya:HGDP00855,SGDP,,Maya,Americas,F,,,,No,,
 Maya:HGDP00856,HGDP,,Maya,Americas,M,,,,No,,
@@ -5052,14 +4935,8 @@ San:HGDP00991,SGDP,,San,Africa,M,,,,No,,
 San:HGDP00992,HGDP,,San,Africa,M,,,,No,,
 BantuSouthAfrica:HGDP00993,HGDP,,BantuSouthAfrica,Africa,M,,,,No,,
 BantuSouthAfrica:HGDP00994,HGDP,,BantuSouthAfrica,Africa,M,,,,No,,
-Karitiana:HGDP00995,HGDP,,Karitiana,Americas,F,,,,No,,
-Karitiana:HGDP00999,HGDP,,Karitiana,Americas,F,,,,No,,
 Karitiana:HGDP01001,HGDP,,Karitiana,Americas,F,,,,No,,
 Karitiana:HGDP01009,HGDP,,Karitiana,Americas,M,,,,No,,
-Karitiana:HGDP01010,HGDP,,Karitiana,Americas,F,,,,No,,
-Karitiana:HGDP01013,HGDP,,Karitiana,Americas,M,,,,No,,
-Karitiana:HGDP01014,HGDP,,Karitiana,Americas,F,,,,No,,
-Karitiana:HGDP01018,SGDP,,Karitiana,Americas,F,,,,No,,
 Karitiana:HGDP01019,HGDP,,Karitiana,Americas,M,,,,No,,
 Han:HGDP01021,HGDP,,Han,East-Asia,F,,,,No,,
 Han:HGDP01023,HGDP,,Han,East-Asia,F,,,,No,,
@@ -5071,15 +4948,11 @@ BantuSouthAfrica:HGDP01033,HGDP,,BantuSouthAfrica,Africa,M,,,,No,,
 San:HGDP01036,SGDP,,San,Africa,M,,,,No,,
 Pima:HGDP01037,HGDP,,Pima,Americas,M,,,,No,,
 Pima:HGDP01041,HGDP,,Pima,Americas,F,,,,No,,
-Pima:HGDP01043,HGDP,,Pima,Americas,M,,,,No,,
 Pima:HGDP01047,SGDP,,Pima,Americas,M,,,,No,,
 Pima:HGDP01050,HGDP,,Pima,Americas,M,,,,No,,
 Pima:HGDP01055,HGDP,,Pima,Americas,M,,,,No,,
-Pima:HGDP01056,HGDP,,Pima,Americas,F,,,,No,,
 Pima:HGDP01057,HGDP,,Pima,Americas,M,,,,No,,
-Pima:HGDP01058,HGDP,,Pima,Americas,F,,,,No,,
 Pima:HGDP01059,HGDP,,Pima,Americas,M,,,,No,,
-Pima:HGDP01060,HGDP,,Pima,Americas,M,,,,No,,
 Sardinian:HGDP01062,HGDP,,Sardinian,Southern-Europe,F,,,,No,,
 Sardinian:HGDP01063,HGDP,,Sardinian,Southern-Europe,M,,,,No,,
 Sardinian:HGDP01064,HGDP,,Sardinian,Southern-Europe,F,,,,No,,
@@ -5271,7 +5144,6 @@ Lahu:HGDP01326,HGDP,,Lahu,South-East-Asia,M,,,,No,,
 She:HGDP01327,HGDP,,She,East-Asia,M,,,,No,,
 She:HGDP01328,HGDP,,She,East-Asia,M,,,,No,,
 She:HGDP01329,HGDP,,She,East-Asia,M,,,,No,,
-She:HGDP01330,HGDP,,She,East-Asia,M,,,,No,,
 She:HGDP01331,HGDP,,She,East-Asia,M,,,,No,,
 She:HGDP01332,HGDP,,She,East-Asia,M,,,,No,,
 She:HGDP01333,SGDP,,She,East-Asia,M,,,,No,,
@@ -5472,3 +5344,6 @@ Turkish_Cappadocia:LP6005677-DNA_C03,SGDP,,Turkish_Cappadocia,Anatolia,M,,,,No,,
 Turkish_Cappadocia:LP6005677-DNA_A03,SGDP,,Turkish_Cappadocia,Anatolia,F,,,,No,,
 Yemenite_Jew:LP6005592-DNA_H01,SGDP,,Yemenite_Jew,Arabia,F,,,,No,,
 Yemenite_Jew:LP6005592-DNA_G01,SGDP,,Yemenite_Jew,Arabia,M,,,,No,,
+Birhor:GA000884,GenomeAsia 100K,,Birhor,South-Asia,F,,,,No,,
+Toda:GA001175,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
+Toda:GA001177,GenomeAsia 100K,,Toda,South-Asia,F,,,,No,,
