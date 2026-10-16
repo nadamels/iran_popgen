@@ -139,7 +139,7 @@ if not include_ancient:
     print(f"leaving out {int(is_anc.sum())} ancient {group} samples (modern only)")
     sel = sel[~is_anc]
 df = ev.merge(sel, left_on="sid", right_on="IID", how="inner")
-print(f"{group}: {len(sel)} modern samples in the table, {len(df)} present in the PCA")
+print(f"{group}: {len(sel)} {'' if include_ancient else 'modern '}samples in the table, {len(df)} present in the PCA")
 if df.empty:
     sys.exit("ERROR: none of those samples are in the eigenvec")
 df["ancient"] = df["Undergone Imputation"].str.strip().str.lower() == "yes"
@@ -248,10 +248,12 @@ function draw(){
   const g=el("g",{"clip-path":"url(#cp)"});
   // modern first (below), ancient on top, big old ancient points below small ones
   const order=D.rows.filter(r=>!hidden.has(r.pop)).sort((a,b)=>(a.anc-b.anc)||(b.r-a.r));
-  order.forEach(r=>{const c=el("rect",{x:sx_(r.pcs[ix])-r.r,y:sy_(r.pcs[iy])-r.r,width:2*r.r,height:2*r.r,fill:col[r.pop],"fill-opacity":.85,
-      stroke:"#000","stroke-width":1.6},g);
+  // modern Iranians = squares with a thick border; ancient samples (only with INCLUDE_ANCIENT=1) = circles, thin outline
+  order.forEach(r=>{const x=sx_(r.pcs[ix]),y=sy_(r.pcs[iy]),w0=r.anc?.6:1.6;
+    const c=r.anc?el("circle",{cx:x,cy:y,r:r.r,fill:col[r.pop],"fill-opacity":.85,stroke:"#000","stroke-width":w0},g)
+                 :el("rect",{x:x-r.r,y:y-r.r,width:2*r.r,height:2*r.r,fill:col[r.pop],"fill-opacity":.85,stroke:"#000","stroke-width":w0},g);
     c.onmouseenter=e=>show(r,e);c.onmousemove=e=>move(e);c.onmouseleave=()=>tip.style.display="none";
-    c.onmouseover=()=>c.setAttribute("stroke-width",3);c.onmouseout=()=>c.setAttribute("stroke-width",1.6)});
+    c.onmouseover=()=>c.setAttribute("stroke-width",r.anc?1.6:3);c.onmouseout=()=>c.setAttribute("stroke-width",w0)});
 }
 function show(r,e){const rows=[["Population","<b>"+r.pop+"</b>"],["Sample ID",r.id]];
   Object.keys(r.info).forEach(k=>{let v=r.info[k];if(/^(lat|lon)/i.test(k)&&!isNaN(+v))v=(+v).toFixed(4);rows.push([k,v])});
