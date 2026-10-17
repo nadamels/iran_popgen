@@ -18,10 +18,9 @@ conda activate /scratch/nme3923/conda-envs/myenviro
 # mega sample table. The input fileset can therefore be any subset of the samples: only the IIDs that
 # are in <prefix>.fam AND in the table's IID column are used (the rest are reported and ignored).
 #   1. intersect fam IIDs with the table IIDs -> keep list
-#   2. subset the samples (autosomes only)                             plink --keep
-#   3. PCA of the subset                                               plink --pca
-#   4. UMAP on the top PCs                                             umap-learn
-#   5. plot, coloured by Super-population (colours from Plotting/pca_colors.txt if available)
+#   2. PCA of those samples (no separate subsetting step)              plink --keep --pca
+#   3. UMAP on the top PCs                                             umap-learn
+#   4. plot, coloured by Population (colours from Plotting/pca_colors.txt if available)
 # The input fileset is assumed to be LD-pruned already: no pruning is done here.
 # The input fileset is never modified.
 #
@@ -42,7 +41,9 @@ conda activate /scratch/nme3923/conda-envs/myenviro
 #   KEEP_PCA=0        1 = also keep the PLINK PCA (<out>.pca.eigenvec / .eigenval); by default it is
 #                     written to a temporary directory and deleted, so it cannot clash with other eigenvecs
 #   COLORS_FILE       "name: #hex" lines (default Plotting/pca_colors.txt under $SLURM_SUBMIT_DIR or cwd)
-#   COLOR_BY="Super-population"   table column used for the colours
+#   COLOR_BY="Population"   table column used for the colours (478 populations in the current table:
+#                     colours repeat unless a population is listed in the colours file; the legend shows
+#                     only the LEGEND_N=25 largest populations)
 #
 # Needs in the conda env: plink (1.9), python3, numpy, pandas, matplotlib, umap-learn
 #   (openpyxl too if the table is .xlsx):
@@ -65,7 +66,8 @@ mkdir -p "$(dirname "$OUT")"
 OUT=$(abspath "$OUT")
 BASE="${SLURM_SUBMIT_DIR:-$PWD}"
 COLORS="${COLORS_FILE:-$BASE/Plotting/pca_colors.txt}"
-COLOR_BY="${COLOR_BY:-Super-population}"
+COLOR_BY="${COLOR_BY:-Population}"
+LEGEND_N=${LEGEND_N:-25}
 NPCS=${NPCS:-20}
 N_NEIGHBORS=${N_NEIGHBORS:-15}
 MIN_DIST=${MIN_DIST:-0.1}
@@ -132,23 +134,17 @@ if fam.loc[in_both, "sid"].duplicated().any():
 fam.loc[in_both, ["FID", "IID"]].to_csv(keep_path, sep="\t", header=False, index=False)
 PY
 
-# ---- 2. subset the samples (autosomes) --------------------------------------------------------
-# The fileset is assumed to be LD-pruned already, so no pruning is done here.
-SRC="${TMP}/subset"
-plink --bfile "$IN" --keep "${OUT}.keep.txt" --autosome --allow-no-sex --threads "$THREADS" \
-	--make-bed --out "$SRC"
-echo "variants used: $(wc -l < "${SRC}.bim")   samples: $(wc -l < "${SRC}.fam")"
-
-# ---- 3. PCA of the subset ----------------------------------------------------------------------
-plink --bfile "$SRC" --allow-no-sex --threads "$THREADS" --pca "$NPCS" --out "${TMP}/pca"
+# ---- 2. PCA of the shared samples --------------------------------------------------------------
+# The fileset is assumed to be LD-pruned already, so no pruning (and no separate subsetting) is done.
+plink --bfile "$IN" --keep "${OUT}.keep.txt" --allow-no-sex --threads "$THREADS" --pca "$NPCS" --out "${TMP}/pca"
 
 if [ "$KEEP_PCA" = "1" ]; then
 	cp "${TMP}/pca.eigenvec" "${OUT}.pca.eigenvec"
 	cp "${TMP}/pca.eigenval" "${OUT}.pca.eigenval"
 fi
 
-# ---- 4./5. UMAP + plot -------------------------------------------------------------------------
-python3 -I - "${TMP}/pca.eigenvec" "$TABLE" "${IN}.fam" "$COLORS" "$COLOR_BY" "$NPCS" "$N_NEIGHBORS" "$MIN_DIST" "$SEED" "$OUT" <<'PY'
+# ---- 3./4. UMAP + plot -------------------------------------------------------------------------
+python3 -I - "${TMP}/pca.eigenvec" "$TABLE" "${IN}.fam" "$COLORS" "$COLOR_BY" "$NPCS" "$N_NEIGHBORS" "$MIN_DIST" "$SEED" "$OUT" "$LEGEND_N" <<'PY'
 import os
 import sys
 import numpy as np
@@ -161,6 +157,7 @@ import umap
 eig_path, table_path, fam_path, colors_path, color_by = sys.argv[1:6]
 npcs, n_neighbors, min_dist, seed = int(sys.argv[6]), int(sys.argv[7]), float(sys.argv[8]), int(sys.argv[9])
 out = sys.argv[10]
+legend_n = int(sys.argv[11])
 
 ev = pd.read_csv(eig_path, sep=r"\s+", header=None, dtype=str)
 pcs = [f"PC{i}" for i in range(1, ev.shape[1] - 1)]
@@ -201,16 +198,21 @@ if color_by not in df.columns:
     df[color_by] = "all"
 df[color_by] = df[color_by].fillna("unlabelled")
 groups = sorted(df[color_by].unique(), key=lambda g: -(df[color_by] == g).sum())
-cycle = plt.get_cmap("tab20")
-fig, ax = plt.subplots(figsize=(10, 8))
+# Colours: the colours file if it lists the group, else a cycling 60-colour palette (many groups => repeats).
+palette = [c for name in ("tab20", "tab20b", "tab20c") for c in plt.get_cmap(name).colors]
+fig, ax = plt.subplots(figsize=(11, 8))
 for i, g in enumerate(groups):
     sub = df[df[color_by] == g]
     ax.scatter(sub["UMAP1"], sub["UMAP2"], s=6, alpha=0.8, linewidths=0,
-               color=col_of.get(g, cycle(i % 20)), label=f"{g} (n={len(sub)})")
+               color=col_of.get(g, palette[i % len(palette)]), label=f"{g} (n={len(sub)})")
+if len(groups) > legend_n:
+    print(f"NOTE: {len(groups)} {color_by} groups; legend shows the {legend_n} largest (all are in the coords.tsv)")
 ax.set_xlabel("UMAP1")
 ax.set_ylabel("UMAP2")
 ax.set_title(f"{os.path.basename(out)}  |  n={len(df)}, {npcs} PCs, n_neighbors={n_neighbors}, min_dist={min_dist}")
-ax.legend(markerscale=3, fontsize=7, frameon=False, bbox_to_anchor=(1.01, 1), loc="upper left")
+handles, labels = ax.get_legend_handles_labels()
+ax.legend(handles[:legend_n], labels[:legend_n], markerscale=3, fontsize=7, frameon=False,
+          bbox_to_anchor=(1.01, 1), loc="upper left", title=f"{color_by} (largest {min(legend_n, len(groups))})")
 fig.tight_layout()
 fig.savefig(f"{out}.png", dpi=200)
 fig.savefig(f"{out}.pdf")
