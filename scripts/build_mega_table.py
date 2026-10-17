@@ -2,7 +2,8 @@
 """Build the mega sample table.
 
 Rows    : exactly the IIDs of ONE fam (default all_anc_mod.run3.fam in the repo root), in the order of
-          metadata/sample_order.txt (new IIDs placed after their fam neighbour; fam order if no such file).
+          metadata/sample_order.txt (new IIDs placed after their fam neighbour; fam order if no such file), then
+          grouped: Iranian cohort first, then ancient, then modern global references (stable within group).
           Each sample is assigned to a group by rule: ancient (listed in a raw study table), Iranian cohort
           (IID numeric or IGP_<n>) or modern global reference.
 Columns : IID | Source Publication(s) | Empirical cluster (Study Pop only) | Population |
@@ -160,6 +161,8 @@ def main():
             return ANC_GROUP
         return IRAN_FAM if IRAN_ID.match(iid) else REF_GROUP
     rows = [(iid, classify(iid)) for iid in iids]
+    rank = {IRAN_FAM: 0, ANC_GROUP: 1, REF_GROUP: 2}           # output order: Iranian cohort > ancient > references
+    rows.sort(key=lambda r: rank[r[1]])                        # stable: order inside each group is kept
     membership = {iid: [g] for iid, g in rows}
     dups = {}
     n_fam_rows = len(iids)
@@ -278,7 +281,7 @@ def main():
         ("Undergone Imputation", "Yes for every ancient sample, No for every modern sample (by rule)."),
         ("Latitude", "Decimal degrees, from the same raw study table as the rest of the ancient row (Lazaridis 2022 'Lat.', Narasimhan 2019 / Mathieson 2015 'Latitude'). Blank when the study gives none and for all modern samples (no coordinates in any modern metadata file)."),
         ("Longitude", "Decimal degrees, same source and rules as Latitude."),
-        ("Row rules", "Rows = the IIDs of the single fam named in the 'fam_groups' sheet, in the order of metadata/sample_order.txt. Group (ancient / Iranian cohort / global reference) is assigned per sample from the metadata; see 'fam_groups'."),
+        ("Row rules", "Rows = the IIDs of the single fam named in the 'fam_groups' sheet, grouped Iranian cohort > ancient > modern global references, otherwise in the order of metadata/sample_order.txt. Group (ancient / Iranian cohort / global reference) is assigned per sample from the metadata; see 'fam_groups'."),
     ], columns=["Column", "Definition"])
     smap = pd.DataFrame(sorted(SUPERPOP.items()), columns=["Country", "Super-population"])
     with pd.ExcelWriter(meta / "mega_sample_table.xlsx") as xw:
