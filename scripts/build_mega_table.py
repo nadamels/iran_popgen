@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Build the mega sample table.
 
-Rows    : exactly the IIDs of ONE fam (default all_anc_mod.run3.fam in the repo root), in fam order.
+Rows    : exactly the IIDs of ONE fam (default all_anc_mod.run3.fam in the repo root), in the order of
+          metadata/sample_order.txt (new IIDs placed after their fam neighbour; fam order if no such file).
           Each sample is assigned to a group by rule: ancient (listed in a raw study table), Iranian cohort
           (IID numeric or IGP_<n>) or modern global reference.
 Columns : IID | Source Publication(s) | Empirical cluster (Study Pop only) | Population |
@@ -93,6 +94,25 @@ def main():
     f = read_fam(fam_path)
     assert f["IID"].is_unique, f"duplicate IIDs inside {fam_path.name}"
     iids = list(f["IID"])
+    # Row order: metadata/sample_order.txt lists the established order (ancient studies, Iranian cohort,
+    # modern global references last). IIDs missing from it go right after their preceding neighbour in the fam.
+    order_file = meta / "sample_order.txt"
+    if order_file.exists():
+        known = [x.strip() for x in order_file.read_text().splitlines() if x.strip()]
+        kset, inset = set(known), set(iids)
+        after, prev = {}, None
+        for x in iids:
+            if x in kset:
+                prev = x
+            else:
+                after.setdefault(prev, []).append(x)
+        ordered = after.get(None, [])
+        for x in known:
+            if x in inset:
+                ordered.append(x)
+                ordered += after.get(x, [])
+        assert sorted(ordered) == sorted(iids)
+        iids = ordered
     print(f"fam {fam_path.name}: {len(iids)} samples")
 
     # ---- reference data ---------------------------------------------------------------------------
@@ -258,7 +278,7 @@ def main():
         ("Undergone Imputation", "Yes for every ancient sample, No for every modern sample (by rule)."),
         ("Latitude", "Decimal degrees, from the same raw study table as the rest of the ancient row (Lazaridis 2022 'Lat.', Narasimhan 2019 / Mathieson 2015 'Latitude'). Blank when the study gives none and for all modern samples (no coordinates in any modern metadata file)."),
         ("Longitude", "Decimal degrees, same source and rules as Latitude."),
-        ("Row rules", "Rows = the IIDs of the single fam named in the 'fam_groups' sheet, in fam order. Group (ancient / Iranian cohort / global reference) is assigned per sample from the metadata; see 'fam_groups'."),
+        ("Row rules", "Rows = the IIDs of the single fam named in the 'fam_groups' sheet, in the order of metadata/sample_order.txt. Group (ancient / Iranian cohort / global reference) is assigned per sample from the metadata; see 'fam_groups'."),
     ], columns=["Column", "Definition"])
     smap = pd.DataFrame(sorted(SUPERPOP.items()), columns=["Country", "Super-population"])
     with pd.ExcelWriter(meta / "mega_sample_table.xlsx") as xw:
