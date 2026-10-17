@@ -18,10 +18,11 @@ conda activate /scratch/nme3923/conda-envs/myenviro
 # mega sample table. The input fileset can therefore be any subset of the samples: only the IIDs that
 # are in <prefix>.fam AND in the table's IID column are used (the rest are reported and ignored).
 #   1. intersect fam IIDs with the table IIDs -> keep list
-#   2. subset + (optional) LD-prune the variants (autosomes only)       plink --keep, --indep-pairwise
+#   2. subset the samples (autosomes only)                             plink --keep
 #   3. PCA of the subset                                               plink --pca
 #   4. UMAP on the top PCs                                             umap-learn
 #   5. plot, coloured by Super-population (colours from Plotting/pca_colors.txt if available)
+# The input fileset is assumed to be LD-pruned already: no pruning is done here.
 # The input fileset is never modified.
 #
 # Usage:   sbatch umap.sh <input_prefix> <mega_sample_table.xlsx|.csv> [output_prefix]
@@ -40,8 +41,6 @@ conda activate /scratch/nme3923/conda-envs/myenviro
 #   SEED=42           random seed
 #   KEEP_PCA=0        1 = also keep the PLINK PCA (<out>.pca.eigenvec / .eigenval); by default it is
 #                     written to a temporary directory and deleted, so it cannot clash with other eigenvecs
-#   LD_PRUNE=1        1 = LD-prune first (default), 0 = use every variant
-#   LD_WINDOW="200 25 0.4"   plink --indep-pairwise window / step / r^2
 #   COLORS_FILE       "name: #hex" lines (default Plotting/pca_colors.txt under $SLURM_SUBMIT_DIR or cwd)
 #   COLOR_BY="Super-population"   table column used for the colours
 #
@@ -73,8 +72,6 @@ MIN_DIST=${MIN_DIST:-0.1}
 SEED=${SEED:-42}
 KEEP_PCA=${KEEP_PCA:-0}
 THREADS=${SLURM_CPUS_PER_TASK:-${SLURM_JOB_CPUS_PER_NODE:-4}}
-LD_PRUNE=${LD_PRUNE:-1}
-LD_WINDOW=${LD_WINDOW:-"200 25 0.4"}
 
 if [[ "$TABLE" == *.xlsx || "$TABLE" == *.xls ]] && ! python3 -c "import openpyxl" 2>/dev/null; then
 	alt="${TABLE%.*}.csv"
@@ -95,7 +92,7 @@ python3 -c "import numpy, pandas, matplotlib, umap" 2>/dev/null || {
 
 echo "input  : $IN  ($(wc -l < "${IN}.fam") samples, $(wc -l < "${IN}.bim") variants)"
 echo "table  : $TABLE"
-echo "output : ${OUT}.*   PCs: $NPCS   n_neighbors: $N_NEIGHBORS   min_dist: $MIN_DIST   LD prune: $LD_PRUNE"
+echo "output : ${OUT}.*   PCs: $NPCS   n_neighbors: $N_NEIGHBORS   min_dist: $MIN_DIST"
 
 TMP=$(mktemp -d "${OUT}.tmp.XXXXXX")
 trap 'rm -rf "$TMP"' EXIT
@@ -135,16 +132,11 @@ if fam.loc[in_both, "sid"].duplicated().any():
 fam.loc[in_both, ["FID", "IID"]].to_csv(keep_path, sep="\t", header=False, index=False)
 PY
 
-# ---- 2. subset + LD pruning (autosomes) --------------------------------------------------------
+# ---- 2. subset the samples (autosomes) --------------------------------------------------------
+# The fileset is assumed to be LD-pruned already, so no pruning is done here.
 SRC="${TMP}/subset"
 plink --bfile "$IN" --keep "${OUT}.keep.txt" --autosome --allow-no-sex --threads "$THREADS" \
 	--make-bed --out "$SRC"
-if [ "$LD_PRUNE" = "1" ]; then
-	# shellcheck disable=SC2086
-	plink --bfile "$SRC" --allow-no-sex --threads "$THREADS" --indep-pairwise $LD_WINDOW --out "${TMP}/ld"
-	plink --bfile "$SRC" --extract "${TMP}/ld.prune.in" --make-bed --allow-no-sex --threads "$THREADS" --out "${TMP}/pruned"
-	SRC="${TMP}/pruned"
-fi
 echo "variants used: $(wc -l < "${SRC}.bim")   samples: $(wc -l < "${SRC}.fam")"
 
 # ---- 3. PCA of the subset ----------------------------------------------------------------------
