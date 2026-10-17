@@ -30,7 +30,6 @@ conda activate /scratch/nme3923/conda-envs/myenviro
 #   output_prefix    default: <input_prefix>.umap
 #
 # Outputs:  <out>.keep.txt        FID IID of the samples used (fam ∩ table)
-#           <out>.pca.eigenvec    PLINK PCA of the subset (no header)
 #           <out>.coords.tsv      IID, UMAP1, UMAP2, metadata columns from the table
 #           <out>.png / .pdf      UMAP plot
 #
@@ -39,6 +38,8 @@ conda activate /scratch/nme3923/conda-envs/myenviro
 #   N_NEIGHBORS=15    UMAP n_neighbors
 #   MIN_DIST=0.1      UMAP min_dist
 #   SEED=42           random seed
+#   KEEP_PCA=0        1 = also keep the PLINK PCA (<out>.pca.eigenvec / .eigenval); by default it is
+#                     written to a temporary directory and deleted, so it cannot clash with other eigenvecs
 #   LD_PRUNE=1        1 = LD-prune first (default), 0 = use every variant
 #   LD_WINDOW="200 25 0.4"   plink --indep-pairwise window / step / r^2
 #   COLORS_FILE       "name: #hex" lines (default Plotting/pca_colors.txt under $SLURM_SUBMIT_DIR or cwd)
@@ -70,6 +71,7 @@ NPCS=${NPCS:-20}
 N_NEIGHBORS=${N_NEIGHBORS:-15}
 MIN_DIST=${MIN_DIST:-0.1}
 SEED=${SEED:-42}
+KEEP_PCA=${KEEP_PCA:-0}
 THREADS=${SLURM_CPUS_PER_TASK:-${SLURM_JOB_CPUS_PER_NODE:-4}}
 LD_PRUNE=${LD_PRUNE:-1}
 LD_WINDOW=${LD_WINDOW:-"200 25 0.4"}
@@ -146,10 +148,15 @@ fi
 echo "variants used: $(wc -l < "${SRC}.bim")   samples: $(wc -l < "${SRC}.fam")"
 
 # ---- 3. PCA of the subset ----------------------------------------------------------------------
-plink --bfile "$SRC" --allow-no-sex --threads "$THREADS" --pca "$NPCS" --out "${OUT}.pca"
+plink --bfile "$SRC" --allow-no-sex --threads "$THREADS" --pca "$NPCS" --out "${TMP}/pca"
+
+if [ "$KEEP_PCA" = "1" ]; then
+	cp "${TMP}/pca.eigenvec" "${OUT}.pca.eigenvec"
+	cp "${TMP}/pca.eigenval" "${OUT}.pca.eigenval"
+fi
 
 # ---- 4./5. UMAP + plot -------------------------------------------------------------------------
-python3 -I - "${OUT}.pca.eigenvec" "$TABLE" "${IN}.fam" "$COLORS" "$COLOR_BY" "$NPCS" "$N_NEIGHBORS" "$MIN_DIST" "$SEED" "$OUT" <<'PY'
+python3 -I - "${TMP}/pca.eigenvec" "$TABLE" "${IN}.fam" "$COLORS" "$COLOR_BY" "$NPCS" "$N_NEIGHBORS" "$MIN_DIST" "$SEED" "$OUT" <<'PY'
 import os
 import sys
 import numpy as np
