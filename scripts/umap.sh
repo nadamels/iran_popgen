@@ -12,7 +12,7 @@ set --
 #Activate your environments here
 source ~/.bashrc
 source /share/apps/NYUAD5/miniconda/3-4.11.0/bin/activate
-conda activate /scratch/nme3923/conda-envs/myenviro
+conda activate /scratch/nme3923/conda-envs/glimpse2
 
 # UMAP of a PLINK binary fileset, restricted to the samples that are in BOTH the fileset and the
 # mega sample table. The input fileset can therefore be any subset of the samples: only the IIDs that
@@ -68,8 +68,8 @@ BASE="${SLURM_SUBMIT_DIR:-$PWD}"
 COLORS="${COLORS_FILE:-$BASE/Plotting/pca_colors.txt}"
 COLOR_BY="${COLOR_BY:-Population}"
 LEGEND_N=${LEGEND_N:-25}
-NPCS=${NPCS:-20}
-N_NEIGHBORS=${N_NEIGHBORS:-15}
+NPCS=${NPCS:-4}
+N_NEIGHBORS=${N_NEIGHBORS:-5}
 MIN_DIST=${MIN_DIST:-0.1}
 SEED=${SEED:-42}
 KEEP_PCA=${KEEP_PCA:-0}
@@ -203,7 +203,7 @@ palette = [c for name in ("tab20", "tab20b", "tab20c") for c in plt.get_cmap(nam
 fig, ax = plt.subplots(figsize=(11, 8))
 for i, g in enumerate(groups):
     sub = df[df[color_by] == g]
-    ax.scatter(sub["UMAP1"], sub["UMAP2"], s=6, alpha=0.8, linewidths=0,
+    ax.scatter(sub["UMAP1"], sub["UMAP2"], s=20, alpha=1, linewidths=0,
                color=col_of.get(g, palette[i % len(palette)]), label=f"{g} (n={len(sub)})")
 if len(groups) > legend_n:
     print(f"NOTE: {len(groups)} {color_by} groups; legend shows the {legend_n} largest (all are in the coords.tsv)")
