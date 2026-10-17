@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Build the mega sample table.
 
-Rows    : exactly the IIDs in cleaned_fams/*.fam (nothing else), one row per unique IID, grouped by
-          fam file in FAM_ORDER (modern global references last), original fam row order kept inside
-          each group.
+Rows    : exactly the IIDs of ONE fam (default all_anc_mod.run3.fam in the repo root), in fam order.
+          Each sample is assigned to a group by rule: ancient (listed in a raw study table), Iranian cohort
+          (IID numeric or IGP_<n>) or modern global reference.
 Columns : IID | Source Publication(s) | Empirical cluster (Study Pop only) | Population |
           Super-population | Sex | Archeological Period | Archeological Date |
           Original Genome Coverage (ancient samples only) | Undergone Imputation | Latitude | Longitude
@@ -15,7 +15,7 @@ Metadata: ancient  -> metadata/{laz,nar,matheison}-raw-metadata.xlsx (+ working 
 Outputs (metadata/): mega_sample_table.csv / .xlsx, samples_missing_sex.csv,
                      cross_fam_duplicate_iids.csv
 
-Run: python3 scripts/build_mega_table.py [--root <repo root>]
+Run: python3 scripts/build_mega_table.py [--root <repo root>] [--fam <fam file>]
 """
 import argparse
 import re
@@ -32,17 +32,12 @@ import sample_metadata_lib as lib  # noqa: E402
 warnings.filterwarnings("ignore")
 
 # ---- policy -----------------------------------------------------------------------------------
-# Output order of the datasets. Samples from one fam stay together; global references go last.
-FAM_ORDER = [
-    ("Mathieson2015 / European ancient", "euro_samples_merged.filtered.renamediids.dupSampVarem.flipped.amb.rel2ndrem.fam"),
-    ("Narasimhan2019 + 54 ancient", "Narasimhan2019_plus54Full.fam"),
-    ("Lazaridis2022 / Southern Arc ancient", "southern_arc_samples_merged.filtered.renamediids.dupSampVarem.flipped.amb.rel2ndrem.fam"),
-    ("Modern Iranians", "all_avr0.2_gq20.SNPsOnly.vcf.filtered.dupSampVarem.flipped.amb.rel1strem.fam"),
-    # later pruning rounds keep a few Iranians (e.g. 86, IGP_19) that the rel1strem set lacks; same group, extra IIDs only
-    ("Modern Iranians", "all_avr0.2_gq20.SNPsOnly.vcf.filtered.dupSampVarem.flipped.amb.rel2ndrem70run3.LDpruned.pca.fam"),
-    ("Modern global references", "GA_Paps_refs.related_removed.filtered.flipped.amb.filtered.dupSampVarem.rel2ndrem.fam"),
-]
+# Groups (assigned per sample, see classify()); the fam itself is a single file.
+FAM_FILE = "all_anc_mod.run3.fam"
+ANC_GROUP = "Ancient"
 IRAN_FAM = "Modern Iranians"
+REF_GROUP = "Modern global references"
+IRAN_ID = re.compile(r"(\d+|IGP_\d+)$")   # Iranian cohort IIDs
 COLS = ["IID", "Source Publication(s)", "Empirical cluster (Study Pop only)", "Population", "Super-population",
         "Sex", "Archeological Period", "Archeological Date", "Original Genome Coverage (ancient samples only)",
         "Undergone Imputation", "Latitude", "Longitude"]
@@ -89,23 +84,16 @@ def read_fam(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", default=str(Path(__file__).resolve().parents[1]))
-    root = Path(ap.parse_args().root)
-    meta, famdir = root / "metadata", root / "cleaned_fams"
+    ap.add_argument("--fam", default=None, help=f"fam file defining the rows (default <root>/{FAM_FILE})")
+    args = ap.parse_args()
+    root = Path(args.root)
+    meta = root / "metadata"
+    fam_path = Path(args.fam) if args.fam else root / FAM_FILE
 
-    # ---- rows: IIDs from the cleaned fams -------------------------------------------------------
-    rows, membership = [], {}
-    for group, fn in FAM_ORDER:
-        f = read_fam(famdir / fn)
-        assert f["IID"].is_unique, f"duplicate IIDs inside {fn}"
-        for iid in f["IID"]:
-            if group in membership.get(iid, []):        # same group listed by two fams (Modern Iranians)
-                continue
-            membership.setdefault(iid, []).append(group)
-            if len(membership[iid]) == 1:
-                rows.append((iid, group))
-    n_fam_rows = sum(len(v) for v in membership.values())  # one per (IID, group)
-    dups = {k: v for k, v in membership.items() if len(v) > 1}
-    print(f"fam rows {n_fam_rows}; unique IIDs {len(membership)}; IIDs in >1 fam {len(dups)}")
+    f = read_fam(fam_path)
+    assert f["IID"].is_unique, f"duplicate IIDs inside {fam_path.name}"
+    iids = list(f["IID"])
+    print(f"fam {fam_path.name}: {len(iids)} samples")
 
     # ---- reference data ---------------------------------------------------------------------------
     H = lib.load_sources(meta)
@@ -146,12 +134,22 @@ def main():
         "GenomeAsia 100K": dict(zip(ga["GA sample ID"], ga["Gender"].map({"M": "M", "F": "F"}).fillna("U"))),
     }
 
+    # ---- group per sample: ancient = listed in a raw study table; Iranian cohort = numeric / IGP_n IID ----
+    def classify(iid):
+        if lib.lookup(H, iid):
+            return ANC_GROUP
+        return IRAN_FAM if IRAN_ID.match(iid) else REF_GROUP
+    rows = [(iid, classify(iid)) for iid in iids]
+    membership = {iid: [g] for iid, g in rows}
+    dups = {}
+    n_fam_rows = len(iids)
+
     # ---- build rows ---------------------------------------------------------------------------------
     out, missing, conflicts, unmapped = [], [], [], set()
     for iid, group in rows:
         rec = dict.fromkeys(COLS)
         rec["IID"] = iid
-        in_anc = group not in ("Modern Iranians", "Modern global references")
+        in_anc = group == ANC_GROUP
         why_missing = None
         if in_anc:
             hits = lib.lookup(H, iid)
@@ -244,11 +242,11 @@ def main():
     df.to_csv(meta / "mega_sample_table.csv", index=False)
     miss.to_csv(meta / "samples_missing_sex.csv", index=False)
     dupdf.to_csv(meta / "cross_fam_duplicate_iids.csv", index=False)
-    groups = pd.DataFrame([(g, fn, int((pd.Series([r[1] for r in rows]) == g).sum()), "") for g, fn in FAM_ORDER],
-                          columns=["Group (output order)", "Fam file", "Rows in table", "Note"])
-    groups["Fam rows in file"] = [len(read_fam(famdir / fn)) for _, fn in FAM_ORDER]
+    gser = pd.Series([r[1] for r in rows])
+    groups = pd.DataFrame([(g, fam_path.name, int((gser == g).sum()), "") for g in (ANC_GROUP, IRAN_FAM, REF_GROUP)],
+                          columns=["Group", "Fam file", "Rows in table", "Note"])
     dd = pd.DataFrame([
-        ("IID", "Sample ID exactly as in the cleaned fam."),
+        ("IID", "Sample ID exactly as in the fam."),
         ("Source Publication(s)", "Ancient: every raw study table listing the sample (Lazaridis 2022 / Narasimhan 2019 / Mathieson 2015), the one whose coverage matches the working workbook first. Modern: every reference dataset whose metadata file lists the ID (1000 Genomes, HGDP, SGDP, GenomeAsia 100K); 'not recorded' when none does."),
         ("Empirical cluster (Study Pop only)", "Only for study populations. Ancient: working-workbook analysis label, else the study's published analysis label. Modern Iranians: Iran_cluster_0-4 from the numeric Population column. Blank for global references and for Iranians without a cluster."),
         ("Population", "Ancient: the study's published analysis label (else site/split label, else archaeological culture, else the empirical cluster). Modern Iranians: self-reported ethnicity. Other moderns: population label used in the fam/workbook."),
@@ -260,7 +258,7 @@ def main():
         ("Undergone Imputation", "Yes for every ancient sample, No for every modern sample (by rule)."),
         ("Latitude", "Decimal degrees, from the same raw study table as the rest of the ancient row (Lazaridis 2022 'Lat.', Narasimhan 2019 / Mathieson 2015 'Latitude'). Blank when the study gives none and for all modern samples (no coordinates in any modern metadata file)."),
         ("Longitude", "Decimal degrees, same source and rules as Latitude."),
-        ("Row rules", "Rows = unique IIDs of cleaned_fams/*.fam. Grouped by fam in the order of the 'fam_groups' sheet, original fam order kept inside each group. A sample in several fams appears once, in the first group; see cross_fam_duplicate_iids.csv."),
+        ("Row rules", "Rows = the IIDs of the single fam named in the 'fam_groups' sheet, in fam order. Group (ancient / Iranian cohort / global reference) is assigned per sample from the metadata; see 'fam_groups'."),
     ], columns=["Column", "Definition"])
     smap = pd.DataFrame(sorted(SUPERPOP.items()), columns=["Country", "Super-population"])
     with pd.ExcelWriter(meta / "mega_sample_table.xlsx") as xw:
