@@ -189,9 +189,36 @@ n_anc = int(anc.sum())
 print(f"ancient: {n_anc} samples; modern: {n - n_anc} samples "
       f"({int((~anc & meta['iran']).sum())} modern Iran-labelled placed first among moderns)")
 
-# Component colours are by index only (ADMIXTURE components are not matched between Ks).
+# Component colours are carried from one K to the next: each component of K takes the colour of the
+# most similar component of the previous K (cosine similarity of the Q columns over all samples,
+# greedy best-pair-first); a component with no partner (the "new" one) gets the next unused colour.
+# Columns are then stacked in colour order so a colour sits in the same place in every panel.
 PALETTE = ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffd92f", "#a65628", "#f781bf",
            "#17becf", "#999999", "#1b9e77", "#7570b3", "#66a61e", "#e6ab02", "#666666", "#8dd3c7"]
+if max(ks) > len(PALETTE):
+    print(f"WARNING: K up to {max(ks)} but only {len(PALETTE)} colours; colours repeat")
+def unit(q):
+    return q / np.maximum(np.linalg.norm(q, axis=0), 1e-12)
+colour_of = {}                                  # K -> colour index of each Q column
+for idx, k in enumerate(ks):
+    if idx == 0:
+        colour_of[k] = list(range(k))
+        continue
+    prev = ks[idx - 1]
+    sim = unit(Q[prev]).T @ unit(Q[k])          # (prev comps) x (this K's comps)
+    cols = [None] * k
+    used = set()
+    for flat in np.argsort(-sim, axis=None):
+        i, j = divmod(int(flat), k)
+        if cols[j] is None and colour_of[prev][i] not in used:
+            cols[j] = colour_of[prev][i]
+            used.add(cols[j])
+    free = (c for c in range(len(ks) * k + k) if c not in used)
+    colour_of[k] = [c if c is not None else next(free) for c in cols]
+    new = [colour_of[k][j] for j in range(k) if cols[j] is None]
+    if new:
+        print(f"K={k}: new component(s) get colour index {new}")
+stack_order = {k: np.argsort(colour_of[k]) for k in ks}
 
 # Two panels per K: ancient (left) and modern (right), joined by a thick black line. The ancient panel is
 # drawn wider than its sample share (ANC_SCALE x) so its many small period blocks stay readable.
@@ -211,14 +238,14 @@ fig, axes = plt.subplots(len(ks), 2, figsize=(FIG_W, 1.1 * len(ks) + 2.4),
 edges = np.arange(n + 1) - 0.5
 spans = [(0, n_anc), (n_anc, n)]
 for r, k in enumerate(ks):
-    q = Q[k][order]
+    q = Q[k][order][:, stack_order[k]]
     for ax, (lo, hi) in zip(axes[r], spans):
         if hi <= lo:
             ax.axis("off")
             continue
         # step-stacked areas (one pixel column per sample); much faster than thousands of bar patches
         ax.stackplot(edges[lo:hi + 1], np.vstack([q[lo:hi], q[hi - 1:hi]]).T, step="post",
-                     colors=[PALETTE[j % len(PALETTE)] for j in range(k)], linewidth=0)
+                     colors=[PALETTE[colour_of[k][j] % len(PALETTE)] for j in stack_order[k]], linewidth=0)
         for b in bounds[1:-1]:
             if lo < b < hi:
                 ax.axvline(b - 0.5, color="black", lw=0.8)
