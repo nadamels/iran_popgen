@@ -16,7 +16,9 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #   1. CV error against K (from the "CV error (K=..): ..." lines of the ADMIXTURE logs;
 #      the K with the lowest CV error is marked).
 #   2. One stacked-bar ("structure") plot with every K, one panel per K, all panels using the same
-#      sample order: grouped by Super-population (then Population), labelled underneath.
+#      sample order. Left to right: ancient samples grouped by archaeological period (oldest first;
+#      ancient Iranians last), a THICK black line, then modern samples (modern Iranians first, then the
+#      rest by Super-population). Ancient = has an Archeological Date or Period in the table.
 #
 # Usage:   sbatch plot_admixture.sh <prefix> <cv_logs> [mega_sample_table.xlsx|.csv]
 #          bash   plot_admixture.sh <prefix> <cv_logs> [mega_sample_table.xlsx|.csv]
@@ -140,57 +142,126 @@ if table_path.lower().endswith((".xlsx", ".xls")):
         sys.exit("ERROR: reading .xlsx needs openpyxl; pass the .csv instead")
 else:
     t = pd.read_csv(table_path, dtype=str)
-for c in ("IID", "Population", "Super-population"):
+for c in ("IID", "Population", "Super-population", "Archeological Period", "Archeological Date"):
     if c not in t.columns:
         sys.exit(f"ERROR: table lacks column {c!r}")
 t = t.drop_duplicates("IID").set_index("IID")
-meta = t.reindex(fam["IID"])[["Population", "Super-population"]].reset_index(drop=True)
+cols = ["Population", "Super-population", "Archeological Period", "Archeological Date"]
+meta = t.reindex(fam["IID"])[cols].reset_index(drop=True)
 missing = meta["Super-population"].isna().sum()
 if missing:
     print(f"WARNING: {missing} fam samples are not in the table; grouped as 'unknown'")
-meta = meta.fillna("unknown")
+meta["Super-population"] = meta["Super-population"].fillna("unknown")
 
-# Super-population order: roughly west to east / north to south; any others go at the end alphabetically.
+# Ancient = has an archaeological date or period. Layout, left to right:
+#   ancient non-Iranians by period (oldest first), ancient Iranians by period (at the end of the ancient
+#   block) | THICK LINE | modern Iranians first, then the other modern samples by super-population.
+meta["ancient"] = meta["Archeological Date"].notna() | meta["Archeological Period"].notna()
+meta["period"] = meta["Archeological Period"].fillna("unknown")
+PERIODS = ["PPN", "Natufian", "M / N", "N", "EN", "C / EN", "ChL", "EMBA", "BA", "MLBA", "LBA", "LBA / IA",
+           "IA", "Urartian", "Rom", "RomByz", "Byz", "Mdv", "Anc", "unknown"]
+prank = {s: i for i, s in enumerate(PERIODS)}
+unk = [p for p in meta.loc[meta["ancient"], "period"].unique() if p not in prank]
+if unk:
+    print(f"WARNING: periods not in the ordering list, placed last: {sorted(unk)}")
+meta["prank"] = meta["period"].map(lambda s: prank.get(s, len(PERIODS)))
+meta["iran"] = meta["Super-population"].eq("Iran")
+
+# Super-population order for moderns: roughly west to east / north to south; others at the end.
 ORDER = ["Iran", "Anatolia", "Caucuses", "Levant", "Arabia", "North-Africa", "Africa", "Southern-Europe",
          "Western-Europe", "Northern-Europe", "Eastern-Europe", "Central-Asia", "South-Asia",
          "East-Asia", "South-East-Asia", "Oceania", "Americas", "unknown"]
 rank = {s: i for i, s in enumerate(ORDER)}
 meta["rank"] = meta["Super-population"].map(lambda s: rank.get(s, len(ORDER) - 1))
-order = meta.assign(i=np.arange(n)).sort_values(["rank", "Super-population", "Population", "i"])["i"].to_numpy()
-groups = meta["Super-population"].to_numpy()[order]
+
+anc = meta["ancient"]
+# block label and sort keys: (ancient first, ancient-Iran last within ancients, then period / super-pop)
+meta["label"] = np.where(anc, np.where(meta["iran"], "Iran ancient: ", "Ancient: ") + meta["period"],
+                         meta["Super-population"].where(~meta["iran"], "Iran (modern)"))
+meta["k1"] = np.where(anc, 0, 1)
+meta["k2"] = np.where(anc, meta["iran"].astype(int), 0)
+meta["k3"] = np.where(anc, meta["prank"], meta["rank"])
+meta["i"] = np.arange(n)
+order = meta.sort_values(["k1", "k2", "k3", "label", "Population", "i"])["i"].to_numpy()
+groups = meta["label"].to_numpy()[order]
 bounds = [0] + [i for i in range(1, n) if groups[i] != groups[i - 1]] + [n]
+n_anc = int(anc.sum())
+print(f"ancient: {n_anc} samples; modern: {n - n_anc} samples "
+      f"({int((~anc & meta['iran']).sum())} modern Iran-labelled placed first among moderns)")
 
 # Component colours are by index only (ADMIXTURE components are not matched between Ks).
 PALETTE = ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffd92f", "#a65628", "#f781bf",
            "#17becf", "#999999", "#1b9e77", "#7570b3", "#66a61e", "#e6ab02", "#666666", "#8dd3c7"]
 
-fig, axes = plt.subplots(len(ks), 1, figsize=(18, 1.1 * len(ks) + 1.6), sharex=True)
-axes = np.atleast_1d(axes)
+# Two panels per K: ancient (left) and modern (right), joined by a thick black line. The ancient panel is
+# drawn wider than its sample share (ANC_SCALE x) so its many small period blocks stay readable.
+ANC_SCALE = 2.0
+n_mod = n - n_anc
+has_anc = 0 < n_anc < n
+FIG_W = 18
+fig, axes = plt.subplots(len(ks), 2, figsize=(FIG_W, 1.1 * len(ks) + 2.4),
+                         gridspec_kw={"width_ratios": [n_anc * ANC_SCALE, n_mod] if has_anc else [1, 1e-9],
+                                      "wspace": 0})
 edges = np.arange(n + 1) - 0.5
-for ax, k in zip(axes, ks):
+spans = [(0, n_anc), (n_anc, n)]
+for r, k in enumerate(ks):
     q = Q[k][order]
-    # step-stacked areas (one pixel column per sample); much faster than thousands of bar patches
-    ax.stackplot(edges, np.vstack([q, q[-1:]]).T, step="post",
-                 colors=[PALETTE[j % len(PALETTE)] for j in range(k)], linewidth=0)
-    for b in bounds[1:-1]:
-        ax.axvline(b - 0.5, color="black", lw=0.8)
-    ax.set_xlim(-0.5, n - 0.5)
-    ax.set_ylim(0, 1)
-    ax.set_yticks([])
-    ax.tick_params(axis="x", length=0)
-    ax.set_ylabel(f"K={k}", rotation=0, ha="right", va="center", fontsize=10)
-    for s in ax.spines.values():
-        s.set_linewidth(0.6)
-mids = [(a + b) / 2 - 0.5 for a, b in zip(bounds[:-1], bounds[1:])]
-axes[-1].set_xticks(mids)
-axes[-1].set_xticklabels([f"{groups[a]} (n={b - a})" for a, b in zip(bounds[:-1], bounds[1:])],
-                         rotation=60, ha="right", fontsize=9)
-axes[-1].tick_params(axis="x", length=0)
-fig.subplots_adjust(left=0.05, right=0.995, top=0.99, bottom=0.13, hspace=0.12)
+    for ax, (lo, hi) in zip(axes[r], spans):
+        if hi <= lo:
+            ax.axis("off")
+            continue
+        # step-stacked areas (one pixel column per sample); much faster than thousands of bar patches
+        ax.stackplot(edges[lo:hi + 1], np.vstack([q[lo:hi], q[hi - 1:hi]]).T, step="post",
+                     colors=[PALETTE[j % len(PALETTE)] for j in range(k)], linewidth=0)
+        for b in bounds[1:-1]:
+            if lo < b < hi:
+                ax.axvline(b - 0.5, color="black", lw=0.8)
+        ax.set_xlim(lo - 0.5, hi - 0.5)
+        ax.set_ylim(0, 1)
+        ax.set_yticks([])
+        ax.set_xticks([])
+        for s in ax.spines.values():
+            s.set_linewidth(0.6)
+    axes[r][0].set_ylabel(f"K={k}", rotation=0, ha="right", va="center", fontsize=10)
+    if has_anc:                                                  # thick ancient | modern line
+        axes[r][0].spines["right"].set_linewidth(3.5)
+        axes[r][1].spines["left"].set_linewidth(3.5)
+
+def spread(pos, gap, lo, hi):
+    """Nudge sorted label positions apart to at least `gap`, keeping them inside [lo, hi]."""
+    pos = list(pos)
+    for i in range(1, len(pos)):
+        pos[i] = max(pos[i], pos[i - 1] + gap)
+    pos[-1] = min(pos[-1], hi)
+    for i in range(len(pos) - 2, -1, -1):
+        pos[i] = min(pos[i], pos[i + 1] - gap)
+    pos[0] = max(pos[0], lo)
+    return pos
+
+LABEL_PT = 7.5
+for ax, (lo, hi) in zip(axes[-1], spans):
+    if hi <= lo:
+        continue
+    blocks = [(a, b) for a, b in zip(bounds[:-1], bounds[1:]) if lo <= a and b <= hi]
+    mids = [(a + b) / 2 - 0.5 for a, b in blocks]
+    width_in = ax.get_position().width * FIG_W
+    gap = (hi - lo) * (LABEL_PT * 1.3 / 72) / width_in           # one text line height, in data units
+    lpos = spread(mids, gap, lo, hi - 1)
+    for (a, b), m, lx in zip(blocks, mids, lpos):
+        ax.annotate(f"{groups[a]} (n={b - a})", xy=(m, 0), xycoords=("data", "axes fraction"),
+                    xytext=(lx, -0.06), textcoords=("data", "axes fraction"), rotation=90,
+                    ha="center", va="top", fontsize=LABEL_PT,
+                    arrowprops=dict(arrowstyle="-", lw=0.4, color="0.4", shrinkA=0, shrinkB=0))
+if has_anc:
+    axes[0][0].text(0.5, 1.04, "Ancient", ha="center", va="bottom", fontsize=11, fontweight="bold",
+                    transform=axes[0][0].transAxes)
+    axes[0][1].text(0.5, 1.04, "Modern", ha="center", va="bottom", fontsize=11, fontweight="bold",
+                    transform=axes[0][1].transAxes)
+fig.subplots_adjust(left=0.05, right=0.995, top=0.96, bottom=0.17, hspace=0.12)
 for ext in ("png", "pdf"):
     fig.savefig(f"{prefix}.admixture_stacked.{ext}", dpi=200)
 plt.close(fig)
-print(f"stacked plot: K={ks[0]}..{ks[-1]}, {n} samples, {len(bounds) - 1} super-population blocks")
+print(f"stacked plot: K={ks[0]}..{ks[-1]}, {n} samples, {len(bounds) - 1} blocks")
 PY
 
 echo "done"
