@@ -176,13 +176,13 @@ meta["rank"] = meta["Super-population"].map(lambda s: rank.get(s, len(ORDER) - 1
 
 anc = meta["ancient"]
 # block label and sort keys: (ancient first, ancient-Iran last within ancients, then period / super-pop)
-meta["label"] = np.where(anc, np.where(meta["iran"], "Iran ancient: ", "Ancient: ") + meta["period"],
+meta["label"] = np.where(anc, meta["Super-population"] + " · " + meta["period"],
                          meta["Super-population"].where(~meta["iran"], "Iran (modern)"))
 meta["k1"] = np.where(anc, 0, 1)
 meta["k2"] = np.where(anc, meta["iran"].astype(int), 0)
 meta["k3"] = np.where(anc, meta["prank"], meta["rank"])
 meta["i"] = np.arange(n)
-order = meta.sort_values(["k1", "k2", "k3", "label", "Population", "i"])["i"].to_numpy()
+order = meta.sort_values(["k1", "k2", "k3", "Super-population", "Population", "i"])["i"].to_numpy()
 groups = meta["label"].to_numpy()[order]
 bounds = [0] + [i for i in range(1, n) if groups[i] != groups[i - 1]] + [n]
 n_anc = int(anc.sum())
@@ -195,10 +195,16 @@ PALETTE = ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffd92f", "#a
 
 # Two panels per K: ancient (left) and modern (right), joined by a thick black line. The ancient panel is
 # drawn wider than its sample share (ANC_SCALE x) so its many small period blocks stay readable.
-ANC_SCALE = 2.0
 n_mod = n - n_anc
 has_anc = 0 < n_anc < n
 FIG_W = 18
+LABEL_PT = 7
+if has_anc:
+    n_anc_blocks = sum(1 for a in bounds[:-1] if a < n_anc)
+    need_in = n_anc_blocks * LABEL_PT * 1.6 / 72                  # room for one rotated label per block
+    frac = min(max(need_in / (FIG_W * 0.945), 0.2), 0.75)          # share of the width for ancients
+    ANC_SCALE = frac / (1 - frac) * n_mod / n_anc
+    print(f"ancient panel drawn {ANC_SCALE:.1f}x wider than its sample share ({n_anc_blocks} blocks)")
 fig, axes = plt.subplots(len(ks), 2, figsize=(FIG_W, 1.1 * len(ks) + 2.4),
                          gridspec_kw={"width_ratios": [n_anc * ANC_SCALE, n_mod] if has_anc else [1, 1e-9],
                                       "wspace": 0})
@@ -238,7 +244,6 @@ def spread(pos, gap, lo, hi):
     pos[0] = max(pos[0], lo)
     return pos
 
-LABEL_PT = 7.5
 for ax, (lo, hi) in zip(axes[-1], spans):
     if hi <= lo:
         continue
