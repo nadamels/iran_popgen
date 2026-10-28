@@ -32,8 +32,12 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #              metadata/mega_sample_table.xlsx under $SLURM_SUBMIT_DIR (or the current directory),
 #              falling back to the .csv next to it if openpyxl is missing
 #
+#   3. A zoom on the modern Iranians (Super-population Iran, no archaeological date/period) at K=8 and
+#      K=9, labelled by the Population column ("Fars_*" merged into "Fars"), same component colours.
+#
 # Outputs (next to the prefix): <prefix>.cv_error.{png,pdf}, <prefix>.cv_error.tsv,
-#                               <prefix>.admixture_stacked.{png,pdf}
+#                               <prefix>.admixture_stacked.{png,pdf},
+#                               <prefix>.admixture_iran_K8_K9.{png,pdf}
 
 set -euo pipefail
 
@@ -296,6 +300,49 @@ for ext in ("png", "pdf"):
     fig.savefig(f"{prefix}.admixture_stacked.{ext}", dpi=200)
 plt.close(fig)
 print(f"stacked plot: K={ks[0]}..{ks[-1]}, {n} samples, {len(bounds) - 1} blocks")
+
+# ---- 3. zoom on modern Iranians at K=8 and K=9, labelled by the Population column -----------------
+ZOOM_KS = [k for k in (8, 9) if k in Q]
+sel = np.flatnonzero((~anc & meta["iran"]).to_numpy())
+if ZOOM_KS and len(sel):
+    pop = meta["Population"].fillna("unknown")
+    pop = pop.where(~pop.str.startswith("Fars_"), "Fars")        # Fars_Lur, Fars_Kurd, ... -> Fars
+    zp = pop.iloc[sel].reset_index(drop=True)
+    counts = zp.value_counts()
+    # Fars first, then the other populations by size (ties alphabetical); unknown/unreported last
+    last = [c for c in counts.index if c.startswith("Iranian (") or c in ("Iranian", "unknown")]
+    firsts = ["Fars"] if "Fars" in counts.index else []
+    rest = sorted((c for c in counts.index if c not in firsts + last), key=lambda c: (-counts[c], c))
+    prank_z = {c: r for r, c in enumerate(firsts + rest + last)}
+    zorder = sorted(range(len(sel)), key=lambda x: (prank_z[zp[x]], x))
+    zlab = zp.to_numpy()[zorder]
+    zb = [0] + [x for x in range(1, len(zlab)) if zlab[x] != zlab[x - 1]] + [len(zlab)]
+    zfig, zaxes = plt.subplots(len(ZOOM_KS), 1, figsize=(14, 2.4 * len(ZOOM_KS) + 2.2), sharex=True)
+    zaxes = np.atleast_1d(zaxes)
+    zx = np.arange(len(sel))
+    for ax, k in zip(zaxes, ZOOM_KS):
+        q = Q[k][sel][zorder][:, stack_order[k]]
+        bottom = np.zeros(len(sel))
+        for jj, col in enumerate(stack_order[k]):
+            ax.bar(zx, q[:, jj], bottom=bottom, width=1.0,
+                   color=PALETTE[colour_of[k][col] % len(PALETTE)], linewidth=0)
+            bottom += q[:, jj]
+        for b in zb[1:-1]:
+            ax.axvline(b - 0.5, color="black", lw=1.2)
+        ax.set_xlim(-0.5, len(sel) - 0.5)
+        ax.set_ylim(0, 1)
+        ax.set_yticks([0, 0.5, 1])
+        ax.set_ylabel(f"K={k}", rotation=0, ha="right", va="center", fontsize=11)
+        ax.tick_params(axis="x", length=0)
+    zaxes[-1].set_xticks([(a + b) / 2 - 0.5 for a, b in zip(zb[:-1], zb[1:])])
+    zaxes[-1].set_xticklabels([f"{zlab[a]} (n={b - a})" for a, b in zip(zb[:-1], zb[1:])],
+                              rotation=60, ha="right", fontsize=9)
+    zaxes[0].set_title(f"Modern Iranians (n={len(sel)})", fontsize=12, fontweight="bold")
+    zfig.tight_layout()
+    for ext in ("png", "pdf"):
+        zfig.savefig(f"{prefix}.admixture_iran_K{'_K'.join(map(str, ZOOM_KS))}.{ext}", dpi=250)
+    plt.close(zfig)
+    print(f"Iran zoom: K={ZOOM_KS}, {len(sel)} modern Iranians, {len(zb) - 1} populations")
 PY
 
 echo "done"
