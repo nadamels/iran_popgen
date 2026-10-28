@@ -16,8 +16,8 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #   1. CV error against K (from the "CV error (K=..): ..." lines of the ADMIXTURE logs;
 #      the K with the lowest CV error is marked).
 #   2. One stacked-bar ("structure") plot with every K, one panel per K, all panels using the same
-#      sample order. Left to right: ancient samples grouped by archaeological period (oldest first;
-#      ancient Iranians last), a THICK black line, then modern samples (modern Iranians first, then the
+#      sample order. Left to right: ancient samples grouped by Super-population and, within each, by
+#      archaeological period (oldest first; ancient Iranians last), a THICK black line, then modern samples (modern Iranians first, then the
 #      rest by Super-population). Ancient = has an Archeological Date or Period in the table.
 #
 # Usage:   sbatch plot_admixture.sh <prefix> <cv_logs> [mega_sample_table.xlsx|.csv]
@@ -154,8 +154,8 @@ if missing:
 meta["Super-population"] = meta["Super-population"].fillna("unknown")
 
 # Ancient = has an archaeological date or period. Layout, left to right:
-#   ancient non-Iranians by period (oldest first), ancient Iranians by period (at the end of the ancient
-#   block) | THICK LINE | modern Iranians first, then the other modern samples by super-population.
+#   ancient non-Iranians by super-population then period (oldest first), ancient Iranians likewise (at the
+#   end of the ancient block) | THICK LINE | modern Iranians first, then the other modern samples by super-population.
 meta["ancient"] = meta["Archeological Date"].notna() | meta["Archeological Period"].notna()
 meta["period"] = meta["Archeological Period"].fillna("unknown")
 PERIODS = ["PPN", "Natufian", "M / N", "N", "EN", "C / EN", "ChL", "EMBA", "BA", "MLBA", "LBA", "LBA / IA",
@@ -175,14 +175,16 @@ rank = {s: i for i, s in enumerate(ORDER)}
 meta["rank"] = meta["Super-population"].map(lambda s: rank.get(s, len(ORDER) - 1))
 
 anc = meta["ancient"]
-# block label and sort keys: (ancient first, ancient-Iran last within ancients, then period / super-pop)
+# block label and sort keys: ancient first; ancient Iran last within ancients; then super-population,
+# then (ancients only) period, oldest first
 meta["label"] = np.where(anc, meta["Super-population"] + " · " + meta["period"],
                          meta["Super-population"].where(~meta["iran"], "Iran (modern)"))
 meta["k1"] = np.where(anc, 0, 1)
 meta["k2"] = np.where(anc, meta["iran"].astype(int), 0)
-meta["k3"] = np.where(anc, meta["prank"], meta["rank"])
+meta["k3"] = meta["rank"]
+meta["k4"] = np.where(anc, meta["prank"], 0)
 meta["i"] = np.arange(n)
-order = meta.sort_values(["k1", "k2", "k3", "Super-population", "Population", "i"])["i"].to_numpy()
+order = meta.sort_values(["k1", "k2", "k3", "k4", "Super-population", "Population", "i"])["i"].to_numpy()
 groups = meta["label"].to_numpy()[order]
 bounds = [0] + [i for i in range(1, n) if groups[i] != groups[i - 1]] + [n]
 n_anc = int(anc.sum())
