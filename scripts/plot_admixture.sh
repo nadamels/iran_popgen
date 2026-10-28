@@ -32,12 +32,12 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #              metadata/mega_sample_table.xlsx under $SLURM_SUBMIT_DIR (or the current directory),
 #              falling back to the .csv next to it if openpyxl is missing
 #
-#   3. A zoom on the modern Iranians (Super-population Iran, no archaeological date/period) at K=8 and
-#      K=9, labelled by the Population column ("Fars_*" merged into "Fars"), same component colours.
+#   3. A zoom on the modern Iranians (Super-population Iran, no archaeological date/period) at K=7 and
+#      K=8, labelled by the Population column ("Fars_*" merged into "Fars"), same component colours.
 #
 # Outputs (next to the prefix): <prefix>.cv_error.{png,pdf}, <prefix>.cv_error.tsv,
 #                               <prefix>.admixture_stacked.{png,pdf},
-#                               <prefix>.admixture_iran_K8_K9.{png,pdf}
+#                               <prefix>.admixture_iran_K7_K8.{png,pdf}
 
 set -euo pipefail
 
@@ -301,8 +301,8 @@ for ext in ("png", "pdf"):
 plt.close(fig)
 print(f"stacked plot: K={ks[0]}..{ks[-1]}, {n} samples, {len(bounds) - 1} blocks")
 
-# ---- 3. zoom on modern Iranians at K=8 and K=9, labelled by the Population column -----------------
-ZOOM_KS = [k for k in (8, 9) if k in Q]
+# ---- 3. zoom on modern Iranians at K=7 and K=8, labelled by the Population column -----------------
+ZOOM_KS = [k for k in (7, 8) if k in Q]
 sel = np.flatnonzero((~anc & meta["iran"]).to_numpy())
 if ZOOM_KS and len(sel):
     pop = meta["Population"].fillna("unknown")
