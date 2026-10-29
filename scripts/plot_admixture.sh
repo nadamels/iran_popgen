@@ -33,7 +33,7 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #              falling back to the .csv next to it if openpyxl is missing
 #
 #   3. A zoom on the modern Iranians (Super-population Iran, no archaeological date/period) at K=7 and
-#      K=8, labelled by the Population column ("Fars_*" merged into "Fars"), same component colours.
+#      K=8, labelled by the Population column (all labels kept, Fars_* included), same component colours.
 #
 # Outputs (next to the prefix): <prefix>.cv_error.{png,pdf}, <prefix>.cv_error.tsv,
 #                               <prefix>.admixture_stacked.{png,pdf},
@@ -306,14 +306,15 @@ ZOOM_KS = [k for k in (7, 8) if k in Q]
 sel = np.flatnonzero((~anc & meta["iran"]).to_numpy())
 if ZOOM_KS and len(sel):
     pop = meta["Population"].fillna("unknown")
-    pop = pop.where(~pop.str.startswith("Fars_"), "Fars")        # Fars_Lur, Fars_Kurd, ... -> Fars
     zp = pop.iloc[sel].reset_index(drop=True)
     counts = zp.value_counts()
-    # Fars first, then the other populations by size (ties alphabetical); unknown/unreported last
+    # Fars first, then the Fars_* mixes, then the other populations by size (ties alphabetical);
+    # unknown/unreported last. Every Population label is kept as written in the table.
     last = [c for c in counts.index if c.startswith("Iranian (") or c in ("Iranian", "unknown")]
     firsts = ["Fars"] if "Fars" in counts.index else []
-    rest = sorted((c for c in counts.index if c not in firsts + last), key=lambda c: (-counts[c], c))
-    prank_z = {c: r for r, c in enumerate(firsts + rest + last)}
+    fars_mix = sorted(c for c in counts.index if c.startswith("Fars_"))
+    rest = sorted((c for c in counts.index if c not in firsts + fars_mix + last), key=lambda c: (-counts[c], c))
+    prank_z = {c: r for r, c in enumerate(firsts + fars_mix + rest + last)}
     zorder = sorted(range(len(sel)), key=lambda x: (prank_z[zp[x]], x))
     zlab = zp.to_numpy()[zorder]
     zb = [0] + [x for x in range(1, len(zlab)) if zlab[x] != zlab[x - 1]] + [len(zlab)]
