@@ -1,0 +1,95 @@
+<html>
+  <head>
+  <title>
+Scatterplots colored by predefined labels
+  </title>
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['orgchart']});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Node');
+        data.addColumn('string', 'ParentNode');
+        data.addColumn('string', 'ToolTip');
+        data.addRows([
+[{v:'1', f:'<div class="box_class" align="center"><p class="head_class">Node 1</p><a href="images/scatter_by_label1.png" target="_blank"><img src="images/scatter_by_label_preview1.jpg" width=200 height=200><br />view</a></div>'}, '', ''],
+[{v:'2', f:'<div class="box_class"><p class="head_class">Node 2</p><p class="subhead_class">under cutoff (<5)</p><br>Zoroastrian&nbsp;(1)<br></div>'}, '1', ''],
+[{v:'3', f:'<div class="box_class" align="center"><p class="head_class">Node 3</p><a href="images/scatter_by_label3.png" target="_blank"><img src="images/scatter_by_label_preview3.jpg" width=200 height=200><br />view</a></div>'}, '1', ''],
+[{v:'4', f:'<div class="box_class" align="center"><p class="head_class">Node 4</p><a href="images/scatter_by_label4.png" target="_blank"><img src="images/scatter_by_label_preview4.jpg" width=200 height=200><br />view</a></div>'}, '1', ''],
+[{v:'5', f:'<div class="box_class"><p class="head_class">Node 5</p><p class="subhead_class">under cutoff (<5)</p><br>Fars_Kashan&nbsp;(1)<br>Turk&nbsp;(1)<br></div>'}, '4', ''],
+[{v:'6', f:'<div class="box_class" align="center"><p class="head_class">Node 6</p><a href="images/scatter_by_label6.png" target="_blank"><img src="images/scatter_by_label_preview6.jpg" width=200 height=200><br />view</a></div>'}, '4', ''],
+[{v:'7', f:'<div class="box_class" align="center"><p class="head_class">Node 7</p><a href="images/scatter_by_label7.png" target="_blank"><img src="images/scatter_by_label_preview7.jpg" width=200 height=200><br />view</a></div>'}, '6', ''],
+[{v:'8', f:'<div class="box_class"><p class="head_class">Node 8</p><p class="subhead_class">under cutoff (<5)</p><br>Kashan_Hamadani&nbsp;(1)<br></div>'}, '6', ''],
+[{v:'9', f:'<div class="box_class"><p class="head_class">Node 9</p><p class="subhead_class">under cutoff (<5)</p><br>Azeri&nbsp;(1)<br></div>'}, '7', ''],
+[{v:'10', f:'<div class="box_class" align="center"><p class="head_class">Node 10</p><a href="images/scatter_by_label10.png" target="_blank"><img src="images/scatter_by_label_preview10.jpg" width=200 height=200><br />view</a></div>'}, '7', ''],
+[{v:'11', f:'<div class="box_class" align="center"><p class="head_class">Node 11</p><a href="images/scatter_by_label11.png" target="_blank"><img src="images/scatter_by_label_preview11.jpg" width=200 height=200><br />view</a></div>'}, '10', ''],
+[{v:'12', f:'<div class="box_class"><p class="head_class">Node 12</p><p class="subhead_class">under cutoff (<5)</p><br>Azeri&nbsp;(1)<br>Fars&nbsp;(1)<br></div>'}, '10', ''],
+[{v:'13', f:'<div class="box_class"><p class="head_class">Node 13</p><p class="subhead_class">under cutoff (<5)</p><br>Khorosan&nbsp;(1)<br></div>'}, '11', ''],
+[{v:'14', f:'<div class="box_class" align="center"><p class="head_class">Node 14</p><a href="images/scatter_by_label14.png" target="_blank"><img src="images/scatter_by_label_preview14.jpg" width=200 height=200><br />view</a></div>'}, '11', ''],
+[{v:'15', f:'<div class="box_class" align="center"><p class="head_class">Node 15</p><a href="images/scatter_by_label15.png" target="_blank"><img src="images/scatter_by_label_preview15.jpg" width=200 height=200><br />view</a></div>'}, '14', ''],
+[{v:'16', f:'<div class="box_class" align="center"><p class="head_class">Node 16</p><a href="images/scatter_by_label16.png" target="_blank"><img src="images/scatter_by_label_preview16.jpg" width=200 height=200><br />view</a></div>'}, '14', ''],
+[{v:'17', f:'<div class="box_class" align="center"><p class="head_class">Node 17</p><a href="images/scatter_by_label17.png" target="_blank"><img src="images/scatter_by_label_preview17.jpg" width=200 height=200><br />view</a></div>'}, '14', '']
+
+        ]);
+data.setRowProperty(1, 'style', 'border: 3px solid #DB6E6E; background-color:#FFE1E1');
+data.setRowProperty(2, 'style', 'border: 3px solid #DB6E6E; background-color:#FFE1E1');
+data.setRowProperty(4, 'style', 'border: 3px solid #DB6E6E; background-color:#FFE1E1');
+data.setRowProperty(7, 'style', 'border: 3px solid #DB6E6E; background-color:#FFE1E1');
+data.setRowProperty(8, 'style', 'border: 3px solid #DB6E6E; background-color:#FFE1E1');
+data.setRowProperty(11, 'style', 'border: 3px solid #DB6E6E; background-color:#FFE1E1');
+data.setRowProperty(12, 'style', 'border: 3px solid #DB6E6E; background-color:#FFE1E1');
+data.setRowProperty(14, 'style', 'border: 3px solid #DB6E6E; background-color:#FFE1E1');
+data.setRowProperty(15, 'style', 'border: 3px solid #DB6E6E; background-color:#FFE1E1');
+data.setRowProperty(16, 'style', 'border: 3px solid #DB6E6E; background-color:#FFE1E1');
+
+        
+        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+        chart.draw(data, {allowHtml:true,allowCollapse:true,size:'small',nodeClass:'normal_node'});
+      }
+    </script>
+    <style type="text/css" media="all">
+    .box_class { 
+            font-size:20px;
+            font-family:Arial;
+            font-weight:normal;
+            vertical-align:text-top;
+            }
+    .head_class { 
+            color:purple;
+            font-size:20px;
+            font-family:Arial;
+            font-weight:bold;
+            text-align:center;
+            }
+    .subhead_class { 
+            color:green; 
+            text-align:center;
+            font-style:italic;
+            }
+    .foot_note {
+            color:grey; 
+            font-style:italic; 
+            font-family:Arial; 
+            font-size:10px;
+            text-align:center;
+            }
+    .normal_node {
+            border: 3px solid black; 
+            background-color:#E1E4FF;
+            text-align:left;
+            vertical-align:text-top;
+            }
+    </style>
+  </head>
+
+  <body>
+    <h2 align="center" style="color:black; font-style:bold; font-family:Arial,Helvetica,sans-serif; font-size:28px;">
+Scatterplots colored by predefined labels
+    <br><br></h4>
+    <div id='chart_div'></div>
+    <div class="foot_note">
+    <br><br>This page was displayed using the online <a href="https://developers.google.com/chart/interactive/docs/gallery/orgchart#" target="_blank">Google Organizational Chart</a> library.
+    </div>
+  </body>
+</html>
