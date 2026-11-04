@@ -46,7 +46,8 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #   METHOD=mix        internal clustering: mix (default) | mixmod | clara | pam | meanshift | apcluster | hclust
 #   THRESHOLD=0.18    EigenFit cutoff, 0.03 - 0.18; smaller = potentially finer sub-structure (default 0.18)
 #   MIN_FST=0.0008    minimum Fst between a pair of sub-groups
-#   MIN_IN_GROUP=20   minimum number of individuals in a cluster; smaller clusters are counted as outliers
+#   MIN_IN_GROUP=3    minimum number of individuals in a cluster; smaller clusters are counted as outliers
+#                     (IPCAPS default is 20; 3 lets small populations form their own cluster)
 #   TOP_PAIRS=        e.g. "4,5 4,6": run top.discriminator() (SNPs with the highest Fst) for these group pairs
 #   NUM_TOP=100       SNPs reported per pair
 #   AUTOSOME=0        1 = keep chromosomes 1-22 only when subsetting
@@ -82,7 +83,7 @@ LABEL_COL="${LABEL_COL:-Population}"
 METHOD="${METHOD:-mix}"
 THRESHOLD="${THRESHOLD:-0.18}"
 MIN_FST="${MIN_FST:-0.0008}"
-MIN_IN_GROUP="${MIN_IN_GROUP:-20}"
+MIN_IN_GROUP="${MIN_IN_GROUP:-3}"
 TOP_PAIRS="${TOP_PAIRS:-}"
 NUM_TOP="${NUM_TOP:-100}"
 AUTOSOME="${AUTOSOME:-0}"
