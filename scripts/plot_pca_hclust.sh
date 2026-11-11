@@ -20,11 +20,13 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #   Everything else (colours, ancient size = age, tiny modern dots, zoom, interactive HTML) is unchanged.
 #
 #   Group files: default  Plotting/hc_groups/hc{3,4,5}pcs_ward0.8.txt  (Ward linkage cut at 0.8 on the HC
-#   dendrograms of the slides, with 3 / 4 / 5 PCs). Use your own with  GROUP_FILES="a.txt b.txt".
+#   dendrograms of the slides, with 3 / 4 / 5 PCs). Point the script at another folder with the 6th argument
+#   <groups_folder> (every *.txt in it is plotted, one set of figures each; use "" to skip the
+#   PC ranges, e.g.  ... colors.txt "" "" my_groups/ ), or at single files with GROUP_FILES="a.txt b.txt".
 #   A study Iranian missing from a file is drawn as a circle (group 0) and listed in the log.
 #
 # Environment (in addition to IRAN_SOURCE below):
-#   GROUP_FILES="f1 f2 f3"   group files to plot, one set of figures each
+#   GROUP_FILES="f1 f2 f3"   explicit group files (overrides <groups_folder>)
 #   IRAN_SCALE=1.5           size multiplier for the Iranian markers
 #
 #   COLOUR = Super-population (colours from Plotting/pca_colors.txt)
@@ -34,8 +36,8 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #   "Iranian cohort"; env IRAN_SOURCE to change) = large outlined markers (one shape per group)
 #   drawn on top of everything else. Other modern Iran-labelled reference samples (e.g. SGDP) stay tiny dots; the log lists them.
 #
-# Usage:   sbatch plot_pca_hclust.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_range] [PC2_range]
-#          bash   plot_pca_hclust.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_range] [PC2_range]
+# Usage:   sbatch plot_pca_hclust.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_range] [PC2_range] [groups_folder]
+#          bash   plot_pca_hclust.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_range] [PC2_range] [groups_folder]
 #
 #   Zoom example (PC1 from -0.01 to 0.01, PC2 from 0.0 to 0.02):
 #          sbatch plot_pca_hclust.sh <prefix> <table> <colors> -0.01,0.01 0.0,0.02
@@ -69,7 +71,7 @@ set -euo pipefail
 
 PREFIX="${ARGS[0]:-}"
 if [[ -z "$PREFIX" ]]; then
-    echo "Usage: $0 <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_min,max] [PC2_min,max]" >&2
+    echo "Usage: $0 <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_min,max] [PC2_min,max] [groups_folder]" >&2
     exit 1
 fi
 BASE="${SLURM_SUBMIT_DIR:-$PWD}"
@@ -97,7 +99,13 @@ echo "prefix : $PREFIX"
 echo "table  : $TABLE"
 echo "colours: $COLORS"
 echo "PC1 range: $PC1_RANGE   PC2 range: $PC2_RANGE"
-GROUP_FILES="${GROUP_FILES:-$BASE/Plotting/hc_groups/hc3pcs_ward0.8.txt $BASE/Plotting/hc_groups/hc4pcs_ward0.8.txt $BASE/Plotting/hc_groups/hc5pcs_ward0.8.txt}"
+GROUPS_DIR="${ARGS[5]:-${GROUPS_FOLDER:-$BASE/Plotting/hc_groups}}"
+if [[ -z "${GROUP_FILES:-}" ]]; then
+    [[ -d "$GROUPS_DIR" ]] || { echo "ERROR: groups folder not found: $GROUPS_DIR" >&2; exit 1; }
+    GROUP_FILES="$(ls "$GROUPS_DIR"/*.txt 2>/dev/null | sort | tr '\n' ' ')"
+    [[ -n "${GROUP_FILES// }" ]] || { echo "ERROR: no *.txt group files in $GROUPS_DIR" >&2; exit 1; }
+    echo "groups folder: $GROUPS_DIR"
+fi
 IRAN_SCALE="${IRAN_SCALE:-1.5}"
 for f in $GROUP_FILES; do [[ -s "$f" ]] || { echo "ERROR: missing or empty group file: $f" >&2; exit 1; }; done
 echo "group files: $GROUP_FILES   Iranian markers x$IRAN_SCALE"
