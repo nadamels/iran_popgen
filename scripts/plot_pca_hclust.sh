@@ -171,15 +171,8 @@ ev = ev.rename(columns={key: "sid"})
 if len(pc_cols) < 2:
     sys.exit("ERROR: eigenvec has fewer than 2 PCs")
 eigval = np.loadtxt(f"{prefix}.eigenval", ndmin=1)
-# PLINK writes only the top PCs, so eigval.sum() is NOT the total variance. The total variance is the trace of the
-# relationship matrix (= sum of ALL eigenvalues). Set TOTAL_VARIANCE=<trace> to give it exactly; otherwise it is
-# assumed to be the number of samples (a relationship-matrix diagonal of ~1), which may be wrong for your data.
-_tv = os.environ.get("TOTAL_VARIANCE", "").strip()
-TOTAL_VAR = float(_tv) if _tv else float(len(fam))
-print(f"% variance = eigenvalue / {TOTAL_VAR:g}  ({'TOTAL_VARIANCE given' if _tv else 'ASSUMED = number of samples; set TOTAL_VARIANCE=<trace of the relationship matrix> to be exact'})")
-pct = 100 * eigval / TOTAL_VAR
-if eigval.sum() > 1.05 * TOTAL_VAR:
-    print(f"WARNING: listed eigenvalues sum to {eigval.sum():.1f} > total variance {TOTAL_VAR:g}; the % variance labels are unreliable")
+# Variance explained = eigenvalue / sum of the listed eigenvalues * 100 (PLINK lists only the PCs you computed).
+pct = 100 * eigval / eigval.sum()
 
 # ---- fam <-> eigenvec consistency --------------------------------------------------------------
 fam_ids, ev_ids = set(fam["sid"]), set(ev["sid"])
@@ -352,8 +345,8 @@ def run(gfile):
             ax.scatter(g[a], g[b], s=IRAN_SIZE, c=[col_of[x] for x in g["sp"]], marker=("o" if k == 0 else SHAPES[(k - 1) % len(SHAPES)]),
                        edgecolors="black", linewidths=IRAN_EDGE, alpha=0.95, zorder=5)
         ia, ib = pc_cols.index(a), pc_cols.index(b)
-        ax.set_xlabel(f"{a} ({pct[ia]:.2f}% of total variance)" if ia < len(pct) else a)
-        ax.set_ylabel(f"{b} ({pct[ib]:.2f}% of total variance)" if ib < len(pct) else b)
+        ax.set_xlabel(f"{a} ({pct[ia]:.2f}% of listed eigenvalues)" if ia < len(pct) else a)
+        ax.set_ylabel(f"{b} ({pct[ib]:.2f}% of listed eigenvalues)" if ib < len(pct) else b)
         title = f"{prefix.split('/')[-1]}  |  n={len(df)}  (ancient {len(anc)}, modern {len(mod) + len(mod_iran)}, of which Iranian {len(mod_iran)}; {tag_g}, {int(mod_iran['hc'].nunique())} groups)"
         if xlim is not None or ylim is not None:
             if xlim is not None:
