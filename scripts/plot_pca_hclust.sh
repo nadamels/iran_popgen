@@ -348,8 +348,8 @@ def run(gfile):
             ax.scatter(g[a], g[b], s=IRAN_SIZE, c=[col_of[x] for x in g["sp"]], marker=("o" if k == 0 else SHAPES[(k - 1) % len(SHAPES)]),
                        edgecolors="black", linewidths=IRAN_EDGE, alpha=0.95, zorder=5)
         ia, ib = pc_cols.index(a), pc_cols.index(b)
-        ax.set_xlabel(f"{a} ({pct[ia]:.2f}% of listed eigenvalues)" if ia < len(pct) else a)
-        ax.set_ylabel(f"{b} ({pct[ib]:.2f}% of listed eigenvalues)" if ib < len(pct) else b)
+        ax.set_xlabel(f"{a} ({pct[ia]:.2f}% of total variance)" if ia < len(pct) else a)
+        ax.set_ylabel(f"{b} ({pct[ib]:.2f}% of total variance)" if ib < len(pct) else b)
         title = f"{prefix.split('/')[-1]}  |  n={len(df)}  (ancient {len(anc)}, modern {len(mod) + len(mod_iran)}, of which Iranian {len(mod_iran)}; {tag_g}, {int(mod_iran['hc'].nunique())} groups)"
         if xlim is not None or ylim is not None:
             if xlim is not None:
