@@ -141,11 +141,15 @@ ev = ev.rename(columns={key: "sid"})
 if len(pc_cols) < 2:
     sys.exit("ERROR: eigenvec has fewer than 2 PCs")
 eigval = np.loadtxt(f"{prefix}.eigenval", ndmin=1)
-# PLINK writes only the top PCs, so eigval.sum() is not the total variance. The relationship matrix has a
-# diagonal of ~1, so its total variance (sum of ALL eigenvalues) is ~ the number of samples.
-pct = 100 * eigval / len(fam)
-if eigval.sum() > 1.05 * len(fam):
-    print(f"WARNING: eigenvalues sum to {eigval.sum():.1f} > {len(fam)} samples; the % variance labels are unreliable")
+# PLINK writes only the top PCs, so eigval.sum() is NOT the total variance. The total variance is the trace of the
+# relationship matrix (= sum of ALL eigenvalues). Set TOTAL_VARIANCE=<trace> to give it exactly; otherwise it is
+# assumed to be the number of samples (a relationship-matrix diagonal of ~1), which may be wrong for your data.
+_tv = os.environ.get("TOTAL_VARIANCE", "").strip()
+TOTAL_VAR = float(_tv) if _tv else float(len(fam))
+print(f"% variance = eigenvalue / {TOTAL_VAR:g}  ({'TOTAL_VARIANCE given' if _tv else 'ASSUMED = number of samples; set TOTAL_VARIANCE=<trace of the relationship matrix> to be exact'})")
+pct = 100 * eigval / TOTAL_VAR
+if eigval.sum() > 1.05 * TOTAL_VAR:
+    print(f"WARNING: listed eigenvalues sum to {eigval.sum():.1f} > total variance {TOTAL_VAR:g}; the % variance labels are unreliable")
 
 # ---- fam <-> eigenvec consistency --------------------------------------------------------------
 fam_ids, ev_ids = set(fam["sid"]), set(ev["sid"])
