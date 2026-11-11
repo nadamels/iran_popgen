@@ -13,27 +13,25 @@ source /share/apps/NYUAD5/miniconda/3-4.11.0/bin/activate
 conda activate /scratch/nme3923/conda-envs/glimpse2
 
 # Plot a PCA from the mega sample table (same as plot_pca.sh) with the study's modern IRANIANS split
-# into HIERARCHICAL-CLUSTERING groups:
-#   One PCA figure set per clustering. For each n in HC_PCS (default "3 4 5") the Iranians are clustered
-#   on their first n PCs (Ward linkage, Euclidean distance, PCs unscaled - exactly cluster_pcs.sh) and the
-#   tree is cut at distance CUT_HEIGHT (default 0.8). In the PCA every cluster gets its OWN MARKER SHAPE
-#   and the Iranian markers are IRAN_SCALE (default 1.5) times bigger than in plot_pca.sh.
-#   Clusters are numbered 1,2,3... in dendrogram leaf order (left to right, as in the slides).
+# into GROUPS that you supply in text files (no clustering is run here):
+#   One PCA figure set per group file. Each file lists  IID<TAB>group  (extra columns, a header line and
+#   lines starting with # are ignored). In the PCA every group gets its OWN MARKER SHAPE and the Iranian
+#   markers are IRAN_SCALE (default 1.5) times bigger than in plot_pca.sh.
 #   Everything else (colours, ancient size = age, tiny modern dots, zoom, interactive HTML) is unchanged.
 #
+#   Group files: default  Plotting/hc_groups/hc{3,4,5}pcs_ward0.8.txt  (Ward linkage cut at 0.8 on the HC
+#   dendrograms of the slides, with 3 / 4 / 5 PCs). Use your own with  GROUP_FILES="a.txt b.txt".
+#   A study Iranian missing from a file is drawn as a circle (group 0) and listed in the log.
+#
 # Environment (in addition to IRAN_SOURCE below):
-#   HC_PCS="3 4 5"   numbers of leading PCs to cluster on; one set of plots each
-#   CUT_HEIGHT=0.8   Ward distance at which the tree is cut
-#   HC_K=            if set (e.g. 4), cut every tree into exactly that many clusters instead of at CUT_HEIGHT
-#   LINKAGE=ward     any scipy linkage method (ward | average | complete | ...)
-#   IRAN_SCALE=1.5   size multiplier for the Iranian markers
-#   SCALE_PCS=0      1 = standardise PCs before clustering
+#   GROUP_FILES="f1 f2 f3"   group files to plot, one set of figures each
+#   IRAN_SCALE=1.5           size multiplier for the Iranian markers
 #
 #   COLOUR = Super-population (colours from Plotting/pca_colors.txt)
 #   SIZE   = age of the sample (older = bigger), ancient samples only
 #   Modern samples = tiny dots (coloured by super-population); no marker shapes for now.
 #   Modern IRANIANS of this study (Super-population Iran and 'Source Publication(s)' containing
-#   "Iranian cohort"; env IRAN_SOURCE to change) = large outlined markers (one shape per HC cluster)
+#   "Iranian cohort"; env IRAN_SOURCE to change) = large outlined markers (one shape per group)
 #   drawn on top of everything else. Other modern Iran-labelled reference samples (e.g. SGDP) stay tiny dots; the log lists them.
 #
 # Usage:   sbatch plot_pca_hclust.sh <prefix> [mega_sample_table.xlsx|.csv] [pca_colors.txt] [PC1_range] [PC2_range]
@@ -92,18 +90,19 @@ for f in "${PREFIX}.fam" "${PREFIX}.eigenvec" "${PREFIX}.eigenval" "$TABLE" "$CO
     [[ -s "$f" ]] || { echo "ERROR: missing or empty file: $f" >&2; exit 1; }
 done
 
-python3 -c "import numpy, pandas, matplotlib, scipy" 2>/dev/null || {
-    echo "ERROR: python3 in the active environment needs numpy, pandas, scipy and matplotlib" >&2; exit 1; }
+python3 -c "import numpy, pandas, matplotlib" 2>/dev/null || {
+    echo "ERROR: python3 in the active environment needs numpy, pandas and matplotlib" >&2; exit 1; }
 
 echo "prefix : $PREFIX"
 echo "table  : $TABLE"
 echo "colours: $COLORS"
 echo "PC1 range: $PC1_RANGE   PC2 range: $PC2_RANGE"
-HC_PCS="${HC_PCS:-3 4 5}"; CUT_HEIGHT="${CUT_HEIGHT:-0.8}"; LINKAGE="${LINKAGE:-ward}"
-IRAN_SCALE="${IRAN_SCALE:-1.5}"; SCALE_PCS="${SCALE_PCS:-0}"
-echo "HC on first {$HC_PCS} PCs, $LINKAGE linkage cut at $CUT_HEIGHT; Iranian markers x$IRAN_SCALE"
+GROUP_FILES="${GROUP_FILES:-$BASE/Plotting/hc_groups/hc3pcs_ward0.8.txt $BASE/Plotting/hc_groups/hc4pcs_ward0.8.txt $BASE/Plotting/hc_groups/hc5pcs_ward0.8.txt}"
+IRAN_SCALE="${IRAN_SCALE:-1.5}"
+for f in $GROUP_FILES; do [[ -s "$f" ]] || { echo "ERROR: missing or empty group file: $f" >&2; exit 1; }; done
+echo "group files: $GROUP_FILES   Iranian markers x$IRAN_SCALE"
 
-python3 - "$PREFIX" "$TABLE" "$COLORS" "$PC1_RANGE" "$PC2_RANGE" "$HC_PCS" "$CUT_HEIGHT" "$LINKAGE" "$IRAN_SCALE" "$SCALE_PCS" <<'PY'
+python3 - "$PREFIX" "$TABLE" "$COLORS" "$PC1_RANGE" "$PC2_RANGE" "$GROUP_FILES" "$IRAN_SCALE" <<'PY'
 import os
 import re
 import sys
@@ -115,10 +114,8 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
 prefix, table_path, colors_path = sys.argv[1], sys.argv[2], sys.argv[3]
-from scipy.cluster.hierarchy import linkage, fcluster, dendrogram
-hc_pcs = [int(x) for x in sys.argv[6].split()]
-cut_h, hc_method, iran_scale, scale_pcs = float(sys.argv[7]), sys.argv[8], float(sys.argv[9]), sys.argv[10] == "1"
-hc_k = int(os.environ.get("HC_K", "0") or 0)
+group_files = sys.argv[6].split()
+iran_scale = float(sys.argv[7])
 SHAPES = ["s", "^", "D", "v", "P", "X", "*", "p", "h", "<", ">", "d"]     # one per cluster (cycled)
 JS_SHAPES = ["square", "triangle", "diamond", "triangleDown", "plus", "cross", "star", "pentagon", "hexagon", "triangleLeft", "triangleRight", "diamondThin"]
 
@@ -290,41 +287,40 @@ mod, mod_iran = mod_all[~is_iran], mod_all[is_iran]
 iran_ids = set(mod_iran["sid"])
 
 iran_all = mod_iran.copy()
-def run(npc):
+def run(gfile):
     global mod_iran
     mod_iran = iran_all.copy()
-    if npc > len(pc_cols):
-        sys.exit(f"ERROR: HC_PCS asks for {npc} PCs but the eigenvec has only {len(pc_cols)}")
-    if len(mod_iran) < 3:
-        sys.exit(f"ERROR: only {len(mod_iran)} Iranians selected; need at least 3 to cluster")
-    X = mod_iran[pc_cols[:npc]].to_numpy(float)
-    if scale_pcs:
-        X = (X - X.mean(0)) / np.where(X.std(0) == 0, 1, X.std(0))
-    Z = linkage(X, method=hc_method, metric="euclidean")
-    top = Z[::-1, 2][:8]
-    print(f"[{npc} PCs] {len(X)} Iranians; PC SD (first {npc}): " + ", ".join(f"{v:.4f}" for v in X.std(0)))
-    print(f"[{npc} PCs] top merge heights of the tree: " + ", ".join(f"{h:.3f}" for h in top))
-    if hc_k:
-        raw = fcluster(Z, hc_k, criterion="maxclust")
-        print(f"[{npc} PCs] HC_K={hc_k}: cutting into {hc_k} clusters (CUT_HEIGHT ignored)")
-    else:
-        raw = fcluster(Z, cut_h, criterion="distance")
-        if raw.max() == 1:
-            print(f"WARNING: [{npc} PCs] cut height {cut_h:g} is above the tree's top merge ({top[0]:.3f}) -> ONE cluster. "
-                  f"Lower CUT_HEIGHT (below {top[0]:.3f}) or set HC_K=<n clusters>; check that <prefix> is the PCA used for the slides.")
-    leaves = dendrogram(Z, no_plot=True)["leaves"]
-    relabel, nxt = {}, 1
-    for i in leaves:                                  # number clusters left -> right along the dendrogram
-        if raw[i] not in relabel:
-            relabel[raw[i]], nxt = nxt, nxt + 1
-    mod_iran["hc"] = [relabel[c] for c in raw]
+    tag_g = os.path.basename(gfile)
+    for ext in (".txt", ".tsv", ".csv"):
+        if tag_g.endswith(ext):
+            tag_g = tag_g[: -len(ext)]
+    gmap = {}
+    for line in open(gfile):
+        f = re.split(r"[\t, ]+", line.strip())
+        if not line.strip() or line.lstrip().startswith("#") or len(f) < 2:
+            continue
+        if f[0].upper() in ("IID", "ID", "SAMPLE") and not f[1].lstrip("-").isdigit():
+            continue                                   # header line
+        try:
+            gmap[f[0]] = int(float(f[1]))
+        except ValueError:
+            gmap[f[0]] = f[1]
+    labels = sorted(set(gmap.values()), key=lambda v: (isinstance(v, str), v))
+    num = {v: i + 1 for i, v in enumerate(labels)}      # group label -> 1,2,3 (shape index)
+    miss = [i for i in mod_iran["sid"] if i not in gmap]
+    extra = [i for i in gmap if i not in set(mod_iran["sid"])]
+    if miss:
+        print(f"WARNING: {len(miss)} study Iranians are not in {gfile}; drawn as circles (group 0): " + ", ".join(miss))
+    if extra:
+        print(f"NOTE: {len(extra)} IIDs in {gfile} are not plotted Iranians (ignored): " + ", ".join(extra[:15]))
+    mod_iran["hc"] = [num[gmap[i]] if i in gmap else 0 for i in mod_iran["sid"]]
     hc_of = dict(zip(mod_iran["sid"], mod_iran["hc"]))
-    print(f"[{npc} PCs] {hc_method} linkage {f'cut into {hc_k}' if hc_k else f'cut at {cut_h:g}:'} {int(mod_iran['hc'].nunique())} clusters, sizes "
-          + str(dict(sorted(mod_iran['hc'].value_counts().items()))))
+    npc = tag_g                                         # used in titles / file names below
+    print(f"[{tag_g}] {int(mod_iran['hc'].nunique())} groups, sizes " + str(dict(sorted(mod_iran['hc'].value_counts().items()))))
     print(pd.crosstab(mod_iran["Population"].fillna("Population not recorded"), mod_iran["hc"]).to_string())
-    mod_iran[["sid", "Population", "hc"]].rename(columns={"sid": "IID", "hc": "hc_cluster"}).to_csv(
-        f"{prefix}.hc{npc}pcs_clusters.tsv", sep="\t", index=False)
-    print("wrote", f"{prefix}.hc{npc}pcs_clusters.tsv")
+    mod_iran[["sid", "Population", "hc"]].rename(columns={"sid": "IID", "hc": "group"}).to_csv(
+        f"{prefix}.{tag_g}_groups.tsv", sep="\t", index=False)
+    print("wrote", f"{prefix}.{tag_g}_groups.tsv")
     def plot_pair(a, b, out, xlim=None, ylim=None):
         fig = plt.figure(figsize=(16, 10))
         ax = fig.add_axes([0.06, 0.07, 0.66, 0.88])
@@ -341,12 +337,12 @@ def run(npc):
         # modern Iranians: large, on top of ancient points too
         for k in sorted(mod_iran["hc"].unique()):
             g = mod_iran[mod_iran["hc"] == k]
-            ax.scatter(g[a], g[b], s=IRAN_SIZE, c=[col_of[x] for x in g["sp"]], marker=SHAPES[(k - 1) % len(SHAPES)],
+            ax.scatter(g[a], g[b], s=IRAN_SIZE, c=[col_of[x] for x in g["sp"]], marker=("o" if k == 0 else SHAPES[(k - 1) % len(SHAPES)]),
                        edgecolors="black", linewidths=IRAN_EDGE, alpha=0.95, zorder=5)
         ia, ib = pc_cols.index(a), pc_cols.index(b)
         ax.set_xlabel(f"{a} ({pct[ia]:.2f}% of listed eigenvalues)" if ia < len(pct) else a)
         ax.set_ylabel(f"{b} ({pct[ib]:.2f}% of listed eigenvalues)" if ib < len(pct) else b)
-        title = f"{prefix.split('/')[-1]}  |  n={len(df)}  (ancient {len(anc)}, modern {len(mod) + len(mod_iran)}, of which Iranian {len(mod_iran)}; {npc}-PC HC, {int(mod_iran['hc'].nunique())} clusters)"
+        title = f"{prefix.split('/')[-1]}  |  n={len(df)}  (ancient {len(anc)}, modern {len(mod) + len(mod_iran)}, of which Iranian {len(mod_iran)}; {tag_g}, {int(mod_iran['hc'].nunique())} groups)"
         if xlim is not None or ylim is not None:
             if xlim is not None:
                 ax.set_xlim(xlim)
@@ -379,16 +375,16 @@ def run(npc):
               for t_ in ticks]
         h2.append(Line2D([], [], marker="o", ls="", color="0.5", markersize=2, label="Modern (tiny dots)"))
         for k in sorted(mod_iran["hc"].unique()):
-            h2.append(Line2D([], [], marker=SHAPES[(k - 1) % len(SHAPES)], ls="", color=col_of[mod_iran["sp"].iloc[0]],
+            h2.append(Line2D([], [], marker=("o" if k == 0 else SHAPES[(k - 1) % len(SHAPES)]), ls="", color=col_of[mod_iran["sp"].iloc[0]],
                              markeredgecolor="black", markeredgewidth=IRAN_EDGE, markersize=float(np.sqrt(IRAN_SIZE)),
-                             label=f"Iranian HC cluster {k} (n={int((mod_iran['hc'] == k).sum())})"))
+                             label=f"Iranian group {k} (n={int((mod_iran['hc'] == k).sum())})"))
         lax = fig.add_axes([0.73, 0.02, 0.26, 0.94]); lax.axis("off")
         l1 = lax.legend(handles=h1, loc="upper left", bbox_to_anchor=(0, 1), fontsize=8, frameon=False,
                         title="Colour: super-population", title_fontsize=9, labelspacing=0.45)
         l1._legend_box.align = "left"
         lax.add_artist(l1)
         l2 = lax.legend(handles=h2, loc="lower left", bbox_to_anchor=(0, 0), fontsize=8, frameon=False,
-                        title=f"Size: age of ancient sample\nShape: Iranian HC cluster ({npc} PCs, {hc_method} cut at {cut_h:g})", title_fontsize=9, labelspacing=1.1)
+                        title=f"Size: age of ancient sample\nShape: Iranian group ({tag_g})", title_fontsize=9, labelspacing=1.1)
         l2._legend_box.align = "left"
         for ext in ("png", "pdf"):
             fig.savefig(f"{out}.{ext}", dpi=200)
@@ -398,11 +394,11 @@ def run(npc):
     if zoom:
         def tag(r, pre):
             return f"{pre}{r[0]:g}_{r[1]:g}" if r is not None else f"{pre}auto"
-        plot_pair(pc_cols[0], pc_cols[1], f"{prefix}.pca_hc{npc}pcs_PC1_PC2.zoom_{tag(xr, 'x')}_{tag(yr, 'y')}", xr, yr)
+        plot_pair(pc_cols[0], pc_cols[1], f"{prefix}.pca_{tag_g}_PC1_PC2.zoom_{tag(xr, 'x')}_{tag(yr, 'y')}", xr, yr)
     else:
-        plot_pair(pc_cols[0], pc_cols[1], f"{prefix}.pca_hc{npc}pcs_PC1_PC2")
+        plot_pair(pc_cols[0], pc_cols[1], f"{prefix}.pca_{tag_g}_PC1_PC2")
         if len(pc_cols) >= 4:
-            plot_pair(pc_cols[2], pc_cols[3], f"{prefix}.pca_hc{npc}pcs_PC3_PC4")
+            plot_pair(pc_cols[2], pc_cols[3], f"{prefix}.pca_{tag_g}_PC3_PC4")
 
     # ---- interactive HTML ----------------------------------------------------------------------------
     import json
@@ -428,7 +424,7 @@ def run(npc):
         })
     payload = {"title": f"{prefix.split('/')[-1]}  |  n={len(recs)}", "pcs": pc_cols[:n_js_pcs],
                "pct": [round(float(x), 2) for x in pct[:n_js_pcs]], "colors": {k: str(v) if isinstance(v, str) else matplotlib.colors.to_hex(v) for k, v in col_of.items()},
-               "shapes": JS_SHAPES, "npc": npc, "cut": cut_h, "method": hc_method, "scale": iran_scale,
+               "shapes": JS_SHAPES, "npc": tag_g, "cut": "", "method": "groups", "scale": iran_scale,
                "zoom": ([list(xr) if xr else None, list(yr) if yr else None] if zoom else None), "rows": recs}
 
     HTML = r"""<!doctype html>
@@ -456,9 +452,9 @@ def run(npc):
       <label><input type="checkbox" id="cA" checked> ancient</label><label><input type="checkbox" id="cM" checked> modern</label>
       <button id="rst">Reset view</button><button id="full">Full extent</button><button id="all">Show all</button><button id="none">Hide all</button></div>
      <div id="plot"><canvas id="cv"></canvas></div>
-     <div id="note">Hover a point for details &middot; wheel = zoom, drag = pan, double-click = reset &middot; click a Super-population to hide/show it &middot; colour = Super-population, ancient: outlined, larger = older &middot; modern Iranians: one shape per HC cluster (see side panel)</div>
+     <div id="note">Hover a point for details &middot; wheel = zoom, drag = pan, double-click = reset &middot; click a Super-population to hide/show it &middot; colour = Super-population, ancient: outlined, larger = older &middot; modern Iranians: one shape per group (see side panel)</div>
     </div>
-    <div id="side"><h2>Super-population</h2><div id="leg"></div><h2>Size = age (ancient) / Shape = Iranian HC cluster</h2><div id="szleg"></div></div></div>
+    <div id="side"><h2>Super-population</h2><div id="leg"></div><h2>Size = age (ancient) / Shape = Iranian group</h2><div id="szleg"></div></div></div>
     <div id="tip"></div>
     <script>
     const D=__DATA__, cv=document.getElementById("cv"), ctx=cv.getContext("2d"), tip=document.getElementById("tip");
@@ -485,8 +481,8 @@ def run(npc):
      const cl={};rows.forEach(r=>{if(r.iran)cl[r.cl]=(cl[r.cl]||0)+1});
      const ic={square:'<rect x="7" y="6" width="12" height="12"',triangle:'<polygon points="13,5 20,19 6,19"',triangleDown:'<polygon points="13,19 20,5 6,5"',diamond:'<polygon points="13,4 20,12 13,20 6,12"',
       pentagon:'<polygon points="13,4 20,9 17,19 9,19 6,9"',hexagon:'<polygon points="9,5 17,5 21,12 17,19 9,19 5,12"',star:'<polygon points="13,3 15,10 22,10 16,14 18,21 13,17 8,21 10,14 4,10 11,10"'};
-     Object.keys(cl).forEach(k=>{const n=D.shapes[(k-1)%D.shapes.length];mk(W,H,(ic[n]||'<circle cx="13" cy="12" r="6"')+' fill="#bbb" stroke="#000" stroke-width="1.4"/>',"Iranian HC cluster "+k+" (n="+cl[k]+")")});
-     mk(W,H,'',D.npc+" PCs, "+D.method+" cut at "+D.cut)})();
+     Object.keys(cl).forEach(k=>{const n=D.shapes[(k-1)%D.shapes.length];mk(W,H,(ic[n]||'<circle cx="13" cy="12" r="6"')+' fill="#bbb" stroke="#000" stroke-width="1.4"/>',"Iranian group "+k+" (n="+cl[k]+")")});
+     mk(W,H,'',D.npc)})();
     all.onclick=()=>{hidden.clear();[...leg.children].forEach(c=>c.classList.remove("off"));draw()};
     none.onclick=()=>{sps.forEach(s=>hidden.add(s));[...leg.children].forEach(c=>c.classList.add("off"));draw()};
     cA.onchange=cM.onchange=draw;
@@ -537,9 +533,9 @@ def run(npc):
     </script></body></html>"""
 
     if zoom:
-        html_out = f"{prefix}.pca_hc{npc}pcs_interactive.zoom_{tag(xr, 'x')}_{tag(yr, 'y')}.html"
+        html_out = f"{prefix}.pca_{tag_g}_interactive.zoom_{tag(xr, 'x')}_{tag(yr, 'y')}.html"
     else:
-        html_out = f"{prefix}.pca_hc{npc}pcs_interactive.html"
+        html_out = f"{prefix}.pca_{tag_g}_interactive.html"
     with open(html_out, "w") as fh:
         fh.write(HTML.replace("__DATA__", json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")))
     print("wrote", html_out)
@@ -548,9 +544,9 @@ def run(npc):
     out["hc_cluster"] = out["sid"].map(dict(zip(mod_iran["sid"], mod_iran["hc"])))
     out["colour"] = out["sp"].map(col_of)
     out.rename(columns={"sid": "IID", "sp": "super_population", "age": "age_BP"}).to_csv(
-        f"{prefix}.pca_hc{npc}pcs_samples.tsv", sep="\t", index=False)
-    print("wrote", f"{prefix}.pca_hc{npc}pcs_samples.tsv")
+        f"{prefix}.pca_{tag_g}_samples.tsv", sep="\t", index=False)
+    print("wrote", f"{prefix}.pca_{tag_g}_samples.tsv")
 
-for npc in hc_pcs:
-    run(npc)
+for gfile in group_files:
+    run(gfile)
 PY
