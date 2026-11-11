@@ -24,6 +24,7 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 # Environment (in addition to IRAN_SOURCE below):
 #   HC_PCS="3 4 5"   numbers of leading PCs to cluster on; one set of plots each
 #   CUT_HEIGHT=0.8   Ward distance at which the tree is cut
+#   HC_K=            if set (e.g. 4), cut every tree into exactly that many clusters instead of at CUT_HEIGHT
 #   LINKAGE=ward     any scipy linkage method (ward | average | complete | ...)
 #   IRAN_SCALE=1.5   size multiplier for the Iranian markers
 #   SCALE_PCS=0      1 = standardise PCs before clustering
@@ -117,6 +118,7 @@ prefix, table_path, colors_path = sys.argv[1], sys.argv[2], sys.argv[3]
 from scipy.cluster.hierarchy import linkage, fcluster, dendrogram
 hc_pcs = [int(x) for x in sys.argv[6].split()]
 cut_h, hc_method, iran_scale, scale_pcs = float(sys.argv[7]), sys.argv[8], float(sys.argv[9]), sys.argv[10] == "1"
+hc_k = int(os.environ.get("HC_K", "0") or 0)
 SHAPES = ["s", "^", "D", "v", "P", "X", "*", "p", "h", "<", ">", "d"]     # one per cluster (cycled)
 JS_SHAPES = ["square", "triangle", "diamond", "triangleDown", "plus", "cross", "star", "pentagon", "hexagon", "triangleLeft", "triangleRight", "diamondThin"]
 
@@ -299,7 +301,17 @@ def run(npc):
     if scale_pcs:
         X = (X - X.mean(0)) / np.where(X.std(0) == 0, 1, X.std(0))
     Z = linkage(X, method=hc_method, metric="euclidean")
-    raw = fcluster(Z, cut_h, criterion="distance")
+    top = Z[::-1, 2][:8]
+    print(f"[{npc} PCs] {len(X)} Iranians; PC SD (first {npc}): " + ", ".join(f"{v:.4f}" for v in X.std(0)))
+    print(f"[{npc} PCs] top merge heights of the tree: " + ", ".join(f"{h:.3f}" for h in top))
+    if hc_k:
+        raw = fcluster(Z, hc_k, criterion="maxclust")
+        print(f"[{npc} PCs] HC_K={hc_k}: cutting into {hc_k} clusters (CUT_HEIGHT ignored)")
+    else:
+        raw = fcluster(Z, cut_h, criterion="distance")
+        if raw.max() == 1:
+            print(f"WARNING: [{npc} PCs] cut height {cut_h:g} is above the tree's top merge ({top[0]:.3f}) -> ONE cluster. "
+                  f"Lower CUT_HEIGHT (below {top[0]:.3f}) or set HC_K=<n clusters>; check that <prefix> is the PCA used for the slides.")
     leaves = dendrogram(Z, no_plot=True)["leaves"]
     relabel, nxt = {}, 1
     for i in leaves:                                  # number clusters left -> right along the dendrogram
@@ -307,7 +319,7 @@ def run(npc):
             relabel[raw[i]], nxt = nxt, nxt + 1
     mod_iran["hc"] = [relabel[c] for c in raw]
     hc_of = dict(zip(mod_iran["sid"], mod_iran["hc"]))
-    print(f"[{npc} PCs] {hc_method} linkage cut at {cut_h:g}: {int(mod_iran['hc'].nunique())} clusters, sizes "
+    print(f"[{npc} PCs] {hc_method} linkage {f'cut into {hc_k}' if hc_k else f'cut at {cut_h:g}:'} {int(mod_iran['hc'].nunique())} clusters, sizes "
           + str(dict(sorted(mod_iran['hc'].value_counts().items()))))
     print(pd.crosstab(mod_iran["Population"].fillna("Population not recorded"), mod_iran["hc"]).to_string())
     mod_iran[["sid", "Population", "hc"]].rename(columns={"sid": "IID", "hc": "hc_cluster"}).to_csv(
