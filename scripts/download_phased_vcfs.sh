@@ -30,7 +30,7 @@ mkdir -p "$OUTDIR"
 cd "$OUTDIR"
 
 echo "[$(date)] Fetching directory index: $BASE_URL"
-curl -fsSL --retry 5 --retry-delay 10 "$BASE_URL" -o index.html
+wget -q --tries=5 --waitretry=10 --timeout=60 -O index.html "$BASE_URL"
 
 # Pull every href out of the index page, drop query strings/anchors and parent/sort links.
 if (( INCLUDE_INDEXES )); then
@@ -65,12 +65,12 @@ while read -r f; do
     echo "[$(date)] $local_name"
     # -c resume partial files; --timestamping is not combined with -c, so skip completed files explicitly
     # by comparing the remote Content-Length with the local size.
-    remote_size=$(curl -fsSLI --retry 3 "$url" | awk 'tolower($1)=="content-length:"{s=$2} END{gsub(/\r/,"",s); print s}')
+    remote_size=$(wget --spider --server-response --tries=3 --timeout=60 "$url" 2>&1 | awk 'tolower($1)=="content-length:"{s=$2} END{gsub(/\r/,"",s); print s}')
     if [[ -n "$remote_size" && -f "$local_name" && "$(stat -c %s "$local_name")" == "$remote_size" ]]; then
         echo "    already complete, skipping"
         continue
     fi
-    if ! wget -c -q --show-progress --tries=10 --waitretry=30 --timeout=60 -O "$local_name" "$url"; then
+    if ! wget -c -q --show-progress --tries=10 --waitretry=30 --timeout=60 "$url"; then
         echo "    FAILED: $local_name" >&2
         FAILED=$((FAILED + 1))
     fi
