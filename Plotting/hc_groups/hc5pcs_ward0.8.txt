@@ -1,0 +1,70 @@
+# Ward linkage cut at 0.8 on the dendrogram, read off the slide (HC on first N PCs). Columns: IID<TAB>group<TAB>Population (Population is informational)
+IID	group	Population
+1	4	Fars
+5	3	Turk
+6	4	Fars
+13	4	Fars
+18	2	Zoroastrian
+21	4	Talysh
+23	4	Fars
+35	4	Mazandarani
+37	4	Fars
+48	2	Zoroastrian
+49	4	Fars
+50	4	Azeri
+58	4	Fars
+60	4	Iranian (ethnicity not reported)
+61	4	Assyrian
+62	4	Turk_Azeri
+69	2	Zoroastrian
+78	4	Iranian (ethnicity not reported)
+85	4	Fars
+86	1	Zoroastrian
+89	4	Azeri
+91	2	Zoroastrian
+93	4	Fars
+94	4	Iranian (ethnicity not reported)
+98	4	Iranian (ethnicity not reported)
+99	2	Zoroastrian
+IGP_2	4	Fars
+IGP_3	6	Jewish
+IGP_6	4	Fars
+IGP_10	4	Azeri
+IGP_12	4	Fars
+IGP_15	4	Assyrian_Armenian
+IGP_16	4	Fars_Jewish
+IGP_17	4	Fars
+IGP_19	6	Iranian (ethnicity not reported)
+IGP_22	4	Iranian (ethnicity not reported)
+IGP_25	6	Fars
+IGP_26	6	Jewish
+IGP_28	4	Iranian (ethnicity not reported)
+IGP_30	6	Jewish
+IGP_31	4	Fars_Arab_Kurd
+IGP_32	4	Fars
+IGP_34	6	Jewish
+IGP_40	4	Iranian (ethnicity not reported)
+IGP_41	4	Fars_Lur
+IGP_44	4	Fars
+IGP_46	4	Fars_Lur_Qashqui_Arab
+IGP_51	6	Jewish
+IGP_52	4	Fars_Kurd
+IGP_54	4	Azeri
+IGP_55	4	Fars
+IGP_57	5	Kashan_Hamadani
+IGP_64	4	Kurd
+IGP_66	4	Armenian
+IGP_67	6	Jewish
+IGP_68	4	Fars
+IGP_72	4	Iranian (ethnicity not reported)
+IGP_75	4	Fars
+IGP_76	4	Assyrian_Armenian
+IGP_77	4	Fars
+IGP_80	4	Fars_Lur
+IGP_81	4	Fars_Afghani
+IGP_83	4	Fars
+IGP_84	4	Fars
+IGP_87	6	Jewish
+IGP_90	4	Khorosan
+IGP_100	4	Armenian
+IGP_104	4	Fars_Kashan
