@@ -1,35 +1,85 @@
 section	IID	Population
-Iran (random 20 of 70)	IGP_100	Armenian
-Iran (random 20 of 70)	IGP_15	Assyrian_Armenian
-Iran (random 20 of 70)	89	Azeri
-Iran (random 20 of 70)	13	Fars
-Iran (random 20 of 70)	23	Fars
-Iran (random 20 of 70)	93	Fars
-Iran (random 20 of 70)	IGP_81	Fars_Afghani
-Iran (random 20 of 70)	IGP_52	Fars_Kurd
-Iran (random 20 of 70)	Iranian:LP6005443-DNA_B10	Iranian
-Iran (random 20 of 70)	78	Iranian (ethnicity not reported)
-Iran (random 20 of 70)	98	Iranian (ethnicity not reported)
-Iran (random 20 of 70)	IGP_22	Iranian (ethnicity not reported)
-Iran (random 20 of 70)	IGP_40	Iranian (ethnicity not reported)
-Iran (random 20 of 70)	IGP_3	Jewish
-Iran (random 20 of 70)	IGP_30	Jewish
-Iran (random 20 of 70)	IGP_51	Jewish
-Iran (random 20 of 70)	IGP_67	Jewish
-Iran (random 20 of 70)	IGP_87	Jewish
-Iran (random 20 of 70)	62	Turk_Azeri
-Iran (random 20 of 70)	69	Zoroastrian
-West	Palestinian:HGDP00675	Palestinian
-West	Palestinian:HGDP00676	Palestinian
-West	Palestinian:HGDP00678	Palestinian
-West	Palestinian:HGDP00730	Palestinian
-West	Palestinian:HGDP00731	Palestinian
+Iran (all 70)	1	Fars
+Iran (all 70)	6	Fars
+Iran (all 70)	13	Fars
+Iran (all 70)	23	Fars
+Iran (all 70)	37	Fars
+Iran (all 70)	49	Fars
+Iran (all 70)	58	Fars
+Iran (all 70)	85	Fars
+Iran (all 70)	93	Fars
+Iran (all 70)	IGP_2	Fars
+Iran (all 70)	IGP_6	Fars
+Iran (all 70)	IGP_12	Fars
+Iran (all 70)	IGP_17	Fars
+Iran (all 70)	IGP_25	Fars
+Iran (all 70)	IGP_32	Fars
+Iran (all 70)	IGP_44	Fars
+Iran (all 70)	IGP_55	Fars
+Iran (all 70)	IGP_68	Fars
+Iran (all 70)	IGP_75	Fars
+Iran (all 70)	IGP_77	Fars
+Iran (all 70)	IGP_83	Fars
+Iran (all 70)	IGP_84	Fars
+Iran (all 70)	IGP_81	Fars_Afghani
+Iran (all 70)	IGP_31	Fars_Arab_Kurd
+Iran (all 70)	IGP_16	Fars_Jewish
+Iran (all 70)	IGP_104	Fars_Kashan
+Iran (all 70)	IGP_52	Fars_Kurd
+Iran (all 70)	IGP_41	Fars_Lur
+Iran (all 70)	IGP_80	Fars_Lur
+Iran (all 70)	IGP_46	Fars_Lur_Qashqui_Arab
+Iran (all 70)	IGP_3	Jewish
+Iran (all 70)	IGP_26	Jewish
+Iran (all 70)	IGP_30	Jewish
+Iran (all 70)	IGP_34	Jewish
+Iran (all 70)	IGP_51	Jewish
+Iran (all 70)	IGP_67	Jewish
+Iran (all 70)	IGP_87	Jewish
+Iran (all 70)	18	Zoroastrian
+Iran (all 70)	48	Zoroastrian
+Iran (all 70)	69	Zoroastrian
+Iran (all 70)	86	Zoroastrian
+Iran (all 70)	91	Zoroastrian
+Iran (all 70)	99	Zoroastrian
+Iran (all 70)	50	Azeri
+Iran (all 70)	89	Azeri
+Iran (all 70)	IGP_10	Azeri
+Iran (all 70)	IGP_54	Azeri
+Iran (all 70)	IGP_66	Armenian
+Iran (all 70)	IGP_100	Armenian
+Iran (all 70)	IGP_15	Assyrian_Armenian
+Iran (all 70)	IGP_76	Assyrian_Armenian
+Iran (all 70)	61	Assyrian
+Iran (all 70)	IGP_57	Kashan_Hamadani
+Iran (all 70)	IGP_90	Khorosan
+Iran (all 70)	IGP_64	Kurd
+Iran (all 70)	35	Mazandarani
+Iran (all 70)	21	Talysh
+Iran (all 70)	5	Turk
+Iran (all 70)	62	Turk_Azeri
+Iran (all 70)	60	Iranian (ethnicity not reported)
+Iran (all 70)	78	Iranian (ethnicity not reported)
+Iran (all 70)	94	Iranian (ethnicity not reported)
+Iran (all 70)	98	Iranian (ethnicity not reported)
+Iran (all 70)	IGP_19	Iranian (ethnicity not reported)
+Iran (all 70)	IGP_22	Iranian (ethnicity not reported)
+Iran (all 70)	IGP_28	Iranian (ethnicity not reported)
+Iran (all 70)	IGP_40	Iranian (ethnicity not reported)
+Iran (all 70)	IGP_72	Iranian (ethnicity not reported)
+Iran (all 70)	Iranian:LP6005442-DNA_C04	Iranian
+Iran (all 70)	Iranian:LP6005443-DNA_B10	Iranian
+West	Palestinian:HGDP00680	Palestinian
+West	Palestinian:HGDP00684	Palestinian
+West	Palestinian:HGDP00689	Palestinian
+West	Palestinian:HGDP00694	Palestinian
+West	Palestinian:HGDP00733	Palestinian
 West	Palestinian:HGDP00740	Palestinian
-West	Druze:HGDP00563	Druze
-West	Druze:HGDP00566	Druze
-West	Druze:HGDP00568	Druze
-West	Druze:HGDP00584	Druze
-West	Druze:HGDP00591	Druze
+West	Druze:HGDP00564	Druze
+West	Druze:HGDP00567	Druze
+West	Druze:HGDP00579	Druze
+West	Druze:HGDP00580	Druze
+West	Druze:HGDP00595	Druze
 West	Druze:HGDP00598	Druze
 West	Jordanian:LP6005442-DNA_E04	Jordanian
 West	Jordanian:LP6005442-DNA_F04	Jordanian
@@ -40,11 +90,11 @@ West	Samaritan:LP6005592-DNA_D04	Samaritan
 West	Turkish_Cappadocia:LP6005677-DNA_A03	Turkish_Cappadocia
 West	Turkish_Cappadocia:LP6005677-DNA_C03	Turkish_Cappadocia
 North	Adygei:HGDP01383	Adygei
-North	Adygei:HGDP01384	Adygei
 North	Adygei:HGDP01385	Adygei
-North	Adygei:HGDP01388	Adygei
-North	Adygei:HGDP01397	Adygei
 North	Adygei:HGDP01399	Adygei
+North	Adygei:HGDP01400	Adygei
+North	Adygei:HGDP01401	Adygei
+North	Adygei:HGDP01403	Adygei
 North	Adygei:HGDP01404	Adygei
 North	Abkhasian:LP6005442-DNA_C02	Abkhasian
 North	Abkhasian:LP6005442-DNA_D02	Abkhasian
@@ -59,47 +109,47 @@ North	Lezgin:LP6005442-DNA_H04	Lezgin
 North	North_Ossetian:LP6005443-DNA_E10	North_Ossetian
 North	North_Ossetian:LP6005443-DNA_F10	North_Ossetian
 North	Chechen:LP6005442-DNA_D03	Chechen
-East	Balochi:HGDP00064	Balochi
-East	Balochi:HGDP00068	Balochi
-East	Balochi:HGDP00080	Balochi
-East	Brahui:GA001834	Brahui
-East	Brahui:GA001835	Brahui
-East	Brahui:HGDP00045	Brahui
-East	Makrani:HGDP00130	Makrani
-East	Makrani:HGDP00137	Makrani
-East	Makrani:HGDP00148	Makrani
-East	Pathan:HGDP00218	Pathan
-East	Pathan:HGDP00230	Pathan
-East	Pathan:HGDP00264	Pathan
-East	Sindhi:HGDP00171	Sindhi
-East	Sindhi:HGDP00177	Sindhi
-East	Hazara:GA001882	Hazara
+East	Balochi:HGDP00057	Balochi
+East	Balochi:HGDP00074	Balochi
+East	Balochi:HGDP00088	Balochi
+East	Brahui:GA001832	Brahui
+East	Brahui:HGDP00001	Brahui
+East	Brahui:HGDP00003	Brahui
+East	Makrani:HGDP00131	Makrani
+East	Makrani:HGDP00141	Makrani
+East	Makrani:HGDP00145	Makrani
+East	Pathan:GA001848	Pathan
+East	Pathan:GA001853	Pathan
+East	Pathan:HGDP00244	Pathan
+East	Sindhi:GA001863	Sindhi
+East	Sindhi:HGDP00179	Sindhi
 East	Hazara:GA001883	Hazara
-East	Burusho:HGDP00412	Burusho
-East	Burusho:HGDP00438	Burusho
-East	Kalash:HGDP00326	Kalash
+East	Hazara:HGDP00127	Hazara
+East	Burusho:HGDP00341	Burusho
+East	Burusho:HGDP00388	Burusho
+East	Kalash:HGDP00286	Kalash
 East	Kalash:HGDP00328	Kalash
+South	Bedouin:HGDP00609	Bedouin
 South	Bedouin:HGDP00625	Bedouin
-South	Bedouin:HGDP00627	Bedouin
-South	Bedouin:HGDP00647	Bedouin
-South	Bedouin:HGDP00653	Bedouin
-Western/Northern Europe	Finnish:HG00315	Finnish
-Western/Northern Europe	Finnish:HG00330	Finnish
-Western/Northern Europe	Finnish:HG00334	Finnish
-Western/Northern Europe	Finnish:HG00366	Finnish
-Western/Northern Europe	British:HG00130	British
-Western/Northern Europe	British:HG00263	British
-Western/Northern Europe	British:HG01334	British
-Western/Northern Europe	British:HG02215	British
-Western/Northern Europe	CEPH:NA06984	CEPH
-Western/Northern Europe	CEPH:NA12234	CEPH
-Western/Northern Europe	CEPH:NA12843	CEPH
-Western/Northern Europe	French:HGDP00523	French
-Western/Northern Europe	French:HGDP00525	French
-Western/Northern Europe	French:HGDP00538	French
-Western/Northern Europe	Basque:HGDP01366	Basque
-Western/Northern Europe	Basque:HGDP01376	Basque
-Western/Northern Europe	Basque:HGDP01378	Basque
-Western/Northern Europe	Orcadian:HGDP00795	Orcadian
-Western/Northern Europe	Orcadian:HGDP00796	Orcadian
-Western/Northern Europe	Orcadian:HGDP00806	Orcadian
+South	Bedouin:HGDP00642	Bedouin
+South	Bedouin:HGDP00654	Bedouin
+Europe	Finnish:HG00269	Finnish
+Europe	Finnish:HG00318	Finnish
+Europe	Finnish:HG00351	Finnish
+Europe	Finnish:HG00373	Finnish
+Europe	British:HG00103	British
+Europe	British:HG00109	British
+Europe	British:HG00240	British
+Europe	British:HG00253	British
+Europe	CEPH:NA06984	CEPH
+Europe	CEPH:NA12283	CEPH
+Europe	CEPH:NA12830	CEPH
+Europe	French:HGDP00513	French
+Europe	French:HGDP00527	French
+Europe	French:HGDP00537	French
+Europe	Basque:HGDP01369	Basque
+Europe	Basque:HGDP01375	Basque
+Europe	Basque:HGDP01378	Basque
+Europe	Orcadian:HGDP00799	Orcadian
+Europe	Orcadian:HGDP00802	Orcadian
+Europe	Orcadian:HGDP00804	Orcadian

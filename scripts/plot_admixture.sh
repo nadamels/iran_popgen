@@ -35,8 +35,8 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #   3. A zoom on the modern Iranians (Super-population Iran, no archaeological date/period) at K=7 and
 #      K=8, labelled by the Population column (all labels kept, Fars_* included), same component colours.
 #
-#   4. Modern Iranians (20 random) beside 20 modern samples each from the west, north, east and south
-#      neighbours and from Western/Northern Europe (populations listed in NEIGHBOURS; chosen round-robin across populations, fixed seed), K=8.
+#   4. All modern Iranians (full width) beside 20 modern samples each (compressed to half width) from the west, north, east and south
+#      neighbours and from Western/Northern Europe ("Europe") (populations listed in NEIGHBOURS; chosen round-robin across populations, fixed seed), K=8.
 #
 # Outputs (next to the prefix): <prefix>.cv_error.{png,pdf}, <prefix>.cv_error.tsv,
 #                               <prefix>.admixture_stacked.{png,pdf},
@@ -357,7 +357,7 @@ NEIGHBOURS = [
     ("North", ["Adygei", "Abkhasian", "Armenian", "Georgian_Mingrelian", "Lezgin", "North_Ossetian", "Chechen"]),
     ("East", ["Balochi", "Brahui", "Makrani", "Pathan", "Sindhi", "Hazara", "Burusho", "Kalash"]),
     ("South", ["Bedouin"], 4),                                   # optional third item = number of samples
-    ("Western/Northern Europe", ["Finnish", "British", "CEPH", "French", "Basque", "Orcadian"]),
+    ("Europe", ["Finnish", "British", "CEPH", "French", "Basque", "Orcadian"]),
 ]
 N_PER = 20
 NEIGH_KS = [k for k in (8,) if k in Q]
@@ -366,8 +366,8 @@ if NEIGH_KS and len(sel):
     popcol = meta["Population"].fillna("unknown").to_numpy()
     modern = ~anc.to_numpy()
     sections = []                                                # (section name, [(sample index, pop label)])
-    ir = rng.permutation(sel)[:N_PER]
-    sections.append(("Iran (random %d of %d)" % (len(ir), len(sel)), sorted(((int(i), popcol[i]) for i in ir), key=lambda t: (t[1], t[0]))))
+    # every modern Iranian, in the same population order as the Iran zoom (Fars first, ...)
+    sections.append(("Iran (all %d)" % len(sel), [(int(sel[i]), popcol[sel[i]]) for i in zorder]))
     for name, pops, *n_opt in NEIGHBOURS:
         n_take = n_opt[0] if n_opt else N_PER
         pools = {}
@@ -393,32 +393,46 @@ if NEIGH_KS and len(sel):
         pos += len(lst)
     pop_bounds = [0] + [x for x in range(1, len(nlab)) if nlab[x] != nlab[x - 1]
                         or any(x == a for a, _ in sec_bounds)] + [len(nlab)]
-    nfig, naxes = plt.subplots(len(NEIGH_KS), 1, figsize=(18, 2.4 * len(NEIGH_KS) + 2.6), sharex=True)
+    # Iranians at full width; the neighbour sections are compressed to OTHER_W of a sample's width
+    OTHER_W = 0.5
+    NFIG_W = 20
+    ww = np.array([1.0 if si == 0 else OTHER_W for si, (_, lst) in enumerate(sections) for _ in lst])
+    xl = np.concatenate([[0.0], np.cumsum(ww)])                  # left edge of every sample, plus the end
+    xc = xl[:-1] + ww / 2
+    total_w = xl[-1]
+    nfig, naxes = plt.subplots(len(NEIGH_KS), 1, figsize=(NFIG_W, 2.4 * len(NEIGH_KS) + 4.0), sharex=True)
     naxes = np.atleast_1d(naxes)
-    nx = np.arange(len(nidx))
     for ax, k in zip(naxes, NEIGH_KS):
         q = Q[k][nidx][:, stack_order[k]]
         bottom = np.zeros(len(nidx))
         for jj, col in enumerate(stack_order[k]):
-            ax.bar(nx, q[:, jj], bottom=bottom, width=1.0,
+            ax.bar(xc, q[:, jj], bottom=bottom, width=ww,
                    color=PALETTE[colour_of[k][col] % len(PALETTE)], linewidth=0)
             bottom += q[:, jj]
         for b in pop_bounds[1:-1]:
-            ax.axvline(b - 0.5, color="black", lw=0.8)
+            ax.axvline(xl[b], color="black", lw=0.8)
         for a, _ in sec_bounds[1:]:
-            ax.axvline(a - 0.5, color="black", lw=3.5)
-        ax.set_xlim(-0.5, len(nidx) - 0.5)
+            ax.axvline(xl[a], color="black", lw=3.5)
+        ax.set_xlim(0, total_w)
         ax.set_ylim(0, 1)
         ax.set_yticks([0, 0.5, 1])
         ax.set_ylabel(f"K={k}", rotation=0, ha="right", va="center", fontsize=11)
-        ax.tick_params(axis="x", length=0)
-    naxes[-1].set_xticks([(a + b) / 2 - 0.5 for a, b in zip(pop_bounds[:-1], pop_bounds[1:])])
-    naxes[-1].set_xticklabels([f"{nlab[a]} (n={b - a})" for a, b in zip(pop_bounds[:-1], pop_bounds[1:])],
-                              rotation=60, ha="right", fontsize=9)
+        ax.set_xticks([])
+    NLAB_PT = 7.5
+    blocks = list(zip(pop_bounds[:-1], pop_bounds[1:]))
+    mids = [(xl[a] + xl[b]) / 2 for a, b in blocks]
+    gap = total_w * (NLAB_PT * 1.4 / 72) / (NFIG_W * 0.93)       # one text line, in x units
+    lpos = spread(mids, gap, 0, total_w)                          # nudge crowded labels apart; leader lines
+    for (a, b), m, lx in zip(blocks, mids, lpos):
+        naxes[-1].annotate(f"{nlab[a]} (n={b - a})", xy=(m, 0), xycoords=("data", "axes fraction"),
+                           xytext=(lx, -0.06), textcoords=("data", "axes fraction"), rotation=90,
+                           ha="center", va="top", fontsize=NLAB_PT,
+                           arrowprops=dict(arrowstyle="-", lw=0.4, color="0.4", shrinkA=0, shrinkB=0))
     for (a, b), (name, _) in zip(sec_bounds, sections):
-        naxes[0].text((a + b) / 2 - 0.5, 1.03, name, ha="center", va="bottom", fontsize=11, fontweight="bold",
-                      transform=naxes[0].get_xaxis_transform())
-    nfig.tight_layout()
+        narrow = xl[b] - xl[a] < 6                                # too narrow for a horizontal header
+        naxes[0].text((xl[a] + xl[b]) / 2, 1.03, name, ha="center", va="bottom", fontsize=11, fontweight="bold",
+                      rotation=90 if narrow else 0, transform=naxes[0].get_xaxis_transform())
+    nfig.subplots_adjust(left=0.05, right=0.995, top=0.88, bottom=0.42)
     for ext in ("png", "pdf"):
         nfig.savefig(f"{prefix}.admixture_neighbours_K{'_K'.join(map(str, NEIGH_KS))}.{ext}", dpi=250)
     plt.close(nfig)
