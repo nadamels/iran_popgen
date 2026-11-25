@@ -36,12 +36,12 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #      K=8, labelled by the Population column (all labels kept, Fars_* included), same component colours.
 #
 #   4. Modern Iranians (20 random) beside 20 modern samples each from the west, north, east and south
-#      neighbours (populations listed in NEIGHBOURS; chosen round-robin across populations, fixed seed), K=8, 12.
+#      neighbours (populations listed in NEIGHBOURS; chosen round-robin across populations, fixed seed), K=8.
 #
 # Outputs (next to the prefix): <prefix>.cv_error.{png,pdf}, <prefix>.cv_error.tsv,
 #                               <prefix>.admixture_stacked.{png,pdf},
 #                               <prefix>.admixture_iran_K7_K8.{png,pdf},
-#                               <prefix>.admixture_neighbours_K8_K12.{png,pdf}, <prefix>.admixture_neighbours_samples.tsv
+#                               <prefix>.admixture_neighbours_K8.{png,pdf}, <prefix>.admixture_neighbours_samples.tsv
 
 set -euo pipefail
 
@@ -358,7 +358,7 @@ NEIGHBOURS = [
     ("South", ["Bedouin", "Yemenite_Jew"]),
 ]
 N_PER = 20
-NEIGH_KS = [k for k in (8, 12) if k in Q]
+NEIGH_KS = [k for k in (8,) if k in Q]
 if NEIGH_KS and len(sel):
     rng = np.random.default_rng(1)                               # fixed seed: same samples every run
     popcol = meta["Population"].fillna("unknown").to_numpy()
