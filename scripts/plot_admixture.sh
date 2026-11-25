@@ -35,9 +35,13 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #   3. A zoom on the modern Iranians (Super-population Iran, no archaeological date/period) at K=7 and
 #      K=8, labelled by the Population column (all labels kept, Fars_* included), same component colours.
 #
+#   4. Modern Iranians (20 random) beside 20 modern samples each from the west, north, east and south
+#      neighbours (populations listed in NEIGHBOURS; chosen round-robin across populations, fixed seed), K=8, 12.
+#
 # Outputs (next to the prefix): <prefix>.cv_error.{png,pdf}, <prefix>.cv_error.tsv,
 #                               <prefix>.admixture_stacked.{png,pdf},
-#                               <prefix>.admixture_iran_K7_K8.{png,pdf}
+#                               <prefix>.admixture_iran_K7_K8.{png,pdf},
+#                               <prefix>.admixture_neighbours_K8_K12.{png,pdf}, <prefix>.admixture_neighbours_samples.tsv
 
 set -euo pipefail
 
@@ -344,6 +348,80 @@ if ZOOM_KS and len(sel):
         zfig.savefig(f"{prefix}.admixture_iran_K{'_K'.join(map(str, ZOOM_KS))}.{ext}", dpi=250)
     plt.close(zfig)
     print(f"Iran zoom: K={ZOOM_KS}, {len(sel)} modern Iranians, {len(zb) - 1} populations")
+
+# ---- 4. modern Iranians next to their neighbours: N_PER modern samples to the west, north, east, south ----
+# Which populations count as which neighbour is set here (names as in the Population column).
+NEIGHBOURS = [
+    ("West", ["Palestinian", "Druze", "Jordanian", "Iraqi_Jew", "Samaritan", "Turkish_Cappadocia"]),
+    ("North", ["Adygei", "Abkhasian", "Armenian", "Georgian_Mingrelian", "Lezgin", "North_Ossetian", "Chechen"]),
+    ("East", ["Balochi", "Brahui", "Makrani", "Pathan", "Sindhi", "Hazara", "Burusho", "Kalash"]),
+    ("South", ["Bedouin", "Yemenite_Jew"]),
+]
+N_PER = 20
+NEIGH_KS = [k for k in (8, 12) if k in Q]
+if NEIGH_KS and len(sel):
+    rng = np.random.default_rng(1)                               # fixed seed: same samples every run
+    popcol = meta["Population"].fillna("unknown").to_numpy()
+    modern = ~anc.to_numpy()
+    sections = []                                                # (section name, [(sample index, pop label)])
+    ir = rng.permutation(sel)[:N_PER]
+    sections.append(("Iran (random %d of %d)" % (len(ir), len(sel)), sorted(((int(i), popcol[i]) for i in ir), key=lambda t: (t[1], t[0]))))
+    for name, pops in NEIGHBOURS:
+        pools = {}
+        for pp in pops:
+            idx = np.flatnonzero(modern & (popcol == pp))
+            if len(idx):
+                pools[pp] = list(rng.permutation(idx))
+            else:
+                print(f"WARNING: neighbour population {pp!r} has no modern samples in the table")
+        chosen = []
+        while len(chosen) < N_PER and any(pools.values()):       # round-robin so every population is represented
+            for pp in list(pools):
+                if pools[pp] and len(chosen) < N_PER:
+                    chosen.append((int(pools[pp].pop()), pp))
+        order_in_sec = {pp: r for r, pp in enumerate(pops)}
+        sections.append((name, sorted(chosen, key=lambda t: (order_in_sec[t[1]], t[0]))))
+    flat = [t for _, lst in sections for t in lst]
+    nidx = np.array([t[0] for t in flat])
+    nlab = [t[1] for t in flat]
+    sec_bounds, pos = [], 0
+    for _, lst in sections:
+        sec_bounds.append((pos, pos + len(lst)))
+        pos += len(lst)
+    pop_bounds = [0] + [x for x in range(1, len(nlab)) if nlab[x] != nlab[x - 1]
+                        or any(x == a for a, _ in sec_bounds)] + [len(nlab)]
+    nfig, naxes = plt.subplots(len(NEIGH_KS), 1, figsize=(18, 2.4 * len(NEIGH_KS) + 2.6), sharex=True)
+    naxes = np.atleast_1d(naxes)
+    nx = np.arange(len(nidx))
+    for ax, k in zip(naxes, NEIGH_KS):
+        q = Q[k][nidx][:, stack_order[k]]
+        bottom = np.zeros(len(nidx))
+        for jj, col in enumerate(stack_order[k]):
+            ax.bar(nx, q[:, jj], bottom=bottom, width=1.0,
+                   color=PALETTE[colour_of[k][col] % len(PALETTE)], linewidth=0)
+            bottom += q[:, jj]
+        for b in pop_bounds[1:-1]:
+            ax.axvline(b - 0.5, color="black", lw=0.8)
+        for a, _ in sec_bounds[1:]:
+            ax.axvline(a - 0.5, color="black", lw=3.5)
+        ax.set_xlim(-0.5, len(nidx) - 0.5)
+        ax.set_ylim(0, 1)
+        ax.set_yticks([0, 0.5, 1])
+        ax.set_ylabel(f"K={k}", rotation=0, ha="right", va="center", fontsize=11)
+        ax.tick_params(axis="x", length=0)
+    naxes[-1].set_xticks([(a + b) / 2 - 0.5 for a, b in zip(pop_bounds[:-1], pop_bounds[1:])])
+    naxes[-1].set_xticklabels([f"{nlab[a]} (n={b - a})" for a, b in zip(pop_bounds[:-1], pop_bounds[1:])],
+                              rotation=60, ha="right", fontsize=9)
+    for (a, b), (name, _) in zip(sec_bounds, sections):
+        naxes[0].text((a + b) / 2 - 0.5, 1.03, name, ha="center", va="bottom", fontsize=11, fontweight="bold",
+                      transform=naxes[0].get_xaxis_transform())
+    nfig.tight_layout()
+    for ext in ("png", "pdf"):
+        nfig.savefig(f"{prefix}.admixture_neighbours_K{'_K'.join(map(str, NEIGH_KS))}.{ext}", dpi=250)
+    plt.close(nfig)
+    pd.DataFrame({"section": [n for n, lst in sections for _ in lst], "IID": fam["IID"].to_numpy()[nidx],
+                  "Population": nlab}).to_csv(f"{prefix}.admixture_neighbours_samples.tsv", sep="\t", index=False)
+    print(f"neighbours plot: K={NEIGH_KS}, {len(nidx)} samples, {len(pop_bounds) - 1} populations")
 PY
 
 echo "done"
