@@ -36,7 +36,7 @@ conda activate /scratch/nme3923/conda-envs/glimpse2
 #      K=8, labelled by the Population column (all labels kept, Fars_* included), same component colours.
 #
 #   4. Modern Iranians (20 random) beside 20 modern samples each from the west, north, east and south
-#      neighbours (populations listed in NEIGHBOURS; chosen round-robin across populations, fixed seed), K=8.
+#      neighbours and from Western/Northern Europe (populations listed in NEIGHBOURS; chosen round-robin across populations, fixed seed), K=8.
 #
 # Outputs (next to the prefix): <prefix>.cv_error.{png,pdf}, <prefix>.cv_error.tsv,
 #                               <prefix>.admixture_stacked.{png,pdf},
@@ -349,13 +349,14 @@ if ZOOM_KS and len(sel):
     plt.close(zfig)
     print(f"Iran zoom: K={ZOOM_KS}, {len(sel)} modern Iranians, {len(zb) - 1} populations")
 
-# ---- 4. modern Iranians next to their neighbours: N_PER modern samples to the west, north, east, south ----
+# ---- 4. modern Iranians next to their neighbours: N_PER modern samples to the west, north, east, south, and Europe ----
 # Which populations count as which neighbour is set here (names as in the Population column).
 NEIGHBOURS = [
     ("West", ["Palestinian", "Druze", "Jordanian", "Iraqi_Jew", "Samaritan", "Turkish_Cappadocia"]),
     ("North", ["Adygei", "Abkhasian", "Armenian", "Georgian_Mingrelian", "Lezgin", "North_Ossetian", "Chechen"]),
     ("East", ["Balochi", "Brahui", "Makrani", "Pathan", "Sindhi", "Hazara", "Burusho", "Kalash"]),
     ("South", ["Bedouin", "Yemenite_Jew"]),
+    ("Western/Northern Europe", ["Finnish", "British", "CEPH", "French", "Basque", "Orcadian"]),
 ]
 N_PER = 20
 NEIGH_KS = [k for k in (8,) if k in Q]
