@@ -350,12 +350,13 @@ if ZOOM_KS and len(sel):
     print(f"Iran zoom: K={ZOOM_KS}, {len(sel)} modern Iranians, {len(zb) - 1} populations")
 
 # ---- 4. modern Iranians next to their neighbours: N_PER modern samples to the west, north, east, south, and Europe ----
-# Which populations count as which neighbour is set here (names as in the Population column).
+# Which populations count as which neighbour is set here (names as in the Population column); a section
+# gets N_PER samples unless a third item gives its own number.
 NEIGHBOURS = [
     ("West", ["Palestinian", "Druze", "Jordanian", "Iraqi_Jew", "Samaritan", "Turkish_Cappadocia"]),
     ("North", ["Adygei", "Abkhasian", "Armenian", "Georgian_Mingrelian", "Lezgin", "North_Ossetian", "Chechen"]),
     ("East", ["Balochi", "Brahui", "Makrani", "Pathan", "Sindhi", "Hazara", "Burusho", "Kalash"]),
-    ("South", ["Bedouin", "Yemenite_Jew"]),
+    ("South", ["Bedouin"], 4),                                   # optional third item = number of samples
     ("Western/Northern Europe", ["Finnish", "British", "CEPH", "French", "Basque", "Orcadian"]),
 ]
 N_PER = 20
@@ -367,7 +368,8 @@ if NEIGH_KS and len(sel):
     sections = []                                                # (section name, [(sample index, pop label)])
     ir = rng.permutation(sel)[:N_PER]
     sections.append(("Iran (random %d of %d)" % (len(ir), len(sel)), sorted(((int(i), popcol[i]) for i in ir), key=lambda t: (t[1], t[0]))))
-    for name, pops in NEIGHBOURS:
+    for name, pops, *n_opt in NEIGHBOURS:
+        n_take = n_opt[0] if n_opt else N_PER
         pools = {}
         for pp in pops:
             idx = np.flatnonzero(modern & (popcol == pp))
@@ -376,9 +378,9 @@ if NEIGH_KS and len(sel):
             else:
                 print(f"WARNING: neighbour population {pp!r} has no modern samples in the table")
         chosen = []
-        while len(chosen) < N_PER and any(pools.values()):       # round-robin so every population is represented
+        while len(chosen) < n_take and any(pools.values()):       # round-robin so every population is represented
             for pp in list(pools):
-                if pools[pp] and len(chosen) < N_PER:
+                if pools[pp] and len(chosen) < n_take:
                     chosen.append((int(pools[pp].pop()), pp))
         order_in_sec = {pp: r for r, pp in enumerate(pops)}
         sections.append((name, sorted(chosen, key=lambda t: (order_in_sec[t[1]], t[0]))))
